@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My First Angular Page</title>
+    <!-- Concatenated css application -->
+    <link rel="stylesheet" type="text/css" href="dest/app.min.css"/>
+    <!-- Concatenated css libraries -->
+    <link rel="stylesheet" type="text/css" href="dest/lib.min.css"/>
+    <!-- Concatenated libraries -->
+    <script src="dest/lib.min.js"></script>
+    <!-- Concatenated application -->
+    <script src="dest/src.min.js"></script>
+    <!-- All html templates -->
+    <script src="dest/templates.js"></script>
+</head>
+<body ng-app="app">
+    <div ui-view="main"></div>
+</body>
+</html>
