@@ -12,5 +12,5 @@ public interface CvService {
 
     Cv getCv(Long id);
 
-    Cv createCv(@RequestBody Cv person);
+    Cv createCv(@RequestBody Cv cv);
 }

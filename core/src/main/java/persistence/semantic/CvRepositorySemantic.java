@@ -1,4 +1,4 @@
-package persistence.impl;
+package persistence.semantic;
 
 import model.Cv;
 import org.apache.commons.logging.Log;
@@ -7,14 +7,14 @@ import org.springframework.stereotype.Repository;
 import persistence.CvRepository;
 
 /**
- * This is just Mock implementation of {@link CvRepository} interface.
+ * This is just Semantic Web implementation of {@link CvRepository} interface.
  *
  * @author CVerTeam
  * @version 1.0
  * @since 1/17/2016
  */
 @Repository
-public class CvRepositoryImpl implements CvRepository {
+public class CvRepositorySemantic implements CvRepository {
     public Cv getCv(Long id) {
         return new Cv("Aleksandar", "Kuzmanoski");
     }
