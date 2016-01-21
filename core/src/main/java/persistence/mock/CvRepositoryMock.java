@@ -1,4 +1,4 @@
-package persistence.impl;
+package persistence.mock;
 
 import model.Cv;
 import org.apache.commons.logging.Log;
@@ -14,7 +14,7 @@ import persistence.CvRepository;
  * @since 1/17/2016
  */
 @Repository
-public class CvRepositoryImpl implements CvRepository {
+public class CvRepositoryMock implements CvRepository {
     public Cv getCv(Long id) {
         return new Cv("Aleksandar", "Kuzmanoski");
     }
