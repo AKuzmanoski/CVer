@@ -20,17 +20,20 @@ import persistence.CvRepository;
  */
 @Repository
 public class CvRepositorySemantic implements CvRepository {
+    private static final String cvr = "http://cver.com/resource/";
+    private static final String foaf = "http://xmlns.com/foaf/0.1/";
 
     public Cv getCv(Long id) {
-        String cvUri = "https://www.dropbox.com/s/nyrbr91vmfakuun/me.ttl?dl=1";
-        String personUri = "https://www.dropbox.com/s/nyrbr91vmfakuun/Me";
-        String foaf = "http://xmlns.com/foaf/0.1/";
+        String cvUri = "https://www.dropbox.com/s/pi0y24wr8a2op3t/AleksandarKuzmanoski.ttl?dl=1";
+        String personUri = cvr + "AleksandarKuzmanoski";
 
 
         Model cv = ModelFactory.createDefaultModel();
         cv.read(cvUri, "TURTLE");
         Resource person = cv.getResource(personUri);
         cv.write(System.out, "TURTLE");
+        cv.write(System.out, "RDF/XML");
+        cv.write(System.out, "N-TRIPLE");
         Statement givenName = person.getProperty(new PropertyImpl(foaf + "givenName"));
         Statement familyName = person.getProperty(new PropertyImpl(foaf + "familyName"));
         String lastName = familyName.getObject().toString();
