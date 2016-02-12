@@ -19,7 +19,7 @@ import persistence.CvRepository;
  * @since 1/17/2016
  */
 @Repository
-public class CvRepositorySemantic implements CvRepository {
+public class CvRepositoryJena implements CvRepository {
     private static final String cvr = "http://cver.com/resource/";
     private static final String foaf = "http://xmlns.com/foaf/0.1/";
 

@@ -17,7 +17,7 @@ import services.CvService;
 public class CvServiceImpl implements CvService {
 
     @Autowired
-    @Qualifier("cvRepositorySemantic")
+    @Qualifier("cvRepositoryJena")
     CvRepository cvRepository;
 
     public Cv getCv(Long id) {
