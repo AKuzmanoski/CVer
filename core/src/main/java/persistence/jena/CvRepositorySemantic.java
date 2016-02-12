@@ -1,4 +1,4 @@
-package persistence.semantic;
+package persistence.jena;
 
 import model.Cv;
 import org.apache.commons.logging.Log;
