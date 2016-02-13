@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import persistence.CvRepository;
 import services.CvService;
 
+import java.util.List;
+
 /**
  * @author CVerTeam
  * @version 1.0
@@ -26,5 +28,10 @@ public class CvServiceImpl implements CvService {
 
     public Cv createCv(@RequestBody Cv cv) {
         return cvRepository.createCv(cv);
+    }
+
+    @Override
+    public List<Cv> getAllCvs() {
+        return cvRepository.getAllCvs();
     }
 }

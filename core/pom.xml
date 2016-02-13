@@ -306,7 +306,7 @@
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
             <version>4.3</version>
@@ -315,7 +315,7 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.3.1</version>
-        </dependency>
+        </dependency>-->
 
         <!-- Test Dependencies -->
         <dependency>
@@ -490,6 +490,8 @@
                         <Xlint/>
                     </compilerArguments>
                     <showWarnings>true</showWarnings>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
             <plugin>

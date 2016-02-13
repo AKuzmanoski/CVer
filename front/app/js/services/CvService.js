@@ -7,6 +7,11 @@ App.factory("cvService", ["$resource", function ($resource) {
             url: "core/cv/:id",
             method: "GET",
             isArray: false
+        },
+        getCvs: {
+            url: "core/cv",
+            method: "GET",
+            isArray: true
         }
     });
 }]);

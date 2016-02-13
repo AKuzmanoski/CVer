@@ -1,13 +1,12 @@
 <div xmlns:foaf="http://xmlns.com/foaf/0.1/"
      xmlns:cvr="http://cver.com/resource/">
-    <table about="[cvr:{{ cv.firstName }}{{ cv.lastName }}]">
-        <tr>
-            <td>First Name: </td>
-            <td property="foaf:givenName">{{ cv.firstName }}</td>
-        </tr>
-        <tr>
-            <td>Last Name: </td>
-            <td property="foaf:familyName">{{ cv.lastName }}</td>
-        </tr>
-    </table>
+    <ul>
+        <li ng-repeat="myCv in cvs">
+            <div about="[cvr:{{ myCv.firstName }}{{ myCv.lastName }}]">
+                FirstNName: <label propery="foaf:givenName">{{ myCv.firstName }}</label> <br />
+                LastName: <label property="foaf:familyName">{{ myCv.lastName }}</label> <br />
+                <br />
+            </div>
+        </li>
+    </ul>
 </div>

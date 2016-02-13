@@ -19,5 +19,11 @@ App.controller("cvController",["$scope", "cvService", function ($scope, cvServic
         $scope.cv = $scope.getCv(id);
     };
 
-    $scope.findCv(1);
+    //$scope.findCv(1);
+
+    $scope.getCvs = function() {
+        return cvService.getCvs();
+    };
+
+    $scope.cvs = $scope.getCvs();
 }]);

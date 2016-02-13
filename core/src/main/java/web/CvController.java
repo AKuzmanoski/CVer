@@ -7,6 +7,8 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.*;
 import services.CvService;
 
+import java.util.List;
+
 /**
  * @author CVerTeam
  * @version 1.0
@@ -27,4 +29,10 @@ public class CvController {
     public Cv createPerson(@RequestBody Cv cv) throws BindException {
         return cvService.createCv(cv);
     }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Cv> getCv() {
+        return cvService.getAllCvs();
+    }
+
 }

@@ -6,6 +6,8 @@ import org.apache.commons.logging.impl.SimpleLog;
 import org.springframework.stereotype.Repository;
 import persistence.CvRepository;
 
+import java.util.List;
+
 /**
  * This is just Mock implementation of {@link CvRepository} interface.
  *
@@ -24,5 +26,10 @@ public class CvRepositoryMock implements CvRepository {
         log.info(cv.toString());
         System.out.println(cv);
         return cv;
+    }
+
+    @Override
+    public List<Cv> getAllCvs() {
+        return null;
     }
 }

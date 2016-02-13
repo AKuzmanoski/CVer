@@ -3,6 +3,8 @@ package persistence;
 import model.Cv;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 /**
  * @author CVerTeam
  * @version 1.0
@@ -12,4 +14,6 @@ public interface CvRepository {
     Cv getCv(Long id);
 
     Cv createCv(@RequestBody Cv cv);
+
+    List<Cv> getAllCvs();
 }
