@@ -19,11 +19,11 @@ import java.util.List;
 public class CvController {
     @Autowired
     CvService cvService;
-
+/*
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Cv getCv(@PathVariable Long id) {
         return cvService.getCv(id);
-    }
+    }*/
 
     @RequestMapping(method = RequestMethod.POST)
     public Cv createPerson(@RequestBody Cv cv) throws BindException {

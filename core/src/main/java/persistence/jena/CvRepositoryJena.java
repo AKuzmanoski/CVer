@@ -5,15 +5,11 @@ import model.helper.CvNullable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.impl.SimpleLog;
 import org.apache.jena.query.*;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.Statement;
-import org.apache.jena.rdf.model.impl.PropertyImpl;
 import org.springframework.stereotype.Repository;
 import persistence.CvRepository;
 import persistence.jena.helper.JenaPreferences;
-import persistence.jena.helper.Prefix;
+import persistence.jena.helper.SPARQLPrefix;
+import persistence.jena.helper.URIMaker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +35,9 @@ public class CvRepositoryJena implements CvRepository {
     }
 
     public Cv getCv(String account) {
-        String cvURI = Prefix.cvr + account;
+        String cvURI = URIMaker.getCvr(account);
         StringBuilder queryString = new StringBuilder();
-        queryString.append("prefix foaf: <");
-        queryString.append(Prefix.foaf);
-        queryString.append("> ");
+        queryString.append(SPARQLPrefix.foaf);
         queryString.append("SELECT ?givenName ?familyName ");
         queryString.append("WHERE { ");
         queryString.append(cvURI);
@@ -75,7 +69,7 @@ public class CvRepositoryJena implements CvRepository {
     public List<Cv> getAllCvs() {
         List<Cv> cvs = new ArrayList<>();
         Cv cv;
-        String queryString = "prefix foaf: <" + Prefix.foaf + "> " +
+        String queryString = SPARQLPrefix.foaf +
                 "SELECT ?person ?givenName ?familyName " +
                 "WHERE { " +
                 "?person a foaf:Person ; " +
