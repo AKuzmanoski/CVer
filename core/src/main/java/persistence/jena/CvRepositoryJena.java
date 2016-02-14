@@ -5,6 +5,7 @@ import model.helper.CvNullable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.impl.SimpleLog;
 import org.apache.jena.query.*;
+import org.apache.jena.vocabulary.VCARD;
 import org.springframework.stereotype.Repository;
 import persistence.CvRepository;
 import persistence.jena.helper.JenaPreferences;

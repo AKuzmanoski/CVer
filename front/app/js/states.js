@@ -5,7 +5,7 @@
 App.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
 
-    $stateProvider.state('cv', {
+    $stateProvider.state('cvs', {
         url: '/cv',
         views: {
             main: {
