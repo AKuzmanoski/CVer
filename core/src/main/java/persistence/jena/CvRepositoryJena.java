@@ -1,6 +1,7 @@
 package persistence.jena;
 
 import model.Cv;
+import model.helper.CvNullable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.impl.SimpleLog;
 import org.apache.jena.query.*;
@@ -11,6 +12,8 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.impl.PropertyImpl;
 import org.springframework.stereotype.Repository;
 import persistence.CvRepository;
+import persistence.jena.helper.JenaPreferences;
+import persistence.jena.helper.Prefix;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,26 +27,42 @@ import java.util.List;
  */
 @Repository
 public class CvRepositoryJena implements CvRepository {
-    private static final String cvr = "http://cver.com/resource/";
-    private static final String foaf = "http://xmlns.com/foaf/0.1/";
 
+    /**
+     * Ids are crucial for relational databases. That is not the case here, thus this method returns nullable object.
+     * Maybe in the feature we will try to implement this method.
+     * @param id of the cv that is requested.
+     * @return cv associated with the id.
+     */
     public Cv getCv(Long id) {
-        String cvUri = "https://www.dropbox.com/s/pi0y24wr8a2op3t/AleksandarKuzmanoski.ttl?dl=1";
-        String personUri = cvr + "AleksandarKuzmanoski";
+        return new CvNullable();
+    }
 
-
-        Model cv = ModelFactory.createDefaultModel();
-        cv.read(cvUri, "TURTLE");
-        Resource person = cv.getResource(personUri);
-        cv.write(System.out, "TURTLE");
-        cv.write(System.out, "RDF/XML");
-        cv.write(System.out, "N-TRIPLE");
-        Statement givenName = person.getProperty(new PropertyImpl(foaf + "givenName"));
-        Statement familyName = person.getProperty(new PropertyImpl(foaf + "familyName"));
-        String lastName = familyName.getObject().toString();
-        String firstName = givenName.getObject().toString();
-        return new Cv(firstName, lastName);
-        //return new Cv("Aleksandar", "Kuzmanoski");
+    public Cv getCv(String account) {
+        String cvURI = Prefix.cvr + account;
+        StringBuilder queryString = new StringBuilder();
+        queryString.append("prefix foaf: <");
+        queryString.append(Prefix.foaf);
+        queryString.append("> ");
+        queryString.append("SELECT ?givenName ?familyName ");
+        queryString.append("WHERE { ");
+        queryString.append(cvURI);
+        queryString.append(" foaf:givenName ?givenName ; ");
+        queryString.append("foaf:familyName ?familyName . ");
+        queryString.append("}");
+        Query query = QueryFactory.create(queryString.toString());
+        try (QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query)) {
+            ResultSet resultSet = queryExecution.execSelect();
+            if (resultSet.hasNext()) {
+                QuerySolution querySolution = resultSet.nextSolution();
+                Cv cv = new Cv();
+                cv.setFirstName(querySolution.get("givenName").toString());
+                cv.setLastName(querySolution.get("familyName").toString());
+                cv.setAccount(account);
+                return cv;
+            }
+        }
+        return new CvNullable();
     }
 
     public Cv createCv(Cv cv) {
@@ -56,7 +75,7 @@ public class CvRepositoryJena implements CvRepository {
     public List<Cv> getAllCvs() {
         List<Cv> cvs = new ArrayList<>();
         Cv cv;
-        String queryString = "prefix foaf:  <http://xmlns.com/foaf/0.1/> " +
+        String queryString = "prefix foaf: <" + Prefix.foaf + "> " +
                 "SELECT ?person ?givenName ?familyName " +
                 "WHERE { " +
                 "?person a foaf:Person ; " +

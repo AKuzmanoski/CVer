@@ -1,0 +1,13 @@
+<div xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:cvr="http://cver.com/resource/">
+    <h1>All Resumes</h1>
+    <ul>
+        <li ng-repeat="myCv in cvs">
+            <div about="[cvr:{{ myCv.firstName }}{{ myCv.lastName }}]">
+                FirstNName: <label propery="foaf:givenName">{{ myCv.firstName }}</label> <br />
+                LastName: <label property="foaf:familyName">{{ myCv.lastName }}</label> <br />
+                <br />
+            </div>
+        </li>
+    </ul>
+</div>

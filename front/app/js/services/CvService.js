@@ -4,7 +4,7 @@
 App.factory("cvService", ["$resource", function ($resource) {
     return $resource("core/cv/", {}, {
         getCv: {
-            url: "core/cv/:id",
+            url: "core/cv/:account",
             method: "GET",
             isArray: false
         },

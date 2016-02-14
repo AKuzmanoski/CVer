@@ -16,4 +16,6 @@ public interface CvRepository {
     Cv createCv(@RequestBody Cv cv);
 
     List<Cv> getAllCvs();
+
+    Cv getCv(String account);
 }

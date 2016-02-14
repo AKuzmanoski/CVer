@@ -32,4 +32,9 @@ public class CvRepositoryMock implements CvRepository {
     public List<Cv> getAllCvs() {
         return null;
     }
+
+    @Override
+    public Cv getCv(String account) {
+        return null;
+    }
 }

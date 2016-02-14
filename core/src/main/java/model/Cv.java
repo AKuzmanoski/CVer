@@ -11,6 +11,7 @@ package model;
  * @since 1/17/2016
  */
 public class Cv extends BaseEntity {
+    private String account;
     private String firstName;
     private String lastName;
 
@@ -23,6 +24,20 @@ public class Cv extends BaseEntity {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Cv(String account) {
+        this.account = account;
+    }
+
+    public Cv(String firstName, String lastName, String account) {
+        this(firstName, lastName);
+        this.account = account;
+    }
+
+    public Cv(Long id, String firstName, String lastName, String account) {
+        this(id, firstName, lastName);
+        this.account = account;
     }
 
     public Cv() {
@@ -43,6 +58,14 @@ public class Cv extends BaseEntity {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     @Override

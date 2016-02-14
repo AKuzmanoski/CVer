@@ -35,4 +35,9 @@ public class CvController {
         return cvService.getAllCvs();
     }
 
+    @RequestMapping(value = "/{account}", method = RequestMethod.GET)
+    public Cv getCv(@PathVariable String account) {
+        return cvService.getCv(account);
+    }
+
 }

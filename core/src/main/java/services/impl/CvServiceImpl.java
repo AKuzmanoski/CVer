@@ -34,4 +34,9 @@ public class CvServiceImpl implements CvService {
     public List<Cv> getAllCvs() {
         return cvRepository.getAllCvs();
     }
+
+    @Override
+    public Cv getCv(String account) {
+        return cvRepository.getCv(account);
+    }
 }

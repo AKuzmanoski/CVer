@@ -7,16 +7,16 @@ App.controller("cvController",["$scope", "cvService", function ($scope, cvServic
      * @param id of the cv which will be gotten.
      * @returns {*|{url, method, isArray}}
      */
-    $scope.getCv = function(id) {
-        return cvService.getCv({id: id});
+    $scope.getCv = function(account) {
+        return cvService.getCv({account: account});
     };
 
     /**
      * This method refreshes the current cv which can be taken by getCv method.
      * @param id of the cv which will be refreshed.
      */
-    $scope.findCv = function(id) {
-        $scope.cv = $scope.getCv(id);
+    $scope.findCv = function(account) {
+        $scope.cv = $scope.getCv(account);
     };
 
     //$scope.findCv(1);
