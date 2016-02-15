@@ -10,7 +10,7 @@ App.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
         views: {
             main: {
                 templateUrl: "views/cvs.html",
-                controller: "cvController"
+                controller: "CvController"
             }
         }
 

@@ -1,14 +1,37 @@
-<div xmlns:foaf="http://xmlns.com/foaf/0.1/"
-     xmlns:cvr="http://cver.com/resource/">
+<div xmlns:foaf="http://xmlns.com/foaf/0.1/" class="content">
     <h1>All Resumes</h1>
     <ul>
-        <li ng-repeat="myCv in cvs">
-            <div about="[cvr:{{ myCv.firstName }}{{ myCv.lastName }}]">
-                FirstNName: <label propery="foaf:givenName">{{ myCv.firstName }}</label> <br />
-                LastName: <label property="foaf:familyName">{{ myCv.lastName }}</label> <br />
-                Account: <a href="#/cvs/{{myCv.firstName + myCv.lastName}}">{{myCv.firstName + myCv.lastName}}</a> <br />
-                <br />
-            </div>
+        <li class="row" ng-repeat="myCv in cvs">
+            <a class="product" href="#/cvs/{{myCv.firstName + myCv.lastName}}">
+                <div about="[cvr:{{ myCv.firstName }}{{ myCv.lastName }}]">
+                    <h3>
+                        <label propery="foaf:givenName">{{ myCv.firstName }}</label>
+                        <label property="foaf:familyName">{{ myCv.lastName }}</label>
+                    </h3>
+                </div>
+            </a>
+            <section ng-init="tab = 1">
+                <ul class="nav nav-pills">
+                    <li><a href ng-click="tab = 1">Description</a></li>
+                    <li><a href ng-click="tab = 2">Specification</a></li>
+                    <li><a href ng-click="tab = 3">Reviews</a></li>
+                </ul>
+                <div class="panel" ng-show="tab === 1">
+                    <h4>Description</h4>
+                    <p>This is {{myCv.firstName}}'s resume.</p>
+                </div>
+                <div class="panel" ng-show="tab === 2">
+                    <h4>Specifications</h4>
+                    <p>{{myCv.firstName}} has many skills like: programming, testing and designing</p>
+                </div>
+                <div class="panel" ng-show="tab === 3">
+                    <h4>Reviews</h4>
+                    <p>
+                        user1: 5 <br/>
+                        user2: 10 <br />
+                    </p>
+                </div>
+            </section>
         </li>
     </ul>
 </div>

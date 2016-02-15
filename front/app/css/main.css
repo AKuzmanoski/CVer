@@ -1,3 +1,21 @@
-b {
-    color: blue;
+div.main {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.row {
+    list-style-type: none;
+    margin-bottom: 1em;
+}
+
+.product {
+    background-color: lightgrey;
+    padding: 1em;
+    width: 50%;
+    display: block;
+}
+
+.product:hover {
+    background-color: darkgrey;
 }
