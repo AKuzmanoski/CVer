@@ -99,7 +99,7 @@ var INDEX_FILE = 'app/index.html';
 /**
  * The name of the angular module
  */
-var MODULE_NAME = 'app';
+var MODULE_NAME = 'cver';
 /**
  * The URL of the back-end API
  */

@@ -2,11 +2,15 @@ package web;
 
 import model.Cv;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import services.CvService;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -15,7 +19,7 @@ import java.util.List;
  * @since 1/17/2016
  */
 @RestController
-@RequestMapping(value = "/cv", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/cvs", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CvController {
     @Autowired
     CvService cvService;
@@ -26,8 +30,14 @@ public class CvController {
     }*/
 
     @RequestMapping(method = RequestMethod.POST)
-    public Cv createPerson(@RequestBody Cv cv) throws BindException {
-        return cvService.createCv(cv);
+    @ResponseStatus(HttpStatus.CREATED)
+    public @ResponseBody Cv createPerson(@Valid Cv cv, BindingResult result, HttpServletResponse response) throws BindException {
+        if (result.hasErrors()) {
+            throw new BindException(result);
+        }
+        Cv newCv =cvService.createCv(cv);
+        response.setHeader("Location", "/cvs/" + newCv.getAccount());
+        return newCv;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -40,4 +50,15 @@ public class CvController {
         return cvService.getCv(account);
     }
 
+    @RequestMapping(value = "/{account}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void saveCv(@PathVariable String account, @Valid Cv cv) {
+        cvService.save(cv);
+    }
+
+    @RequestMapping(value = "/{account}", method=RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteSpittle(@PathVariable("account") String account) {
+        cvService.delete(account);
+    }
 }

@@ -1,7 +1,6 @@
 package persistence;
 
 import model.Cv;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -13,9 +12,15 @@ import java.util.List;
 public interface CvRepository {
     Cv getCv(Long id);
 
-    Cv createCv(@RequestBody Cv cv);
+    Cv createCv(Cv cv);
 
     List<Cv> getAllCvs();
 
     Cv getCv(String account);
+
+    Cv save(Cv cv);
+
+    void delete(Cv cv);
+
+    void delete(String account);
 }

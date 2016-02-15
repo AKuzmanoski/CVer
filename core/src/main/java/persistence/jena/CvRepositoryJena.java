@@ -90,4 +90,19 @@ public class CvRepositoryJena implements CvRepository {
         }
         return cvs;
     }
+
+    @Override
+    public Cv save(Cv cv) {
+        return new CvNullable();
+    }
+
+    @Override
+    public void delete(Cv cv) {
+
+    }
+
+    @Override
+    public void delete(String account) {
+
+    }
 }

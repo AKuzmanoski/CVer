@@ -39,4 +39,19 @@ public class CvServiceImpl implements CvService {
     public Cv getCv(String account) {
         return cvRepository.getCv(account);
     }
+
+    @Override
+    public Cv save(Cv cv) {
+        return cvRepository.save(cv);
+    }
+
+    @Override
+    public void delete(Cv cv) {
+        cvRepository.delete(cv);
+    }
+
+    @Override
+    public void delete(String account) {
+        cvRepository.delete(account);
+    }
 }

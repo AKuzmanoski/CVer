@@ -37,4 +37,19 @@ public class CvRepositoryMock implements CvRepository {
     public Cv getCv(String account) {
         return null;
     }
+
+    @Override
+    public Cv save(Cv cv) {
+        return null;
+    }
+
+    @Override
+    public void delete(Cv cv) {
+
+    }
+
+    @Override
+    public void delete(String account) {
+
+    }
 }
