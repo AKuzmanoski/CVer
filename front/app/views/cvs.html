@@ -6,6 +6,7 @@
             <div about="[cvr:{{ myCv.firstName }}{{ myCv.lastName }}]">
                 FirstNName: <label propery="foaf:givenName">{{ myCv.firstName }}</label> <br />
                 LastName: <label property="foaf:familyName">{{ myCv.lastName }}</label> <br />
+                Account: <a href="#/cvs/{{myCv.firstName + myCv.lastName}}">{{myCv.firstName + myCv.lastName}}</a> <br />
                 <br />
             </div>
         </li>
