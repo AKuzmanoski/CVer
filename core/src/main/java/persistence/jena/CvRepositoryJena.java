@@ -2,10 +2,12 @@ package persistence.jena;
 
 import model.Cv;
 import model.helper.CvNullable;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.impl.SimpleLog;
 import org.apache.jena.query.*;
-import org.apache.jena.vocabulary.VCARD;
+import org.apache.jena.update.UpdateExecutionFactory;
+import org.apache.jena.update.UpdateFactory;
+import org.apache.jena.update.UpdateProcessor;
+import org.apache.jena.update.UpdateRequest;
+import org.apache.jena.vocabulary.RDF;
 import org.springframework.stereotype.Repository;
 import persistence.CvRepository;
 import persistence.jena.helper.JenaPreferences;
@@ -28,6 +30,7 @@ public class CvRepositoryJena implements CvRepository {
     /**
      * Ids are crucial for relational databases. That is not the case here, thus this method returns nullable object.
      * Maybe in the feature we will try to implement this method.
+     *
      * @param id of the cv that is requested.
      * @return cv associated with the id.
      */
@@ -61,9 +64,23 @@ public class CvRepositoryJena implements CvRepository {
     }
 
     public Cv createCv(Cv cv) {
-        Log log = new SimpleLog("My Logger");
-        log.info(cv.toString());
-        System.out.println(cv);
+        String cvURI = URIMaker.getCvr(cv.getAccount());
+        StringBuilder queryString = new StringBuilder();
+        queryString.append(SPARQLPrefix.foaf);
+        queryString.append(SPARQLPrefix.cvr);
+        queryString.append(SPARQLPrefix.rdf);
+        queryString.append("INSERT {");
+        queryString.append(" cvr:");
+        queryString.append(cv.getAccount());
+        queryString.append(" rdf:type foaf:Person ;");
+        queryString.append(" foaf:givenName ");
+        queryString.append(cv.getFirstName());
+        queryString.append(" ; foaf:familyName ");
+        queryString.append(cv.getLastName());
+        queryString.append(". }");
+        UpdateRequest updateRequest = UpdateFactory.create(queryString.toString());
+        UpdateProcessor updateProcessor = UpdateExecutionFactory.createRemote(updateRequest, JenaPreferences.UpdateEndpoint);
+        updateProcessor.execute();
         return cv;
     }
 
