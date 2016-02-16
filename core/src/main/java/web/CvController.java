@@ -31,7 +31,7 @@ public class CvController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody Cv createPerson(@Valid Cv cv, BindingResult result, HttpServletResponse response) throws BindException {
+    public @ResponseBody Cv createCv(@Valid Cv cv, BindingResult result, HttpServletResponse response) throws BindException {
         if (result.hasErrors()) {
             throw new BindException(result);
         }
@@ -41,7 +41,7 @@ public class CvController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Cv> getCv() {
+    public List<Cv> getCvs() {
         return cvService.getAllCvs();
     }
 
@@ -58,7 +58,7 @@ public class CvController {
 
     @RequestMapping(value = "/{account}", method=RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteSpittle(@PathVariable("account") String account) {
+    public void deleteCv(@PathVariable("account") String account) {
         cvService.delete(account);
     }
 }

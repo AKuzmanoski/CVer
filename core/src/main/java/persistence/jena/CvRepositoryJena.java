@@ -64,7 +64,6 @@ public class CvRepositoryJena implements CvRepository {
     }
 
     public Cv createCv(Cv cv) {
-        String cvURI = URIMaker.getCvr(cv.getAccount());
         StringBuilder queryString = new StringBuilder();
         queryString.append(SPARQLPrefix.foaf);
         queryString.append(SPARQLPrefix.cvr);
