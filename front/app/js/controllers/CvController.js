@@ -30,4 +30,9 @@ App.controller("CvController",["$scope", "cvService", function ($scope, cvServic
     };
 
     $scope.cvs = $scope.getCvs();
+
+    $scope.createCv = function(cv) {
+        console.log(cv);
+        cvService.createCv(cv);
+    };
 }]);

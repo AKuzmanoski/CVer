@@ -31,11 +31,12 @@ public class CvController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody Cv createCv(@Valid Cv cv, BindingResult result, HttpServletResponse response) throws BindException {
+    public @ResponseBody Cv createCv(@RequestBody Cv cv, BindingResult result, HttpServletResponse response) throws BindException {
         if (result.hasErrors()) {
             throw new BindException(result);
         }
-        Cv newCv =cvService.createCv(cv);
+        System.out.println(cv);
+        Cv newCv = cvService.createCv(cv);
         response.setHeader("Location", "/cvs/" + newCv.getAccount());
         return newCv;
     }

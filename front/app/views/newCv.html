@@ -1,0 +1,6 @@
+<div>
+    First Name: <input type="text" ng-model="newCv.firstName"> <br />
+    Last Name: <input type="text" ng-model="newCv.lastName"> <br />
+    <span ng-show="false">{{ newCv.account = newCv.firstName + newCv.lastName }}</span> <br />
+    <input type="submit" value="Save" ng-click="createCv(newCv)"/>
+</div>

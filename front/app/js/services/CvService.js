@@ -12,6 +12,10 @@ App.factory("cvService", ["$resource", function ($resource) {
             url: "core/cvs",
             method: "GET",
             isArray: true
+        },
+        createCv: {
+            url: "core/cvs",
+            method: "POST"
         }
     });
 }]);
