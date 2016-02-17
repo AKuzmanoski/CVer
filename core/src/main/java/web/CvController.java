@@ -5,12 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindException;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import services.CvService;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -31,10 +29,9 @@ public class CvController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody Cv createCv(@RequestBody Cv cv, BindingResult result, HttpServletResponse response) throws BindException {
-        if (result.hasErrors()) {
-            throw new BindException(result);
-        }
+    public
+    @ResponseBody
+    Cv createCv(@RequestBody Cv cv, HttpServletResponse response) throws BindException {
         System.out.println(cv);
         Cv newCv = cvService.createCv(cv);
         response.setHeader("Location", "/cvs/" + newCv.getAccount());
@@ -53,11 +50,11 @@ public class CvController {
 
     @RequestMapping(value = "/{account}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void saveCv(@PathVariable String account, @Valid Cv cv) {
+    public void saveCv(@PathVariable String account, @RequestBody Cv cv) {
         cvService.save(cv);
     }
 
-    @RequestMapping(value = "/{account}", method=RequestMethod.DELETE)
+    @RequestMapping(value = "/{account}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCv(@PathVariable("account") String account) {
         cvService.delete(account);
