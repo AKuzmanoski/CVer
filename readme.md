@@ -26,6 +26,9 @@ CVer е систем кој им овозможува на корисницит�
   <li>
     <a href="https://teamcver.visualstudio.com/DefaultCollection/CVer/_backlogs/taskboard/Design%20and%20Development#fullScreen=true" target="_blank">Project Management</a>
   </li>
+  <li>
+    <a href="https://groups.google.com/forum/#!forum/cverdiscussions" target="_blank">Discussion</a>
+  </li>
 </ul>
 
 # Ми текна! <img src="https://tagesgeldheute.com/wp-content/uploads/2014/05/einfall.png" height="60px" style="display: inline-block" />
