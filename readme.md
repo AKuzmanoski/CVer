@@ -21,7 +21,7 @@ CVer е систем кој им овозможува на корисницит�
 
 <ul>
   <li>
-    <a href="https://www.dropbox.com/sh/u0wknr58jo7hvbg/AABwkSeSJUZvkk_J4lgzcZfwa?dl=0" target="_blank">Dropbox</a>
+    <a href="https://www.dropbox.com/sh/u0wknr58jo7hvbg/AABwkSeSJUZvkk_J4lgzcZfwa?dl=0" target="_blank">Dropbox Resources</a>
   </li>
   <li>
     <a href="https://teamcver.visualstudio.com/DefaultCollection/CVer/_backlogs/taskboard/Design%20and%20Development#fullScreen=true" target="_blank">Project Management</a>
