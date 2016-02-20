@@ -1,5 +1,6 @@
 <div xmlns:foaf="http://xmlns.com/foaf/0.1/" class="content">
     <h1>All Resumes</h1>
+    <input type="submit" style="float:right; width:100px; height: 100px; font-size: 50pt;" ng-click="createNew()" value="+"/>
     <ul>
         <li class="row" ng-repeat="myCv in cvs">
             <a class="product" href="#/cvs/{{myCv.firstName + myCv.lastName}}">

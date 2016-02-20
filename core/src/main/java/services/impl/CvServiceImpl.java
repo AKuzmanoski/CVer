@@ -19,39 +19,38 @@ import java.util.List;
 public class CvServiceImpl implements CvService {
 
     @Autowired
-    @Qualifier("cvRepositoryJena")
-    CvRepository cvRepository;
+    CvRepository cvRepositoryJena;
 
     public Cv getCv(Long id) {
-        return cvRepository.getCv(id);
+        return cvRepositoryJena.getCv(id);
     }
 
     public Cv createCv(@RequestBody Cv cv) {
-        return cvRepository.createCv(cv);
+        return cvRepositoryJena.createCv(cv);
     }
 
     @Override
     public List<Cv> getAllCvs() {
-        return cvRepository.getAllCvs();
+        return cvRepositoryJena.getAllCvs();
     }
 
     @Override
     public Cv getCv(String account) {
-        return cvRepository.getCv(account);
+        return cvRepositoryJena.getCv(account);
     }
 
     @Override
     public Cv save(Cv cv) {
-        return cvRepository.save(cv);
+        return cvRepositoryJena.save(cv);
     }
 
     @Override
     public void delete(Cv cv) {
-        cvRepository.delete(cv);
+        cvRepositoryJena.delete(cv);
     }
 
     @Override
     public void delete(String account) {
-        cvRepository.delete(account);
+        cvRepositoryJena.delete(account);
     }
 }

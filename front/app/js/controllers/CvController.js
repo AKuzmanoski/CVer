@@ -1,14 +1,18 @@
 /**
  * Created by User on 12/15/2015.
  */
-App.controller("CvController",["$scope", "cvService", function ($scope, cvService) {
+App.controller("CvController",["$scope", "$state", "CvService", function ($scope, $state, CvService) {
     /**
      * This method returns the current instance of the Cv in this context.
      * @param id of the cv which will be gotten.
      * @returns {*|{url, method, isArray}}
      */
     $scope.getCv = function(account) {
-        return cvService.getCv({account: account});
+        return CvService.getCv({account: account});
+    };
+
+    $scope.deleteCv = function(account) {
+        CvService.deleteCv({account: account});
     };
 
     /**
@@ -26,13 +30,20 @@ App.controller("CvController",["$scope", "cvService", function ($scope, cvServic
      * @returns {*|{url, method, isArray}} array of all public resumes.
      */
     $scope.getCvs = function() {
-        return cvService.getCvs();
+        return CvService.getCvs();
     };
 
     $scope.cvs = $scope.getCvs();
 
+    $scope.cv = this.cv;
+
     $scope.createCv = function(cv) {
         console.log(cv);
-        cvService.createCv(cv);
+        CvService.createCv(cv);
+        $state.go("cvs");
     };
+
+    $scope.createNew = function() {
+        $state.go("cvsNew");
+    }
 }]);

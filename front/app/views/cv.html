@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div>
+    Fist Name: <label>{{ cv.firstName }}</label> <br />
+    Last Name: <label>{{ cv.lastName }} </label> <br />
+    <input type="button" ng-class="active" value="Delete" ng-click="deleteCv(cv.account)" />
+</div>

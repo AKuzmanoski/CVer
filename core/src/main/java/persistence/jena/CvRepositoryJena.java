@@ -7,7 +7,6 @@ import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import org.apache.jena.update.UpdateRequest;
-import org.apache.jena.vocabulary.RDF;
 import org.springframework.stereotype.Repository;
 import persistence.CvRepository;
 import persistence.jena.helper.JenaPreferences;
@@ -102,6 +101,7 @@ public class CvRepositoryJena implements CvRepository {
                 cv = new Cv();
                 cv.setFirstName(querySolution.get("givenName").toString());
                 cv.setLastName(querySolution.get("familyName").toString());
+                cv.setAccount(cv.getFirstName() + cv.getLastName());
                 cvs.add(cv);
             }
         }
@@ -115,11 +115,21 @@ public class CvRepositoryJena implements CvRepository {
 
     @Override
     public void delete(Cv cv) {
-
+        delete(cv.getAccount());
     }
 
     @Override
     public void delete(String account) {
-
+        StringBuilder queryString = new StringBuilder();
+        queryString.append(SPARQLPrefix.cvr);
+        queryString.append(" DELETE WHERE {");
+        queryString.append(" cvr:");
+        queryString.append(account);
+        queryString.append(" ?property ?object .");
+        queryString.append(" }");
+        System.out.println(queryString.toString());
+        UpdateRequest updateRequest = UpdateFactory.create(queryString.toString());
+        UpdateProcessor updateProcessor = UpdateExecutionFactory.createRemote(updateRequest, JenaPreferences.UpdateEndpoint);
+        updateProcessor.execute();
     }
 }

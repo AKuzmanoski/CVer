@@ -3,7 +3,7 @@
  */
 
 App.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/cvs');
 
     $stateProvider.state('cvs', {
         url: '/cvs',
@@ -16,7 +16,7 @@ App.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     });
 
     $stateProvider.state("cvsNew", {
-       url: '/cvs/new',
+        url: '/cvs/new',
         views: {
             main: {
                 templateUrl: "views/newCv.html",
@@ -24,4 +24,15 @@ App.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             }
         }
     });
+
+    $stateProvider.state('cv', {
+        url: '/cvs/:account',
+        views: {
+            main: {
+                templateUrl: 'views/cv.html',
+                controller: 'CvDetailsController'
+            }
+        }
+    });
 }]);
+
