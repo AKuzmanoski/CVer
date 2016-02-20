@@ -1,4 +1,4 @@
-# CVer <img src="http://cdn.flaticon.com/png/256/31625.png" height="40px" style="display: inline-block" />
+# CVer <img src="http://cdn.flaticon.com/png/256/31625.png" width="5%" style="display: inline-block" />
 <i>Curriculum Vitae Creator</i>
 ![alt tag](http://inspirationfeed.com/wp-content/uploads/2011/04/Music-resume.jpg)
 
@@ -17,7 +17,7 @@ CVer е систем кој им овозможува на корисницит�
 2. Системот се состои од сервер и клиент. Клиентот го сочинуваат Ангулар и Андроид.
 
 
-# Ресурси <img src="https://s-media-cache-ak0.pinimg.com/236x/c6/a6/eb/c6a6ebcd1a2d9ecbd4311f8a4048c3c2.jpg" height="50px" />
+# Ресурси <img src="https://s-media-cache-ak0.pinimg.com/236x/c6/a6/eb/c6a6ebcd1a2d9ecbd4311f8a4048c3c2.jpg" width="5%" />
 
 <ul>
   <li>
@@ -31,7 +31,7 @@ CVer е систем кој им овозможува на корисницит�
   </li>
 </ul>
 
-# Ми текна! <img src="https://tagesgeldheute.com/wp-content/uploads/2014/05/einfall.png" height="60px" style="display: inline-block" />
+# Ми текна! <img src="https://tagesgeldheute.com/wp-content/uploads/2014/05/einfall.png" width="5%" style="display: inline-block" />
 
 <p>
   <strong> Безбедност </strong> 21.09.2015 <br />
@@ -61,7 +61,7 @@ CVer е систем кој им овозможува на корисницит�
 
 
 
-# Прашања и дилеми. <img src="http://eoi-eivissa.com/images/stories/recursos/question%202.png" height="50px" style="display: inline-block" />
+# Прашања и дилеми. <img src="http://eoi-eivissa.com/images/stories/recursos/question%202.png" width="5%" style="display: inline-block" />
 
 <p>
   <strong> Што да биде урито на CV, корисник, проект или фирма </strong> 20.02.2016 <br />
