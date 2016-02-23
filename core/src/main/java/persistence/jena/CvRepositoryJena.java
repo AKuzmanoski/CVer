@@ -41,11 +41,12 @@ public class CvRepositoryJena implements CvRepository {
         String cvURI = URIMaker.getCvr(account);
         StringBuilder queryString = new StringBuilder();
         queryString.append(SPARQLPrefix.foaf);
-        queryString.append("SELECT ?givenName ?familyName ");
+        queryString.append("SELECT ?givenName ?familyName ?account ");
         queryString.append("WHERE { ");
         queryString.append(cvURI);
         queryString.append(" foaf:givenName ?givenName ; ");
-        queryString.append("foaf:familyName ?familyName . ");
+        queryString.append("foaf:familyName ?familyName ; ");
+        queryString.append("foaf:account ?account . ");
         queryString.append("}");
         Query query = QueryFactory.create(queryString.toString());
         try (QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query)) {
@@ -55,7 +56,7 @@ public class CvRepositoryJena implements CvRepository {
                 Cv cv = new Cv();
                 cv.setFirstName(querySolution.get("givenName").toString());
                 cv.setLastName(querySolution.get("familyName").toString());
-                cv.setAccount(account);
+                cv.setAccount(querySolution.get("account").toString());
                 return cv;
             }
         }
@@ -75,6 +76,8 @@ public class CvRepositoryJena implements CvRepository {
         queryString.append(cv.getFirstName());
         queryString.append("' ; foaf:familyName '");
         queryString.append(cv.getLastName());
+        queryString.append("' ; foaf:account '");
+        queryString.append(cv.getAccount());
         queryString.append("' . } WHERE { }");
         System.out.println(queryString.toString());
         UpdateRequest updateRequest = UpdateFactory.create(queryString.toString());
@@ -87,11 +90,12 @@ public class CvRepositoryJena implements CvRepository {
         List<Cv> cvs = new ArrayList<>();
         Cv cv;
         String queryString = SPARQLPrefix.foaf +
-                "SELECT ?person ?givenName ?familyName " +
+                "SELECT ?givenName ?familyName ?account " +
                 "WHERE { " +
                 "?person a foaf:Person ; " +
                 "foaf:givenName ?givenName ; " +
-                "foaf:familyName ?familyName . " +
+                "foaf:familyName ?familyName ; " +
+                "foaf:account ?account . " +
                 "}";
         Query query = QueryFactory.create(queryString);
         try (QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query)) {
@@ -101,7 +105,7 @@ public class CvRepositoryJena implements CvRepository {
                 cv = new Cv();
                 cv.setFirstName(querySolution.get("givenName").toString());
                 cv.setLastName(querySolution.get("familyName").toString());
-                cv.setAccount(cv.getFirstName() + cv.getLastName());
+                cv.setAccount(querySolution.get("account").toString());
                 cvs.add(cv);
             }
         }

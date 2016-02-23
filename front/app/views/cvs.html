@@ -1,44 +1,44 @@
 <div xmlns:foaf="http://xmlns.com/foaf/0.1/" class="content">
-    <h1>All Resumes</h1>
-    <input type="submit" style="float:right; width:100px; height: 100px; font-size: 50pt;" ng-click="createNew()" value="+"/>
+    <a href="#/cvs/new" class="btn btn-raised btn-primary btn-fab pull-right"><i class="material-icons">+</i></a>
+    <h1>Resumes</h1>
     <ul>
-        <li class="row" ng-repeat="myCv in cvs">
-            <a class="product" href="#/cvs/{{myCv.firstName + myCv.lastName}}">
-                <div about="[cvr:{{ myCv.firstName }}{{ myCv.lastName }}]">
-                    <h3>
-                        <label propery="foaf:givenName">{{ myCv.firstName }}</label>
-                        <label property="foaf:familyName">{{ myCv.lastName }}</label>
-                    </h3>
-                </div>
-            </a>
-            <section ng-init="tab = 1">
+        <li ng-repeat="cv in cvs | orderBy:'firstName'" class="panel row"
+            about="[cvr:{{ cv.firstName }}{{ cv.lastName }}]">
+            <strong>
+                <a href="#/cvs/{{cv.account}}">
+                    <span propery="foaf:givenName">{{ cv.firstName }}</span>
+                    <span property="foaf:familyName">{{ cv.lastName }}</span>
+                </a>
+            </strong>
+            <cite class="clearfix">@{{ cv.account }}</cite>
+            <!--<section ng-controller="PanelController as panel">
                 <ul class="nav nav-pills">
-                    <li ng-class="{ active:tab == 1}">
-                        <a href ng-click="tab = 1">Description</a>
+                    <li ng-class="{ active:panel.isSelected(1)}">
+                        <a href ng-click="panel.selectTab(1)">Description</a>
                     </li>
-                    <li ng-class="{ active:tab == 2}">
-                        <a href ng-click="tab = 2">Specification</a>
+                    <li ng-class="{ active:panel.isSelected(2)}">
+                        <a href ng-click="panel.selectTab(2)">Specification</a>
                     </li>
-                    <li ng-class="{ active:tab == 3}">
-                        <a href ng-click="tab = 3">Reviews</a>
+                    <li ng-class="{ active:panel.isSelected(3)}">
+                        <a href ng-click="panel.selectTab(3)">Reviews</a>
                     </li>
                 </ul>
-                <div class="panel" ng-show="tab === 1">
+                <div class="panel" ng-show="panel.isSelected(1)">
                     <h4>Description</h4>
-                    <p>This is {{myCv.firstName}}'s resume.</p>
+                    <p>This is {{cv.firstName}}'s resume.</p>
                 </div>
-                <div class="panel" ng-show="tab === 2">
+                <div class="panel" ng-show="panel.isSelected(2)">
                     <h4>Specifications</h4>
-                    <p>{{myCv.firstName}} has many skills like: programming, testing and designing</p>
+                    <p>{{cv.firstName}} has many skills like: programming, testing and designing</p>
                 </div>
-                <div class="panel" ng-show="tab === 3">
+                <div class="panel" ng-show="panel.isSelected(3)">
                     <h4>Reviews</h4>
                     <p>
                         user1: 5 <br/>
-                        user2: 10 <br />
+                        user2: 10 <br/>
                     </p>
                 </div>
-            </section>
+            </section>-->
         </li>
     </ul>
 </div>

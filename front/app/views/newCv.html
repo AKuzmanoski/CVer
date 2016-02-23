@@ -1,6 +1,27 @@
 <div>
-    First Name: <input type="text" ng-model="newCv.firstName"> <br />
-    Last Name: <input type="text" ng-model="newCv.lastName"> <br />
-    <span ng-show="false">{{ newCv.account = newCv.firstName + newCv.lastName }}</span> <br />
-    <input type="submit" value="Save" ng-click="createCv(newCv)"/>
+    <!-- Data Preview -->
+    <blockquote>
+        <strong>{{ cv.firstName }} {{ cv.lastName }}</strong>
+        <cite class="clearfix">— @{{cv.account}}</cite>
+    </blockquote>
+
+    <h3>Create new CV</h3>
+    <form class="form-horizontal panel" name="newCvForm" ng-submit="createCv()">
+        <!-- Form Fields -->
+        <div class="form-group label-floating">
+            <label class="control-label" for="firstName">Enter your First Name</label>
+            <input class="form-control" ng-model="cv.firstName" id="firstName" type="text" />
+        </div>
+        <fieldset class="form-group">
+            <input type="text" ng-model="cv.lastName" class="form-control" placeholder="Enter your Last Name"
+                   title="Last Name"/>
+        </fieldset>
+        <fieldset class="form-group">
+            <input type="text" ng-model="cv.account" class="form-control"
+                   placeholder="Enter your Account e.g. {{ cv.firstName + cv.lastName }}" title="Account"/>
+        </fieldset>
+        <fieldset class="form-group">
+            <input type="submit" value="Create your CV" class="btn btn-primary pull-right"/>
+        </fieldset>
+    </form>
 </div>

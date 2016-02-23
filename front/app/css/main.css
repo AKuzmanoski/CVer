@@ -6,16 +6,11 @@ div.main {
 
 .row {
     list-style-type: none;
-    margin-bottom: 1em;
+    padding: 0.5em;
 }
 
-.product {
-    background-color: lightgrey;
-    padding: 1em;
-    width: 50%;
-    display: block;
-}
-
-.product:hover {
-    background-color: darkgrey;
+.bottom {
+    position: fixed;
+    bottom: 0;
+    right: 0;
 }

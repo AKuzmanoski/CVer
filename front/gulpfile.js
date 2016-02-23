@@ -26,7 +26,10 @@ var gulp = require('gulp'),
 
 var CSS_LIB = [
     'bower_components/bootstrap/dist/css/bootstrap.css',
+    'bower_components/bootstrap/dist/css/bootstrap-theme.css',
     'bower_components/bootstrap-additions/dist/bootstrap-additions.css',
+    'bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css',
+    /*'bower_components/bootstrap-material-design/dist/css/ripples.css',*/
     'bower_components/components-font-awesome/css/font-awesome.min.css',
     'bower_components/angular-toastr/dist/angular-toastr.css',
     'bower_components/angular-loading-bar/build/loading-bar.css',
@@ -47,6 +50,8 @@ var JS_LIB = [
     'bower_components/jquery/dist/jquery.min.js',
     'bower_components/bootstrap/dist/js/bootstrap.min.js',
     'bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js',
+    'bower_components/bootstrap-material-design/dist/js/material.min.js',
+    /*'bower_components/bootstrap-material-design/dist/js/ripples.min.js',*/
     'bower_components/angular/angular.js',
     'bower_components/angular-cookies/angular-cookies.js',
     'bower_components/angular-ui-router/release/angular-ui-router.min.js',
