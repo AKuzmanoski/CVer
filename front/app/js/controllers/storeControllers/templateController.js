@@ -13,10 +13,12 @@ App.controller("TemplateController",["$scope", "$state", "TemplateService", "$sc
         $scope.cv = $scope.getCv("DimitarSpasovski");
         console.log($scope.cv);
 
-
+        $scope.array = ["test1","test2","test3"];
         $scope.defaultTemplate = templateService.getDefaultTemplate();
+       //the html will be sanitized (inputs, scripts, and angular directives will get removed)
         $scope.renderHtml = function() {
-       return $sce.trustAsHtml($scope.defaultTemplate.response);
+            return $scope.defaultTemplate.response;
+            //  return $sce.trustAsHtml($scope.defaultTemplate.response);
    };
 
 

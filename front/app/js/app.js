@@ -6,4 +6,5 @@ var App = angular.module('cver', [
     'mgcrea.ngStrap',
     'toastr',
     'angular-loading-bar',
-    'ngQuickDate']);
+    'ngQuickDate',
+    'ngSanitize']);
