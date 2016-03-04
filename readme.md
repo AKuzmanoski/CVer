@@ -29,7 +29,10 @@ CVer е систем кој им овозможува на корисницит�
     <a href="https://teamcver.visualstudio.com/DefaultCollection/CVer/_backlogs/taskboard/Design%20and%20Development#fullScreen=true" target="_blank">Project Management</a>
   </li>
   <li>
-    <a href="https://groups.google.com/forum/#!forum/cverdiscussions" target="_blank">Discussion</a>
+    <a href="https://groups.google.com/forum/#!forum/cverdiscussions" target="_blank">Google Groups Discussion</a>
+  </li>
+  <li>
+    <a href="https://trello.com/b/5O8N5nXi" target="_blank">Trello Discussion</a>
   </li>
 </ul>
 
