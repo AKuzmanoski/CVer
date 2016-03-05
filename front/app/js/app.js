@@ -7,4 +7,5 @@ var App = angular.module('cver', [
     'toastr',
     'angular-loading-bar',
     'ngQuickDate',
+    'ngMaterial',
     'ngSanitize']);
