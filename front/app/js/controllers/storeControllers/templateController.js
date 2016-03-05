@@ -18,7 +18,7 @@ App.controller("TemplateController",["$scope", "$state", "TemplateService", "$sc
        //the html will be sanitized (inputs, scripts, and angular directives will get removed)
         $scope.renderHtml = function() {
             return $scope.defaultTemplate.response;
-            //  return $sce.trustAsHtml($scope.defaultTemplate.response);
+            //return $sce.trustAsHtml($scope.defaultTemplate.response);
    };
 
 
