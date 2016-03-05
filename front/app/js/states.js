@@ -34,5 +34,17 @@ App.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             }
         }
     });
+
+    $stateProvider.state('template', {
+        url: '/template',
+        views: {
+            main: {
+                templateUrl: 'views/templateTest.html',
+                controller: 'TemplateController'
+            }
+        }
+    });
+
+
 }]);
 
