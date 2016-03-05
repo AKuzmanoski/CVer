@@ -3,17 +3,20 @@ package persistence.jena;
 import model.Cv;
 import model.helper.CvNullable;
 import org.apache.jena.query.*;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.sparql.vocabulary.FOAF;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import org.apache.jena.update.UpdateRequest;
 import org.springframework.stereotype.Repository;
 import persistence.CvRepository;
+import persistence.helper.URIMaker;
+import persistence.jena.helper.CvObjectMapper;
+import persistence.jena.helper.CvsObjectMapper;
 import persistence.jena.helper.JenaPreferences;
-import persistence.jena.helper.SPARQLPrefix;
-import persistence.jena.helper.URIMaker;
+import persistence.jena.helper.namespaces.CVR;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,47 +41,48 @@ public class CvRepositoryJena implements CvRepository {
     }
 
     public Cv getCv(String account) {
-        String cvURI = URIMaker.getCvr(account);
-        StringBuilder queryString = new StringBuilder();
-        queryString.append(SPARQLPrefix.foaf);
-        queryString.append("SELECT ?givenName ?familyName ?account ");
-        queryString.append("WHERE { ");
-        queryString.append(cvURI);
-        queryString.append(" foaf:givenName ?givenName ; ");
-        queryString.append("foaf:familyName ?familyName ; ");
-        queryString.append("foaf:account ?account . ");
-        queryString.append("}");
+        // Build Query
+        ParameterizedSparqlString queryString = new ParameterizedSparqlString();
+        queryString.setNsPrefix("foaf", FOAF.getURI());
+        queryString.setCommandText("CONSTRUCT { ?cv ?predicate ?object } " +
+                " WHERE {" +
+                " ?cv ?predicate ?object ; " +
+                " ?accountProperty ?account . " +
+                "}");
+        queryString.setLiteral("account", account);
+        queryString.setIri("accountProperty", FOAF.holdsAccount.getURI());
+
+        // Execute query
         Query query = QueryFactory.create(queryString.toString());
-        try (QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query)) {
-            ResultSet resultSet = queryExecution.execSelect();
-            if (resultSet.hasNext()) {
-                QuerySolution querySolution = resultSet.nextSolution();
-                Cv cv = new Cv();
-                cv.setFirstName(querySolution.get("givenName").toString());
-                cv.setLastName(querySolution.get("familyName").toString());
-                cv.setAccount(querySolution.get("account").toString());
-                return cv;
-            }
-        }
-        return new CvNullable();
+        QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query);
+        Model model = queryExecution.execConstruct();
+        Cv cv = CvObjectMapper.generateCv(model);
+        return cv;
     }
 
     public Cv createCv(Cv cv) {
-        StringBuilder queryString = new StringBuilder();
-        queryString.append(SPARQLPrefix.foaf);
-        queryString.append(SPARQLPrefix.cvr);
-        queryString.append(SPARQLPrefix.rdf);
-        queryString.append(" INSERT {");
-        queryString.append(" cvr:");
-        queryString.append(cv.getAccount());
-        queryString.append(" rdf:type foaf:Person ;");
-        queryString.append(" foaf:givenName '");
-        queryString.append(cv.getFirstName());
-        queryString.append("' ; foaf:familyName '");
-        queryString.append(cv.getLastName());
-        queryString.append("' ; foaf:account '");
-        queryString.append(cv.getAccount());
-        queryString.append("' . } WHERE { }");
+        // Generate Identifier
+        String URI = generateUri();
+        String CvrURI = CVR.getUri(URI);
+        // Build Query
+        ParameterizedSparqlString queryString = new ParameterizedSparqlString();
+        queryString.setNsPrefix("cvr", CVR.getURI());
+        queryString.setNsPrefix("foaf", FOAF.getURI());
+        queryString.setCommandText("INSERT {" +
+                " ?uri ?givenNameProperty ?givenName ; " +
+                " ?familyNameProperty ?familyName ; " +
+                " ?accountProperty ?account ; " +
+                " a foaf:Person . " +
+                "} WHERE { }");
+        queryString.setLiteral("givenName", cv.getFirstName());
+        queryString.setLiteral("familyName", cv.getLastName());
+        queryString.setLiteral("account", cv.getAccount());
+        queryString.setIri("accountProperty", FOAF.holdsAccount.getURI());
+        queryString.setIri("givenNameProperty", FOAF.givenname.getURI());
+        queryString.setIri("familyNameProperty", FOAF.family_name.getURI());
+        queryString.setIri("uri", CvrURI);
+
+        // EXECUTE QUERY
         System.out.println(queryString.toString());
         UpdateRequest updateRequest = UpdateFactory.create(queryString.toString());
         UpdateProcessor updateProcessor = UpdateExecutionFactory.createRemote(updateRequest, JenaPreferences.UpdateEndpoint);
@@ -87,28 +91,20 @@ public class CvRepositoryJena implements CvRepository {
     }
 
     public List<Cv> getAllCvs() {
-        List<Cv> cvs = new ArrayList<>();
-        Cv cv;
-        String queryString = SPARQLPrefix.foaf +
-                "SELECT ?givenName ?familyName ?account " +
-                "WHERE { " +
-                "?person a foaf:Person ; " +
-                "foaf:givenName ?givenName ; " +
-                "foaf:familyName ?familyName ; " +
-                "foaf:account ?account . " +
-                "}";
-        Query query = QueryFactory.create(queryString);
-        try (QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query)) {
-            ResultSet resultSet = queryExecution.execSelect();
-            while (resultSet.hasNext()) {
-                QuerySolution querySolution = resultSet.nextSolution();
-                cv = new Cv();
-                cv.setFirstName(querySolution.get("givenName").toString());
-                cv.setLastName(querySolution.get("familyName").toString());
-                cv.setAccount(querySolution.get("account").toString());
-                cvs.add(cv);
-            }
-        }
+        // Build Query
+        ParameterizedSparqlString queryString = new ParameterizedSparqlString();
+        queryString.setCommandText("CONSTRUCT { ?person ?predicate ?object . } " +
+                "WHERE {" +
+                " ?person ?predicate ?object ;" +
+                " a foaf:Person . " +
+                "}");
+        queryString.setNsPrefix("foaf", FOAF.getURI());
+        Query query = QueryFactory.create(queryString.toString());
+
+        // Execute Query
+        QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query);
+        Model model = queryExecution.execConstruct();
+        List<Cv> cvs = CvsObjectMapper.generateCvs(model);
         return cvs;
     }
 
@@ -124,16 +120,24 @@ public class CvRepositoryJena implements CvRepository {
 
     @Override
     public void delete(String account) {
-        StringBuilder queryString = new StringBuilder();
-        queryString.append(SPARQLPrefix.cvr);
-        queryString.append(" DELETE WHERE {");
-        queryString.append(" cvr:");
-        queryString.append(account);
-        queryString.append(" ?property ?object .");
-        queryString.append(" }");
-        System.out.println(queryString.toString());
+        ParameterizedSparqlString queryString = new ParameterizedSparqlString();
+        queryString.setCommandText("DELETE WHERE {" +
+                " ?person ?property ?object ; " +
+                " ?accountProperty ?account . " +
+                "}");
+        queryString.setNsPrefix("foaf", FOAF.getURI());
+        queryString.setLiteral("account", account);
+        queryString.setIri("accountProperty", FOAF.holdsAccount.getURI());
         UpdateRequest updateRequest = UpdateFactory.create(queryString.toString());
         UpdateProcessor updateProcessor = UpdateExecutionFactory.createRemote(updateRequest, JenaPreferences.UpdateEndpoint);
         updateProcessor.execute();
+    }
+
+    private String generateUri() {
+        return "cv" + URIMaker.generateUri();
+    }
+
+    private String generateUri(String name) {
+        return "cv" + URIMaker.generateUri(name);
     }
 }

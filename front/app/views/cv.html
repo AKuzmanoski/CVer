@@ -1,5 +1,9 @@
 <div>
-    Fist Name: <label>{{ cv.firstName }}</label> <br />
-    Last Name: <label>{{ cv.lastName }} </label> <br />
+    <blockquote>
+        <strong>
+            <span>{{ cv.firstName }}</span>
+            <span>{{ cv.lastName }}</span></strong>
+        <cite class="clearfix">— @{{cv.account}}</cite>
+    </blockquote>
     <input type="button" class="btn btn-danger" value="Delete" ng-click="deleteCv(cv.account)" />
 </div>

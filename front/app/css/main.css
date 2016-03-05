@@ -14,3 +14,6 @@ div.main {
     bottom: 0;
     right: 0;
 }
+
+.carddemoBasicUsage .card-media {
+    background-color: #999999; }

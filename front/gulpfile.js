@@ -25,20 +25,24 @@ var gulp = require('gulp'),
 
 
 var CSS_LIB = [
+    /*'bower_components/mdi/css/materialdesignicons.min.css',
     'bower_components/bootstrap/dist/css/bootstrap.css',
     'bower_components/bootstrap/dist/css/bootstrap-theme.css',
     'bower_components/bootstrap-additions/dist/bootstrap-additions.css',
-    'bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css',
-    /*'bower_components/bootstrap-material-design/dist/css/ripples.css',*/
+    'bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css',
+    'bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css',
+    'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
+    'bower_components/semantic/dist/semantic.min.css',
     'bower_components/components-font-awesome/css/font-awesome.min.css',
+    'bower_components/angular-ui-select/dist/select.css',
+    'bower_components/angular-bootstrap-colorpicker/css/colorpicker.css',
+    'bower_components/angular-xeditable/dist/css/xeditable.css',*/
     'bower_components/angular-toastr/dist/angular-toastr.css',
     'bower_components/angular-loading-bar/build/loading-bar.css',
-    'bower_components/angular-ui-select/dist/select.css',
-    'bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css',
     'bower_components/ngQuickDate/dist/ng-quick-date.css',
     'bower_components/ngQuickDate/dist/ng-quick-date-plus-default-theme.css',
-    'bower_components/angular-bootstrap-colorpicker/css/colorpicker.css',
-    'bower_components/angular-xeditable/dist/css/xeditable.css'
+    'bower_components/angular-material/angular-material.min.css',
+    'bower_components/angular-material/angular-material.layouts.min.css'
 ];
 
 var CSS_APP = [
@@ -47,39 +51,45 @@ var CSS_APP = [
 ];
 
 var JS_LIB = [
-    'bower_components/jquery/dist/jquery.min.js',
+    /*'bower_components/jquery/dist/jquery.min.js',
     'bower_components/bootstrap/dist/js/bootstrap.min.js',
     'bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js',
     'bower_components/bootstrap-material-design/dist/js/material.min.js',
-    /*'bower_components/bootstrap-material-design/dist/js/ripples.min.js',*/
-    'bower_components/angular/angular.js',
+    'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
+    'bower_components/semantic/dist/semantic.min.js',
     'bower_components/angular-cookies/angular-cookies.js',
-    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-    'bower_components/angular-resource/angular-resource.min.js',
-    'bower_components/angular-translate/angular-translate.min.js',
     'bower_components/angular-sanitize/angular-sanitize.min.js',
-    'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
-    'bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js',
-    'bower_components/angular-smart-table/dist/smart-table.js',
     'bower_components/momentjs/moment.js',
     'bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js',
-    'bower_components/angular-toastr/dist/angular-toastr.js',
-    'bower_components/angular-toastr/dist/angular-toastr.tpls.js',
-    'bower_components/angular-strap/dist/angular-strap.min.js',
-    'bower_components/angular-strap/dist/angular-strap.tpl.min.js',
-    'bower_components/angular-loading-bar/build/loading-bar.js',
     'bower_components/select2/select2.js',
     'bower_components/angular-ui-select/dist/select.js',
     'bower_components/is_js/is.min.js',
     'bower_components/angular-file-upload/angular-file-upload.js',
-    'bower_components/ngQuickDate/dist/ng-quick-date.js',
     'bower_components/sockjs/sockjs.js',
     'bower_components/stomp-websocket/lib/stomp.js',
     'bower_components/stompie/stompie.min.js',
     'bower_components/ng-stomp/ng-stomp.min.js',
     'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
     'bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.min.js',
-    'bower_components/angular-xeditable/dist/js/xeditable.js'
+    'bower_components/angular-xeditable/dist/js/xeditable.js',*/
+    'bower_components/angular/angular.js',
+    'bower_components/angular-resource/angular-resource.min.js',
+    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+    'bower_components/angular-translate/angular-translate.min.js',
+    'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
+    'bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js',
+    'bower_components/angular-smart-table/dist/smart-table.js',
+    'bower_components/angular-strap/dist/angular-strap.min.js',
+    'bower_components/angular-strap/dist/angular-strap.tpl.min.js',
+    'bower_components/angular-toastr/dist/angular-toastr.js',
+    'bower_components/angular-toastr/dist/angular-toastr.tpls.js',
+    'bower_components/angular-loading-bar/build/loading-bar.js',
+    'bower_components/ngQuickDate/dist/ng-quick-date.js',
+
+    'bower_components/angular-messages/angular-messages.min.js',
+    'bower_components/angular-animate/angular-animate.min.js',
+    'bower_components/angular-aria/angular-aria.min.js',
+    'bower_components/angular-material/angular-material.min.js'
 ];
 
 var JS_APP = [

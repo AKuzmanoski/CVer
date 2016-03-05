@@ -1,13 +1,14 @@
 package model.helper;
 
 import model.Cv;
+import model.literal.Identifier;
 
 /**
  * Created by User on 2/14/2016.
  */
 public class CvNullable extends Cv {
     public CvNullable() {
-        super(-1L, "Unknown", "Unknown", "Unknown");
+        super("Unknown", "Unknown", "Unknown", "Unknown");
     }
 
     @Override
@@ -26,7 +27,7 @@ public class CvNullable extends Cv {
     }
 
     @Override
-    public void setId(long id) {
+    public void setIdentifier(Identifier identifier) {
 
     }
 }

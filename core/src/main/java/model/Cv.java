@@ -20,23 +20,8 @@ public class Cv extends BaseEntity {
         this.lastName = lastName;
     }
 
-    public Cv(Long id, String firstName, String lastName) {
-        super(id);
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public Cv(String account) {
-        this.account = account;
-    }
-
-    public Cv(String firstName, String lastName, String account) {
+    public Cv(String URI, String firstName, String lastName, String account) {
         this(firstName, lastName);
-        this.account = account;
-    }
-
-    public Cv(Long id, String firstName, String lastName, String account) {
-        this(id, firstName, lastName);
         this.account = account;
     }
 

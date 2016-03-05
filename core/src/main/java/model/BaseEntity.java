@@ -1,5 +1,7 @@
 package model;
 
+import model.literal.Identifier;
+
 /**
  * This class is hold just for identification of objects among their classes. The main usage of this object
  * is in relational databases.
@@ -9,22 +11,21 @@ package model;
  * @since 1/17/2016
  */
 public class BaseEntity {
-    private long id;
+    private Identifier identifier;
 
-    public BaseEntity(Long id) {
-        this.id = id;
+    public BaseEntity(Identifier identifier) {
+        this.identifier = identifier;
     }
 
     public BaseEntity() {
 
     }
 
-    public long getId() {
-        return id;
+    public Identifier getIdentifier() {
+        return identifier;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setIdentifier(Identifier identifier) {
+        this.identifier = identifier;
     }
 }
-// testComment

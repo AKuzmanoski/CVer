@@ -8,20 +8,18 @@
     <h3>Create new CV</h3>
     <form class="form-horizontal panel" name="newCvForm" ng-submit="createCv()">
         <!-- Form Fields -->
-        <div class="form-group label-floating">
-            <label class="control-label" for="firstName">Enter your First Name</label>
-            <input class="form-control" ng-model="cv.firstName" id="firstName" type="text" />
-        </div>
-        <fieldset class="form-group">
-            <input type="text" ng-model="cv.lastName" class="form-control" placeholder="Enter your Last Name"
-                   title="Last Name"/>
-        </fieldset>
-        <fieldset class="form-group">
-            <input type="text" ng-model="cv.account" class="form-control"
-                   placeholder="Enter your Account e.g. {{ cv.firstName + cv.lastName }}" title="Account"/>
-        </fieldset>
-        <fieldset class="form-group">
-            <input type="submit" value="Create your CV" class="btn btn-primary pull-right"/>
-        </fieldset>
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>First name</label>
+            <input ng-model="cv.firstName">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Last name</label>
+            <input ng-model="cv.lastName">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Enter your Account e.g. {{ cv.firstName + cv.lastName }}</label>
+            <input ng-model="cv.account">
+        </md-input-container>
+        <md-button class="md-raised md-primary">Create your CV</md-button>
     </form>
 </div>

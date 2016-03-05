@@ -1,44 +1,48 @@
-<div xmlns:foaf="http://xmlns.com/foaf/0.1/" class="content">
-    <a href="#/cvs/new" class="btn btn-raised btn-primary btn-fab pull-right"><i class="material-icons">+</i></a>
+<div class="content">
+    <md-button layout-align="end" class="md-fab" style="background: forestgreen;" aria-label="Add">
+        <md-icon md-font-set="material-icons">add</md-icon>
+    </md-button>
     <h1>Resumes</h1>
-    <ul>
-        <li ng-repeat="cv in cvs | orderBy:'firstName'" class="panel row"
-            about="[cvr:{{ cv.firstName }}{{ cv.lastName }}]">
-            <strong>
-                <a href="#/cvs/{{cv.account}}">
-                    <span propery="foaf:givenName">{{ cv.firstName }}</span>
-                    <span property="foaf:familyName">{{ cv.lastName }}</span>
-                </a>
-            </strong>
-            <cite class="clearfix">@{{ cv.account }}</cite>
-            <!--<section ng-controller="PanelController as panel">
-                <ul class="nav nav-pills">
-                    <li ng-class="{ active:panel.isSelected(1)}">
-                        <a href ng-click="panel.selectTab(1)">Description</a>
-                    </li>
-                    <li ng-class="{ active:panel.isSelected(2)}">
-                        <a href ng-click="panel.selectTab(2)">Specification</a>
-                    </li>
-                    <li ng-class="{ active:panel.isSelected(3)}">
-                        <a href ng-click="panel.selectTab(3)">Reviews</a>
-                    </li>
-                </ul>
-                <div class="panel" ng-show="panel.isSelected(1)">
-                    <h4>Description</h4>
-                    <p>This is {{cv.firstName}}'s resume.</p>
-                </div>
-                <div class="panel" ng-show="panel.isSelected(2)">
-                    <h4>Specifications</h4>
-                    <p>{{cv.firstName}} has many skills like: programming, testing and designing</p>
-                </div>
-                <div class="panel" ng-show="panel.isSelected(3)">
-                    <h4>Reviews</h4>
+    <md-list flex>
+        <md-subheader class="md-no-sticky">Public</md-subheader>
+        <md-list-item ng-repeat="cv in cvs">
+            <md-card style="width: 50%;" class="md-whiteframe-10dp">
+                <md-card-header>
+                    <md-card-avatar>
+                        <img class="md-user-avatar"
+                             src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAJSAAAAJDBhMGYzMTk5LTQzOGMtNDRkMS1iZTk2LTk4ZWQ5Zjc1ZGNiZA.jpg"/>
+                    </md-card-avatar>
+                    <md-card-header-text>
+                        <a href="#/cvs/{{ cv.account }}"><span
+                                class="md-title">{{ cv.firstName }} {{ cv.lastName }}</span></a>
+                        <span class="md-subhead">@{{ cv.account }}</span>
+                    </md-card-header-text>
+                </md-card-header>
+                <img ng-src="http://staugustine.com/sites/default/files/mpg%20-%20how%20to%20write%20a%20resume.jpg"
+                     class="md-card-image" alt="Washed Out">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">{{ cv.firstName }}'s Resume</span>
+                        <span class="md-subhead">{{ cv.account }}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="start center">
+                    <md-button class="md-primary">View</md-button>
+                    <md-button class="md-warn">Delete</md-button>
+                    <md-card-icon-actions>
+                        <md-button class="md-icon-button" aria-label="toggle">
+                            <md-icon md-svg-icon="md-toggle-arrow"></md-icon>
+                        </md-button>
+                    </md-card-icon-actions>
+                </md-card-actions>
+                <md-card-content>
                     <p>
-                        user1: 5 <br/>
-                        user2: 10 <br/>
+                        The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+                        two most important words in Ernest Greene's musical language: feel it. It's a simple request, as
+                        well...
                     </p>
-                </div>
-            </section>-->
-        </li>
-    </ul>
+                </md-card-content>
+            </md-card>
+        </md-list-item>
+    </md-list>
 </div>
