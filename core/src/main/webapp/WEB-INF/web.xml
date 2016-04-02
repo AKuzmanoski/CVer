@@ -52,7 +52,7 @@
     <filter>
         <filter-name>XSSFilter</filter-name>
         <filter-class>
-            filters.XSSFilter
+            com.cver.cverteam.filters.XSSFilter
         </filter-class>
     </filter>
 
