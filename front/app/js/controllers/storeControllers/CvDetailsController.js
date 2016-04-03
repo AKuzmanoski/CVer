@@ -10,7 +10,6 @@ App.controller("CvDetailsController",["$scope", "$state", "$stateParams", "CvSer
 
     $scope.deleteCv = function(account) {
         CvService.deleteCv({account: account});
-        $state.go("cvs");
     };
 
     $scope.cv = $scope.getCv($stateParams.account);

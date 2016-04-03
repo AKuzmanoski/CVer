@@ -4,6 +4,5 @@ App.controller("NewCvController",["$scope", "$state", "CvService", function ($sc
     $scope.createCv = function() {
         CvService.createCv($scope.cv);
         $scope.cv = {};
-        //$state.go("cvs");
     };
 }]);

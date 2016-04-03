@@ -20,6 +20,6 @@
             <label>Enter your Account e.g. {{ cv.firstName + cv.lastName }}</label>
             <input ng-model="cv.account">
         </md-input-container>
-        <md-button class="md-raised md-primary">Create your CV</md-button>
+        <md-button class="md-raised md-primary" ng-click="createCv();">Create your CV</md-button>
     </form>
 </div>

@@ -11,6 +11,10 @@ App.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             main: {
                 templateUrl: "views/cvs.html",
                 controller: "CvController"
+            },
+            navbar: {
+                templateUrl: "views/toolbar.html",
+                controller: "NavController"
             }
         }
     });
@@ -21,6 +25,10 @@ App.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             main: {
                 templateUrl: "views/newCv.html",
                 controller: "NewCvController"
+            },
+            navbar: {
+                templateUrl: "views/toolbar.html",
+                controller: "NavController"
             }
         }
     });
@@ -31,6 +39,10 @@ App.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             main: {
                 templateUrl: 'views/cv.html',
                 controller: 'CvDetailsController'
+            },
+            navbar: {
+                templateUrl: "views/toolbar.html",
+                controller: "NavController"
             }
         }
     });
@@ -41,6 +53,10 @@ App.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             main: {
                 templateUrl: 'views/templateTest.html',
                 controller: 'TemplateController'
+            },
+            navbar: {
+                templateUrl: "views/toolbar.html",
+                controller: "NavController"
             }
         }
     });
