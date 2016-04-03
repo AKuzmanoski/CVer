@@ -1,8 +1,8 @@
 <div class="content">
     <md-list flex>
         <md-subheader class="md-no-sticky">Public</md-subheader>
-        <md-list-item ng-repeat="cv in cvs">
-            <md-card style="width: 100%;" class="md-whiteframe-10dp">
+        <md-list-item ng-repeat="cv in cvs" style="width: 29%; float: left;">
+            <md-card class="md-whiteframe-10dp">
                 <md-card-header>
                     <md-card-avatar>
                         <img class="md-user-avatar"
@@ -19,18 +19,8 @@
                 <md-card-title>
                     <md-card-title-text>
                         <span class="md-headline">{{ cv.firstName }}'s Resume</span>
-                        <span class="md-subhead">{{ cv.account }}</span>
                     </md-card-title-text>
                 </md-card-title>
-                <md-card-actions layout="row" layout-align="start center">
-                    <md-button class="md-primary">View</md-button>
-                    <md-button class="md-warn">Delete</md-button>
-                    <md-card-icon-actions>
-                        <md-button class="md-icon-button" aria-label="toggle">
-                            <md-icon md-svg-icon="md-toggle-arrow"></md-icon>
-                        </md-button>
-                    </md-card-icon-actions>
-                </md-card-actions>
                 <md-card-content>
                     <p>
                         The titles of Washed Out's breakthrough song and the first single from Paracosm share the
