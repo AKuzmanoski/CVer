@@ -42,4 +42,11 @@ public class PersonServiceImpl implements PersonService {
     public boolean isEmailTaken(String email) {
         return personRepository.isEmailTaken(email);
     }
+
+    @Override
+    public Person getPersonByLoginEmailWithoutPassword(String email) {
+        Person person = getPersonByLoginEmail(email);
+        person.setPassword("");
+        return person;
+    }
 }

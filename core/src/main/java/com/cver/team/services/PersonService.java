@@ -12,4 +12,6 @@ public interface PersonService {
     Person getPersonByLoginEmail(String email);
 
     boolean isEmailTaken(String email);
+
+    Person getPersonByLoginEmailWithoutPassword(String email);
 }

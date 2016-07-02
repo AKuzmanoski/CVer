@@ -39,7 +39,7 @@ public class UserInit {
             personService.savePerson(person2);
         }
 
-        Person person = personService.getPersonByLoginEmail("dimitar@local.com");
+        Person person = personService.getPersonByLoginEmailWithoutPassword("dimitar@local.com");
         System.out.println("----------------------------------------");
 //        System.out.println(person.getPassword());
         System.out.println(person.getLoginEmail());
