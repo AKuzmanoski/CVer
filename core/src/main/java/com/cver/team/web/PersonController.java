@@ -4,9 +4,7 @@ import com.cver.team.model.Person;
 import com.cver.team.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/users")
@@ -15,9 +13,11 @@ public class PersonController {
     @Autowired
     PersonService personService;
 
-    @RequestMapping(value = "/{email}", method = RequestMethod.GET)
-    public Person getUserByEmail(@PathVariable("email") String email) {
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.GET)
+    public Person getUserByEmail(@RequestParam("email") String email) {
 
+        System.out.println(email);
         return personService.getPersonByLoginEmailWithoutPassword(email);
 
     }

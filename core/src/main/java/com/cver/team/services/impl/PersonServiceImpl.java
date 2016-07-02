@@ -46,6 +46,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person getPersonByLoginEmailWithoutPassword(String email) {
         Person person = getPersonByLoginEmail(email);
+        if(person != null)
         person.setPassword("");
         return person;
     }
