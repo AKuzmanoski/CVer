@@ -86,18 +86,21 @@ public class PersonRepositoryJena implements PersonRepository {
     @Override
     public Person getPersonByLoginEmail(String email) {
         ParameterizedSparqlString queryString = new ParameterizedSparqlString();
-        queryString.setNsPrefix("cvo", "http://www.cver.com/ontology/");
-        queryString.setNsPrefix("cver", "http://www.cver.com/resource/");
+        queryString.setNsPrefix("cvo", SPARQLPrefix.cvo);
+        queryString.setNsPrefix("cver", SPARQLPrefix.cvr);
 
-        queryString.setCommandText("SELECT  ?userID ?userEmail ?userPassword ?provider ?role \n" +
+        queryString.setCommandText("SELECT  ?userID ?userPassword ?provider ?role \n" +
                 " WHERE { " +
                 " ?user cvo:userID ?userID ; \n"+
                 " cvo:loginEmail ?email ;  \n" +
                 " cvo:role ?role ; \n" +
-                " cvo:provider ?provider ; \n"
-                + " cvo:password ?userPassword .  \n"
-                + " ?email cvo:mbox ?userEmail . " +
+                " cvo:provider ?provider . \n " +
+                " ?email cvo:mbox ?userEmail . \n " +
+                " OPTIONAL  { ?user cvo:password ?userPassword . } \n "+
+
                 "}");
+
+        queryString.setLiteral("userEmail", email);
 
         System.out.println(queryString.toString());
         Query query = QueryFactory.create(queryString.toString());
@@ -116,13 +119,16 @@ public class PersonRepositoryJena implements PersonRepository {
             Identifier identifier = new Identifier();
             identifier.setId(currentEntry.get("userID").toString());
             person.setIdentifier(identifier);
-
+            person.setLoginEmail(email);
 
             person.setPassword(currentEntry.get("userPassword").toString());
-            person.setLoginEmail(currentEntry.get("userEmail").toString());
+
             String role = currentEntry.get("role").toString();
+
             String provider = currentEntry.get("provider").toString();
+
             person.setRole(Role.valueOf(role));
+
             person.setProvider(Provider.valueOf(provider));
             return person;
         }
