@@ -7,4 +7,11 @@ public class ExternalResource extends BaseEntity {
 
     private String externalLink;
 
+    public String getExternalLink() {
+        return externalLink;
+    }
+
+    public void setExternalLink(String externalLink) {
+        this.externalLink = externalLink;
+    }
 }
