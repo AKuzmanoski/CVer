@@ -10,16 +10,15 @@ import java.util.List;
  */
 public class Person extends BaseEntity {
     private Identifier account;
-    private List<Data<String>> firstName;
-    private List<Data<String>> lastName;
-    private List<Data<String>> mail;
-    private List<Data<String>> sha1mail;
-    private String loginEmail;
+    private String firstName;
+    private String lastName;
+    private String email;
     private Role role;
     private Provider provider;
+    private byte[] profilePicture;
+    private byte[] coverPicture;
 
-    public Role getRole() {
-        return role;
+    public Role getRole() { return role;
     }
 
     public void setRole(Role role) {
@@ -34,12 +33,12 @@ public class Person extends BaseEntity {
         this.provider = provider;
     }
 
-    public String getLoginEmail() {
-        return loginEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLoginEmail(String loginEmail) {
-        this.loginEmail = loginEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -60,37 +59,36 @@ public class Person extends BaseEntity {
         this.account = account;
     }
 
-    public List<Data<String>> getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(List<Data<String>> firstName) {
-        this.firstName = firstName;
-    }
-
-    public List<Data<String>> getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(List<Data<String>> lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public List<Data<String>> getMail() {
-        return mail;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setMail(List<Data<String>> mail) {
-        this.mail = mail;
-    }
-
-    public List<Data<String>> getSha1mail() {
-        return sha1mail;
-    }
-
-    public void setSha1mail(List<Data<String>> sha1mail) {
-        this.sha1mail = sha1mail;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
 
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public byte[] getCoverPicture() {
+        return coverPicture;
+    }
+
+    public void setCoverPicture(byte[] coverPicture) {
+        this.coverPicture = coverPicture;
+    }
 }

@@ -22,7 +22,7 @@ public class PersonServiceImpl implements PersonService {
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public void savePerson(Person person) {
+    public void saveNewPerson(Person person) {
 
         if(person.getPassword() != null)
         person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));

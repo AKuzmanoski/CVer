@@ -7,7 +7,7 @@ import com.cver.team.model.Person;
  */
 public interface PersonService {
 
-    void savePerson(Person person);
+    void saveNewPerson(Person person);
 
     Person getPersonByLoginEmail(String email);
 

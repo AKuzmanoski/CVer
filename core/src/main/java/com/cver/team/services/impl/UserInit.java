@@ -21,28 +21,30 @@ public class UserInit {
     public void init() {
 
         if(!personService.isEmailTaken("dimitar@facebook.com")) {
-            Person person = new Person();
-            person.setLoginEmail("dimitar@facebook.com");
-            person.setProvider(Provider.FACEBOOK);
-            person.setRole(Role.ROLE_USER);
-
-            personService.savePerson(person);
+//            Person person = new Person();
+//            person.setEmail("dimitar@facebook.com");
+//            person.setProvider(Provider.FACEBOOK);
+//            person.setRole(Role.ROLE_USER);
+//
+//            personService.saveNewPerson(person);
         }
 
         if(!personService.isEmailTaken("dimitar@local.com")) {
             Person person2 = new Person();
-            person2.setLoginEmail("dimitar@local.com");
+            person2.setEmail("dimitar@local.com");
             person2.setPassword("password");
+            person2.setFirstName("Dimitar");
+            person2.setLastName("Spasovski");
             person2.setProvider(Provider.LOCAL);
             person2.setRole(Role.ROLE_USER);
 
-            personService.savePerson(person2);
+            personService.saveNewPerson(person2);
         }
 
         Person person = personService.getPersonByLoginEmailWithoutPassword("dimitar@local.com");
         System.out.println("----------------------------------------");
 //        System.out.println(person.getPassword());
-        System.out.println(person.getLoginEmail());
+        System.out.println(person.getEmail());
         System.out.println(person.getIdentifier().getId());
         System.out.println(person.getProvider());
         System.out.println(person.getRole());

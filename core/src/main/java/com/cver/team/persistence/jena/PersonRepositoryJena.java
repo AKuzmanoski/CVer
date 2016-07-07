@@ -14,17 +14,25 @@ import org.apache.jena.update.UpdateProcessor;
 import org.apache.jena.update.UpdateRequest;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 
 @Repository
 public class PersonRepositoryJena implements PersonRepository {
 
     @Override
     public void savePerson(Person person) {
-        String email = person.getLoginEmail();
+        String email = person.getEmail();
         String password = person.getPassword();
         String id = person.getIdentifier().getId();
         String provider = person.getProvider().toString();
         String role = person.getRole().toString();
+        String firstName = person.getFirstName();
+        String lastName = person.getLastName();
+
+        String loginEmailURI = UUID.randomUUID().toString();
+        String firstNameURI = UUID.randomUUID().toString();
+        String lastNameURI = UUID.randomUUID().toString();
 
 
         ParameterizedSparqlString queryString = new ParameterizedSparqlString();
@@ -38,16 +46,27 @@ public class PersonRepositoryJena implements PersonRepository {
                 " cvo:userID ?id ; " +
                 " cvo:provider ?provider ; " +
                 " cvo:role ?role ; " +
+                " cvo:defaultFirstName ?firstName ; " +
+                " cvo:firstName ?firstName ; " +
+                " cvo:defaultLastName ?lastName ;" +
+                " cvo:lastName ?lastName ;  " +
                 " a cvo:Person . " +
-                " ?email cvo:mbox ?emailValue; "
-                + " a cvo:Email . "+
+
+                " ?email cvo:mbox ?emailValue; " +
+                " a cvo:Email . " +
+
+                " ?firstName cvo:value ?firstNameValue; " +
+                " a cvo:LiteralWrapper. " +
+                " ?lastName cvo:value ?lastNameValue; " +
+                " a cvo:LiteralWrapper. "+
+
 
                 "} WHERE { }");
 
 
-        queryString.setIri("userUri", "cver:user/"+id);
+        queryString.setIri("userUri", "cver:User/"+id);
 
-        queryString.setIri("email", "cver:email/"+id);
+        queryString.setIri("email", "cver:Email/"+loginEmailURI);
 
         if(password != null)
         queryString.setLiteral("passwordValue", password);
@@ -60,6 +79,13 @@ public class PersonRepositoryJena implements PersonRepository {
 
         queryString.setLiteral("role", role);
 
+        queryString.setIri("firstName", "cver:LiteralWrapper/"+firstNameURI);
+
+        queryString.setLiteral("firstNameValue", firstName);
+
+        queryString.setIri("lastName", "cver:LiteralWrapper/"+lastNameURI);
+
+        queryString.setLiteral("lastNameValue", lastName);
 
         System.out.println(queryString.toString());
         UpdateRequest updateRequest = UpdateFactory.create(queryString.toString());
@@ -120,7 +146,7 @@ public class PersonRepositoryJena implements PersonRepository {
             identifier.setId(currentEntry.get("userID").toString());
             person.setIdentifier(identifier);
 
-            person.setLoginEmail(email);
+            person.setEmail(email);
 
             String role = currentEntry.get("role").toString();
 

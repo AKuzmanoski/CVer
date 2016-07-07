@@ -48,11 +48,11 @@ public class SocialNetworkLoginSuccessHandler extends SavedRequestAwareAuthentic
         if(person == null) { //the user is logging in for the first time
 
         person = new Person();
-        person.setLoginEmail(email);
+        person.setEmail(email);
         person.setProvider(provider);
         person.setRole(role);
 
-        personService.savePerson(person);
+        personService.saveNewPerson(person);
         }
 
         HttpSession session = httpServletRequest.getSession();
