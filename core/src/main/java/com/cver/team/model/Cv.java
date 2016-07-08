@@ -1,5 +1,7 @@
 package com.cver.team.model;
 
+import com.github.andrewoma.dexx.collection.List;
+
 /**
  * This is the class which drives the whole logic of this system. Its name tells that it represents a personal
  * resume with all its characteristics inside. It will hold personal information like name of the owner, address,
@@ -11,19 +13,22 @@ package com.cver.team.model;
  * @since 1/17/2016
  */
 public class Cv extends BaseEntity {
-    private String account;
+
     private String firstName;
     private String lastName;
+    private List<String> addresses;
+    private String personURI;
+    private List<String> emails;
+    private List<Certificate> certificates;
+    private List<Experience> experiences;
+
 
     public Cv(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public Cv(String URI, String firstName, String lastName, String account) {
-        this(firstName, lastName);
-        this.account = account;
-    }
+
 
     public Cv() {
 
@@ -45,12 +50,46 @@ public class Cv extends BaseEntity {
         this.lastName = lastName;
     }
 
-    public String getAccount() {
-        return account;
+
+
+    public String getPersonURI() {
+        return personURI;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setPersonURI(String personURI) {
+        this.personURI = personURI;
+    }
+
+    public List<String> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<String> addresses) {
+        this.addresses = addresses;
+    }
+
+    public List<String> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(List<String> emails) {
+        this.emails = emails;
+    }
+
+    public List<Certificate> getCertificates() {
+        return certificates;
+    }
+
+    public void setCertificates(List<Certificate> certificates) {
+        this.certificates = certificates;
+    }
+
+    public List<Experience> getExperiences() {
+        return experiences;
+    }
+
+    public void setExperiences(List<Experience> experiences) {
+        this.experiences = experiences;
     }
 
     @Override

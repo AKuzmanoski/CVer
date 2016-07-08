@@ -11,7 +11,18 @@ import com.cver.team.model.literal.Identifier;
  * @since 1/17/2016
  */
 public class BaseEntity {
+
     private Identifier identifier;
+
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public BaseEntity(Identifier identifier) {
         this.identifier = identifier;
