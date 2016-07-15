@@ -13,11 +13,11 @@ import java.util.List;
  * Created by User on 3/1/2016.
  */
 public class CvsObjectMapper {
-    public static List<Cv> generateCvs(Model model) {
-        List<Cv> cvs = new ArrayList<>();
-        ResIterator iterator = model.listResourcesWithProperty(RDF.type, FOAF.Person);
-        while (iterator.hasNext())
-            cvs.add(CvObjectMapper.generateCv(model, iterator.nextResource()));
-        return cvs;
-    }
+//    public static List<Cv> generateCvs(Model model) {
+//        List<Cv> cvs = new ArrayList<>();
+//        ResIterator iterator = model.listResourcesWithProperty(RDF.type, FOAF.Person);
+//        while (iterator.hasNext())
+//            cvs.add(CvObjectMapper.generateCv(model, iterator.nextResource()));
+//        return cvs;
+//    }
 }

@@ -14,28 +14,28 @@ import org.apache.jena.vocabulary.RDF;
  * Created by User on 3/1/2016.
  */
 public class CvObjectMapper {
-    public static Cv generateCv(Model model) {
-        ResIterator iterator = model.listResourcesWithProperty(RDF.type, FOAF.Person);
-        if (iterator.hasNext())
-            return generateCv(model, iterator.nextResource());
-        else
-            return new CvNullable();
-    }
-
-    public static Cv generateCv(Model model, Resource resource) {
-        Cv cv = new Cv();
-        NodeIterator iterator = model.listObjectsOfProperty(resource, FOAF.givenname);
-        while (iterator.hasNext()) {
-            cv.setFirstName(iterator.next().toString());
-        }
-        iterator = model.listObjectsOfProperty(resource, FOAF.family_name);
-        while (iterator.hasNext()) {
-            cv.setLastName(iterator.next().toString());
-        }
-        iterator = model.listObjectsOfProperty(resource, FOAF.holdsAccount);
-        while (iterator.hasNext()) {
-            cv.setAccount(iterator.next().toString());
-        }
-        return cv;
-    }
+//    public static Cv generateCv(Model model) {
+//        ResIterator iterator = model.listResourcesWithProperty(RDF.type, FOAF.Person);
+//        if (iterator.hasNext())
+//            return generateCv(model, iterator.nextResource());
+//        else
+//            return new CvNullable();
+//    }
+//
+//    public static Cv generateCv(Model model, Resource resource) {
+//        Cv cv = new Cv();
+//        NodeIterator iterator = model.listObjectsOfProperty(resource, FOAF.givenname);
+//        while (iterator.hasNext()) {
+//            cv.setFirstName(iterator.next().toString());
+//        }
+//        iterator = model.listObjectsOfProperty(resource, FOAF.family_name);
+//        while (iterator.hasNext()) {
+//            cv.setLastName(iterator.next().toString());
+//        }
+//        iterator = model.listObjectsOfProperty(resource, FOAF.holdsAccount);
+//        while (iterator.hasNext()) {
+//           // cv.setAccount(iterator.next().toString());
+//        }
+//        return cv;
+//    }
 }

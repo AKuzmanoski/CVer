@@ -1,6 +1,6 @@
 package com.cver.team.model;
 
-import com.github.andrewoma.dexx.collection.List;
+import java.util.List;
 
 /**
  * This is the class which drives the whole logic of this system. Its name tells that it represents a personal

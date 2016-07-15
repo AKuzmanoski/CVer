@@ -34,7 +34,7 @@ public class CvController {
     Cv createCv(@RequestBody Cv cv, HttpServletResponse response) throws BindException {
         System.out.println(cv);
         Cv newCv = cvService.createCv(cv);
-        response.setHeader("Location", "/cvs/" + newCv.getAccount());
+     //   response.setHeader("Location", "/cvs/" + newCv.getAccount());
         return newCv;
     }
 
