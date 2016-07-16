@@ -6,6 +6,7 @@ import com.cver.team.model.Role;
 import com.cver.team.model.literal.Identifier;
 import com.cver.team.persistence.PersonRepository;
 import com.cver.team.persistence.jena.helper.JenaPreferences;
+import com.cver.team.persistence.jena.helper.ResourcePrefixes;
 import com.cver.team.persistence.jena.helper.SPARQLPrefix;
 import org.apache.jena.query.*;
 import org.apache.jena.update.UpdateExecutionFactory;
@@ -30,15 +31,17 @@ public class PersonRepositoryJena implements PersonRepository {
         String firstName = person.getFirstName();
         String lastName = person.getLastName();
 
-        String loginEmailURI = UUID.randomUUID().toString();
-        String firstNameURI = UUID.randomUUID().toString();
-        String lastNameURI = UUID.randomUUID().toString();
+        String loginEmailID = UUID.randomUUID().toString();
+        String firstNameID = UUID.randomUUID().toString();
+        String lastNameID = UUID.randomUUID().toString();
 
 
         ParameterizedSparqlString queryString = new ParameterizedSparqlString();
 
         queryString.setNsPrefix("cver", SPARQLPrefix.cvr);
         queryString.setNsPrefix("cvo", SPARQLPrefix.cvo);
+
+        System.out.println("PASSWORD IS : "+password);
 
         queryString.setCommandText("INSERT {" +
                 " ?userUri cvo:loginEmail ?email; " +
@@ -64,9 +67,9 @@ public class PersonRepositoryJena implements PersonRepository {
                 "} WHERE { }");
 
 
-        queryString.setIri("userUri", "cver:User/"+id);
+        queryString.setIri("userUri", ResourcePrefixes.USER_PREFIX + id);
 
-        queryString.setIri("email", "cver:Email/"+loginEmailURI);
+        queryString.setIri("email", ResourcePrefixes.EMAIL_PREFIX + loginEmailID);
 
         if(password != null)
         queryString.setLiteral("passwordValue", password);
@@ -79,12 +82,15 @@ public class PersonRepositoryJena implements PersonRepository {
 
         queryString.setLiteral("role", role);
 
-        queryString.setIri("firstName", "cver:LiteralWrapper/"+firstNameURI);
+        queryString.setIri("firstName", ResourcePrefixes.LITERAL_WRAPPER + firstNameID);
 
+        if(firstName != null)
         queryString.setLiteral("firstNameValue", firstName);
 
-        queryString.setIri("lastName", "cver:LiteralWrapper/"+lastNameURI);
 
+        queryString.setIri("lastName", ResourcePrefixes.LITERAL_WRAPPER + lastNameID);
+
+        if(lastName != null)
         queryString.setLiteral("lastNameValue", lastName);
 
         System.out.println(queryString.toString());
@@ -144,6 +150,7 @@ public class PersonRepositoryJena implements PersonRepository {
 
             Identifier identifier = new Identifier();
             identifier.setId(currentEntry.get("userID").toString());
+            identifier.setURI(ResourcePrefixes.USER_PREFIX + identifier.getId());
             person.setIdentifier(identifier);
 
             person.setEmail(email);
