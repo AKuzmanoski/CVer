@@ -3,6 +3,7 @@ package com.cver.team.model;
 import com.cver.team.model.literal.Data;
 import com.cver.team.model.literal.Identifier;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -90,5 +91,20 @@ public class Person extends BaseEntity {
 
     public void setCoverPicture(byte[] coverPicture) {
         this.coverPicture = coverPicture;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "account=" + account +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                ", provider=" + provider +
+                ", profilePicture=" + Arrays.toString(profilePicture) +
+                ", coverPicture=" + Arrays.toString(coverPicture) +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

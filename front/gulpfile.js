@@ -54,7 +54,7 @@ var JS_APP = [
 ];
 
 var VIEW_APP = [
-    'app/views/**/**.html'
+    'app/views/**/*.html'
 ]
 
 
@@ -141,7 +141,7 @@ gulp.task('templates', function () {
         .pipe(
             templateCache('templates.js', { // compile them as angular templates
                 module: MODULE_NAME,        // from module MODULE_NAME
-                root: ''             // of the app
+                root: './'             // of the app
             }))
         .pipe(gulp.dest(DESTINATION));
 });
@@ -175,11 +175,10 @@ gulp.task('html', function () {
 
 
 gulp.task('watch', function () {
-    gulp.watch('app/js/**/**.js', ['concat_js_app', 'cache-break']);
-    gulp.watch('app/views/**/**.html', ['templates', 'cache-break']);
-    gulp.watch('app/css/**/**.css', ['concat_css_app', 'cache-break']);
+    gulp.watch('app/js/**/*.js', ['concat_js_app', 'cache-break']);
+    gulp.watch('app/views/**/*.html', ['templates', 'cache-break']);
+    gulp.watch('app/css/**/*.css', ['concat_css_app', 'cache-break']);
     gulp.watch('app/**/*.html', ['html']);
-    gulp.watch('app/views/**/ *.html', ['templates', 'cache-break']);
 });
 
 gulp.task('serve', function () {
