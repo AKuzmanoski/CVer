@@ -80,8 +80,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
               .usernameParameter("username")
               .passwordParameter("password")
               .loginProcessingUrl("/doLogin")
-              .successHandler(new LocalLoginSuccessHandler())
-              .failureHandler(new LocalLoginFailureHandler());
+              .successHandler(localLoginSuccessHandler())
+              .failureHandler(localLoginFailureHandler());
 
 
         httpSecurity.authorizeRequests()
@@ -102,6 +102,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
+    }
+
+    @Bean
+    LocalLoginSuccessHandler localLoginSuccessHandler() {
+        return new LocalLoginSuccessHandler();
+    }
+
+    @Bean
+    LocalLoginFailureHandler localLoginFailureHandler() {
+        return new LocalLoginFailureHandler();
     }
 
     private Filter oauth2AuthenticationFilter() throws Exception {

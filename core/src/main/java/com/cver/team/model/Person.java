@@ -16,8 +16,8 @@ public class Person extends BaseEntity {
     private String email;
     private Role role;
     private Provider provider;
-    private byte[] profilePicture;
-    private byte[] coverPicture;
+    private String profilePictureURL;
+    private String coverPictureURL;
 
     public Role getRole() { return role;
     }
@@ -77,22 +77,6 @@ public class Person extends BaseEntity {
     }
 
 
-    public byte[] getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
-    }
-
-    public byte[] getCoverPicture() {
-        return coverPicture;
-    }
-
-    public void setCoverPicture(byte[] coverPicture) {
-        this.coverPicture = coverPicture;
-    }
-
     @Override
     public String toString() {
         return "Person{" +
@@ -102,8 +86,6 @@ public class Person extends BaseEntity {
                 ", email='" + email + '\'' +
                 ", role=" + role +
                 ", provider=" + provider +
-                ", profilePicture=" + Arrays.toString(profilePicture) +
-                ", coverPicture=" + Arrays.toString(coverPicture) +
                 ", password='" + password + '\'' +
                 '}';
     }
