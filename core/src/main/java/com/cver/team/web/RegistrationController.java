@@ -8,10 +8,7 @@ import com.cver.team.validation.UserRegistrationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
@@ -40,9 +37,11 @@ public class RegistrationController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public void registration(@ModelAttribute Person person,
+    public void registration(@RequestBody Person person,
                              HttpServletResponse httpServletResponse,
                              BindingResult bindingResult) {
+
+        System.out.println(person);
 
         userRegistrationValidator.validate(person, bindingResult);
 
