@@ -1,10 +1,9 @@
 package com.cver.team.services.impl;
 
 
-import com.cver.team.model.Address;
-import com.cver.team.model.Person;
-import com.cver.team.model.Provider;
-import com.cver.team.model.Role;
+import com.cver.team.model.*;
+import com.cver.team.persistence.AddressRepository;
+import com.cver.team.persistence.CertificateRepository;
 import com.cver.team.persistence.jena.AddressRepositoryJena;
 import com.cver.team.services.PersonService;
 import java.util.List;
@@ -20,52 +19,68 @@ public class UserInit {
     PersonService personService;
 
     @Autowired
-    AddressRepositoryJena addressRepositoryJena;
+    AddressRepository addressRepositoryJena;
+
+    @Autowired
+    CertificateRepository certificateRepository;
 
     @PostConstruct
     public void init() {
 
-        if(!personService.isEmailTaken("dimitar@linkedIn.com")) {
-            Person person = new Person();
-            person.setEmail("dimitar@linkedIn.com");
-            person.setProvider(Provider.LINKED);
-            person.setRole(Role.ROLE_USER);
+//        if(!personService.isEmailTaken("dimitar@test.com")) {
+//            Person person = new Person();
+//            person.setEmail("dimitar@linkedIn.com");
+//            person.setProvider(Provider.LINKED);
+//            person.setRole(Role.ROLE_USER);
+//
+//            personService.saveNewPerson(person);
+//        }
 
-            personService.saveNewPerson(person);
-        }
-
-        if(!personService.isEmailTaken("dimitar@local.com")) {
-            Person person2 = new Person();
-            person2.setEmail("dimitar@local.com");
-            person2.setPassword("password");
-            person2.setFirstName("Dimitar");
-            person2.setLastName("Spasovski");
-            person2.setProvider(Provider.LOCAL);
-            person2.setRole(Role.ROLE_USER);
-
-            personService.saveNewPerson(person2);
-        }
-
-        Person person = personService.getPersonByLoginEmailWithoutPassword("dimitar@local.com");
+//        if(!personService.isEmailTaken("ile@local.com")) {
+//            Person person2 = new Person();
+//            person2.setEmail("ile@local.com");
+//            person2.setFirstName("Ile");
+//            person2.setLastName("Ileski");
+//            person2.setProvider(Provider.LOCAL);
+//            person2.setRole(Role.ROLE_USER);
+//
+//            personService.saveNewPerson(person2);
+//        }
+//
+//        Person person = personService.getPersonByLoginEmailWithoutPassword("ile@local.com");
+//        Person dime = personService.getPersonByLoginEmailWithoutPassword("dimitar@local.com");
+//
 //        System.out.println("----------------------------------------");
-////        System.out.println(person.getPassword());
+//        System.out.println(person.getPassword());
 //        System.out.println(person.getEmail());
-//        System.out.println(person.getIdentifier().getId());
+//        System.out.println(person.getIdentifier().getURI());
 //        System.out.println(person.getProvider());
 //        System.out.println(person.getRole());
+//        System.out.println(person.getFirstName());
+//        System.out.println(person.getLastName());
 //        System.out.println("----------------------------------------");
-
-
-//        Address address = new Address();
-//        address.setCity("Tetovo");
-//        address.setStreet("Tetovska 123");
-//       // addressRepositoryJena.saveNewAddress(address,person);
 //
-//        List<Address> addresses = addressRepositoryJena.getAddressesForPerson(person);
-//
-//        for(Address ad : addresses) {
-//            System.out.println(ad.getCity()+" "+ad.getCountry()+" "+ad.getStreet());
-//        }
+//        Certificate certificate = new Certificate();
+//        certificate.setIssuerURI(dime.getIdentifier().getURI());
+//        certificate.setDescription("This is the best certificate evah!");
+//        certificate.setRecipientURI(person.getIdentifier().getURI());
+//        //certificateRepository.saveNewCertificate(certificate);
+////
+////
+////        Address address = new Address();
+////        address.setCountry("Serbia");
+////        address.setStreet("Beogradska 123");
+////       // addressRepositoryJena.saveNewAddress(address,person);
+////
+////        List<Address> addresses = addressRepositoryJena.getAddressesForPerson(person);
+////
+////        for(Address ad : addresses) {
+////            if(ad.getCountry() != null && ad.getCountry().equals("test@en")) {
+////                System.out.println("I AM IN DELETE !");
+////                addressRepositoryJena.deleteAddresss(ad);
+////            }
+////            System.out.println(ad.getIdentifier().getURI() + " " +ad.getCity()+" "+ad.getCountry()+" "+ad.getStreet());
+////        }
 
 
     }

@@ -21,7 +21,7 @@ import java.util.UUID;
 @Repository
 public class AddressRepositoryJena implements AddressRepository {
     @Override
-    public void saveNewAddress(Address address, Person owner) {
+    public Address saveNewAddress(Address address, Person owner) {
 
         String languageTag = "en";
 
@@ -63,6 +63,12 @@ public class AddressRepositoryJena implements AddressRepository {
         updateProcessor.execute();
 
         System.out.println("AN ADDRESS WAS SUCCESSFULLY CREATED !");
+
+        Identifier identifier = new Identifier();
+        identifier.setId(addressID);
+        identifier.setURI(ResourcePrefixes.ADDRESS_PREFIX + addressID);
+        address.setIdentifier(identifier);
+        return address;
 
     }
 
@@ -112,6 +118,7 @@ public class AddressRepositoryJena implements AddressRepository {
 
             Identifier identifier = new Identifier();
             identifier.setURI(currentEntry.get("addressURI").toString());
+            address.setIdentifier(identifier);
 
             if(currentEntry.get("city") != null)
             address.setCity(currentEntry.get("city").toString());
@@ -129,28 +136,32 @@ public class AddressRepositoryJena implements AddressRepository {
     }
 
     @Override
-    public void deleteAddresss(Address address) {
+    public Address deleteAddresss(Address address) {
 
         String languageTag = "en";
 
+
+
         ParameterizedSparqlString queryString = new ParameterizedSparqlString();
-        queryString.setCommandText("DELETE WHERE { " +
-            " ?userURI cvo:address ?addressURI . " +
-                    " OPTIONAL { " +
-                    "?addressURI cvo:city ?city ; " +
-                    "                    cvo:country ?country ; " +
-                    "                    cvo:street ?street . " +
-                    " FILTER (lang(?city) = '"+languageTag+"')\n" +
-                    " FILTER (lang(?country) = '"+languageTag+"')" +
-                    " FILTER (lang(?street) = '"+languageTag+"')"+
 
-                    "  } "+
+        queryString.setNsPrefix("cvo", SPARQLPrefix.cvo);
+        queryString.setNsPrefix("cver", SPARQLPrefix.cvr);
 
+        queryString.setCommandText("DELETE WHERE { \n" +
+                " ?addressURI ?p ?o . \n " +
+                " ?userURI cvo:address ?addressURI . " +
                     "}");
+
+        System.out.println(queryString.toString());
+
+        queryString.setIri("addressURI",address.getIdentifier().getURI());
+
 
         UpdateRequest updateRequest = UpdateFactory.create(queryString.toString());
         UpdateProcessor updateProcessor = UpdateExecutionFactory.createRemote(updateRequest, JenaPreferences.UpdateEndpoint);
         updateProcessor.execute();
+
+        return address;
 
     }
 }

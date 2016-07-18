@@ -15,6 +15,7 @@ import java.util.UUID;
 @Service
 public class PersonServiceImpl implements PersonService {
 
+
     @Autowired
     PersonRepository personRepository;
 
@@ -22,7 +23,7 @@ public class PersonServiceImpl implements PersonService {
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public void saveNewPerson(Person person) {
+    public Person saveNewPerson(Person person) {
 
         if(person.getPassword() != null)
         person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
@@ -30,7 +31,7 @@ public class PersonServiceImpl implements PersonService {
         person.setIdentifier(new Identifier());
         person.getIdentifier().setId(UUID.randomUUID().toString());
 
-        personRepository.savePerson(person);
+       return  personRepository.savePerson(person);
     }
 
     @Override
@@ -49,5 +50,10 @@ public class PersonServiceImpl implements PersonService {
         if(person != null)
         person.setPassword("");
         return person;
+    }
+
+    @Override
+    public Person deletePerson(Person person) {
+        return null;
     }
 }

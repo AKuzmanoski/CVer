@@ -22,7 +22,7 @@ import java.util.UUID;
 public class PersonRepositoryJena implements PersonRepository {
 
     @Override
-    public void savePerson(Person person) {
+    public Person savePerson(Person person) {
         String email = person.getEmail();
         String password = person.getPassword();
         String id = person.getIdentifier().getId();
@@ -34,6 +34,7 @@ public class PersonRepositoryJena implements PersonRepository {
         String loginEmailID = UUID.randomUUID().toString();
         String firstNameID = UUID.randomUUID().toString();
         String lastNameID = UUID.randomUUID().toString();
+
 
 
         ParameterizedSparqlString queryString = new ParameterizedSparqlString();
@@ -98,6 +99,12 @@ public class PersonRepositoryJena implements PersonRepository {
         UpdateProcessor updateProcessor = UpdateExecutionFactory.createRemote(updateRequest, JenaPreferences.UpdateEndpoint);
         updateProcessor.execute();
         System.out.println("UPDATE WAS SUCCESFULL");
+
+        Identifier identifier = new Identifier();
+        identifier.setURI(ResourcePrefixes.USER_PREFIX + id);
+        identifier.setId(id);
+        person.setIdentifier(identifier);
+        return person;
     }
 
     @Override
@@ -121,13 +128,17 @@ public class PersonRepositoryJena implements PersonRepository {
         queryString.setNsPrefix("cvo", SPARQLPrefix.cvo);
         queryString.setNsPrefix("cver", SPARQLPrefix.cvr);
 
-        queryString.setCommandText("SELECT  ?userID ?userPassword ?provider ?role \n" +
+        queryString.setCommandText("SELECT  ?userID ?userPassword ?provider ?role ?firstName ?lastName \n" +
                 " WHERE { " +
                 " ?user cvo:userID ?userID ; \n"+
                 " cvo:loginEmail ?email ;  \n" +
-                " cvo:role ?role ; \n" +
+                " cvo:role ?role ; \n " +
+                " cvo:defaultFirstName ?oFirstName ; \n " +
+                " cvo:defaultLastName ?oLastName ; \n " +
                 " cvo:provider ?provider . \n " +
                 " ?email cvo:mbox ?userEmail . \n " +
+                " ?oFirstName cvo:value ?firstName . \n " +
+                " ?oLastName cvo:value ?lastName . " +
                 " OPTIONAL  { ?user cvo:password ?userPassword . } \n "+
 
                 "}");
@@ -165,9 +176,19 @@ public class PersonRepositoryJena implements PersonRepository {
             person.setRole(Role.valueOf(role));
 
             person.setProvider(Provider.valueOf(provider));
+
+            person.setFirstName(currentEntry.get("firstName").toString());
+
+            person.setLastName(currentEntry.get("lastName").toString());
+
             return person;
         }
         else return null;
 
+    }
+
+    @Override
+    public Person deletePerson(Person person) {
+        return null;
     }
 }

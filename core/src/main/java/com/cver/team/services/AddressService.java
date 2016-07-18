@@ -1,16 +1,16 @@
-package com.cver.team.persistence;
+package com.cver.team.services;
 
 
 import com.cver.team.model.Address;
 import com.cver.team.model.Person;
+
 import java.util.List;
 
-public interface AddressRepository {
+public interface AddressService {
 
     Address saveNewAddress(Address address, Person owner);
 
     List<Address> getAddressesForPerson(Person person);
 
-    Address deleteAddresss(Address address);
-
+    Address deleteAddress(Address address);
 }
