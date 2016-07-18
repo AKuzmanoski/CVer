@@ -169,13 +169,11 @@ public class PersonRepositoryJena implements PersonRepository {
             String role = currentEntry.get("role").toString();
 
             String provider = currentEntry.get("provider").toString();
-
-            if(person.getProvider() == Provider.LOCAL)
+            person.setProvider(Provider.valueOf(provider));
+            if(Provider.LOCAL.equals(person.getProvider()))
             person.setPassword(currentEntry.get("userPassword").toString());
 
             person.setRole(Role.valueOf(role));
-
-            person.setProvider(Provider.valueOf(provider));
 
             person.setFirstName(currentEntry.get("firstName").toString());
 

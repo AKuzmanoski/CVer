@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.ServletException;
@@ -19,6 +20,7 @@ import java.io.IOException;
 /**
  * Created by Dimitar on 6/3/2016.
  */
+@Component
 public class LocalLoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
     @Autowired
@@ -29,7 +31,8 @@ public class LocalLoginSuccessHandler extends SavedRequestAwareAuthenticationSuc
 
         System.out.println("Successful login!");
 
-        Person user = personService.getPersonByLoginEmail(authentication.getName());
+        String name = authentication.getName();
+        Person user = personService.getPersonByLoginEmail(name);
         httpServletRequest.getSession().setAttribute("user",user);
 
         httpServletResponse.addHeader("Access-Control-Allow-Origin", StaticConstants.ANGULAR_APP_URL);
