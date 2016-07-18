@@ -37,7 +37,7 @@ public class RegistrationController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public void registration(@RequestBody Person person,
+    public Person registration(@RequestBody Person person,
                              HttpServletResponse httpServletResponse,
                              BindingResult bindingResult) {
 
@@ -49,11 +49,15 @@ public class RegistrationController {
 
             person.setProvider(Provider.LOCAL);
             person.setRole(Role.ROLE_USER);
-            personService.saveNewPerson(person);
+            person = personService.saveNewPerson(person);
+            person.setPassword("");
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+            return person;
 
-        } else
+        } else {
             httpServletResponse.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+            return null;
+        }
 
     }
 }
