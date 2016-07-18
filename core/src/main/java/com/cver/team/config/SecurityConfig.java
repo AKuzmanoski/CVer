@@ -81,7 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
               .passwordParameter("password")
               .loginProcessingUrl("/doLogin")
               .successHandler(localLoginSuccessHandler())
-              .failureHandler(localLoginFailureHandler());
+              .failureHandler(localLoginFailureHandler() );
 
 
         httpSecurity.authorizeRequests()
@@ -99,7 +99,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity.addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
         httpSecurity.addFilterAfter(oauth2AuthenticationFilter(), SessionManagementFilter.class);
-
+        String thiswillberemoved= "tesst";
 
 
     }
