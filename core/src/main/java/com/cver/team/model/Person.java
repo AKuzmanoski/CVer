@@ -1,25 +1,19 @@
 package com.cver.team.model;
 
-import com.cver.team.model.literal.Data;
-import com.cver.team.model.literal.Identifier;
-
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Created by User on 3/1/2016.
  */
-public class Person extends BaseEntity {
-    private Identifier account;
+public class Person extends Entity {
     private String firstName;
     private String lastName;
     private String email;
     private Role role;
     private Provider provider;
     private String profilePictureURL;
-    private String coverPictureURL;
+    private String password;
 
-    public Role getRole() { return role;
+    public Role getRole() {
+        return role;
     }
 
     public void setRole(Role role) {
@@ -50,16 +44,6 @@ public class Person extends BaseEntity {
         this.password = password;
     }
 
-    private String password;
-
-    public Identifier getAccount() {
-        return account;
-    }
-
-    public void setAccount(Identifier account) {
-        this.account = account;
-    }
-
     public String getLastName() {
         return lastName;
     }
@@ -76,11 +60,17 @@ public class Person extends BaseEntity {
         this.firstName = firstName;
     }
 
+    public String getProfilePictureURL() {
+        return profilePictureURL;
+    }
+
+    public void setProfilePictureURL(String profilePictureURL) {
+        this.profilePictureURL = profilePictureURL;
+    }
 
     @Override
     public String toString() {
         return "Person{" +
-                "account=" + account +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

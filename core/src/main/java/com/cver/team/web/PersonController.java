@@ -7,18 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/users")
 public class PersonController {
 
     @Autowired
     PersonService personService;
 
-    @ResponseBody
     @RequestMapping(method = RequestMethod.GET)
     public Person getUserByEmail(@RequestParam("email") String email) {
-
         Person person = personService.getPersonByLoginEmailWithoutPassword(email);
+        if (person == null)
+            throw new ResourceNotFoundException();
+        return person;
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Person getUserById(@PathVariable String id) {
+        Person person = personService.getPersonById(id);
         if (person == null)
             throw new ResourceNotFoundException();
         return person;

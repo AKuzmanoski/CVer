@@ -19,5 +19,6 @@ public class ExceptionHandlerController {
     public void handle(Exception e, HttpServletResponse response) throws IOException {
         if (e instanceof ResourceNotFoundException)
             response.sendError(HttpStatus.NOT_FOUND.value());
+        else e.printStackTrace();
     }
 }

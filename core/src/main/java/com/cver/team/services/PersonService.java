@@ -18,4 +18,5 @@ public interface PersonService {
     Person deletePerson(Person person);
 
 
+    Person getPersonById(String id);
 }

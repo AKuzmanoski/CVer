@@ -28,9 +28,6 @@ public class PersonServiceImpl implements PersonService {
         if(person.getPassword() != null)
         person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
 
-        person.setIdentifier(new Identifier());
-        person.getIdentifier().setId(UUID.randomUUID().toString());
-
        return  personRepository.savePerson(person);
     }
 
@@ -55,5 +52,13 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person deletePerson(Person person) {
         return null;
+    }
+
+    @Override
+    public Person getPersonById(String id) {
+        Person person = personRepository.getPersonById(id);
+        if (person != null)
+            person.setPassword("");
+        return person;
     }
 }
