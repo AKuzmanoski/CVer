@@ -70,12 +70,13 @@ public class Person extends Entity {
 
     @Override
     public String toString() {
-        return "Person{" +
-                ", firstName='" + firstName + '\'' +
+        return super.toString() + "Person{" +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", role=" + role +
                 ", provider=" + provider +
+                ", profilePictureURL='" + profilePictureURL + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

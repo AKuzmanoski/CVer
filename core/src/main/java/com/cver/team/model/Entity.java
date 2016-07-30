@@ -31,4 +31,13 @@ public class Entity extends BaseEntity {
     public void setCoverUrl(String coverUrl) {
         this.coverUrl = coverUrl;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "Entity{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", coverUrl='" + coverUrl + '\'' +
+                '}';
+    }
 }

@@ -40,4 +40,12 @@ public class BaseEntity {
     public void setIdentifier(Identifier identifier) {
         this.identifier = identifier;
     }
+
+    @Override
+    public String toString() {
+        return "BaseEntity{" +
+                "identifier=" + identifier +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }
