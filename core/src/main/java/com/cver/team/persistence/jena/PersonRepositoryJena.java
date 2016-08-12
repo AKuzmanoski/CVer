@@ -101,7 +101,7 @@ public class PersonRepositoryJena implements PersonRepository {
         queryString.setCommandText(queryRepository.getQuery(Queries.isEmailTaken));
         queryString.setLiteral("email", email);
 
-        Query query = QueryFactory.create(queryString.asQuery());
+        Query query = queryString.asQuery();
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query);
         return queryExecution.execAsk();
     }

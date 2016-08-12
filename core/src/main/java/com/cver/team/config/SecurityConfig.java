@@ -91,8 +91,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-        httpSecurity.csrf()
-              .csrfTokenRepository(csrfTokenRepository());
+        /*httpSecurity.csrf()
+              .csrfTokenRepository(csrfTokenRepository());*/
+        httpSecurity.csrf().disable();
 
         httpSecurity.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
 

@@ -11,9 +11,7 @@ import com.cver.team.model.literal.Identifier;
  * @since 1/17/2016
  */
 public class BaseEntity {
-
     private Identifier identifier;
-
     private String type;
 
 
