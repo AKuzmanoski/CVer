@@ -28,7 +28,7 @@ public class BaseEntity {
     }
 
     public BaseEntity() {
-
+        type = getClass().getSimpleName();
     }
 
     public Identifier getIdentifier() {
