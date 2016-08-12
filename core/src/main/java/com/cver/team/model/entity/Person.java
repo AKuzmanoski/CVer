@@ -1,9 +1,11 @@
-package com.cver.team.model;
+package com.cver.team.model.entity;
+
+import com.cver.team.model.*;
 
 /**
  * Created by User on 3/1/2016.
  */
-public class Person extends Entity {
+public class Person extends com.cver.team.model.Entity {
     private String firstName;
     private String lastName;
     private String email;

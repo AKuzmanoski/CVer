@@ -1,6 +1,7 @@
 package com.cver.team.model;
 
-import java.time.LocalDate;
+import com.cver.team.model.data.Experience;
+import com.cver.team.model.externalresource.Degree;
 
 /**
  * Created by Dimitar on 7/5/2016.

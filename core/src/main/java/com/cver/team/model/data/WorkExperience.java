@@ -1,4 +1,6 @@
-package com.cver.team.model;
+package com.cver.team.model.data;
+
+import com.cver.team.model.externalresource.Position;
 
 /**
  * Created by Dimitar on 7/7/2016.

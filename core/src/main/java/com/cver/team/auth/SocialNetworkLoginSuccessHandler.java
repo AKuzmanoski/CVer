@@ -1,7 +1,7 @@
 package com.cver.team.auth;
 
 import com.cver.team.config.StaticConstants;
-import com.cver.team.model.Person;
+import com.cver.team.model.entity.Person;
 import com.cver.team.model.Provider;
 import com.cver.team.model.Role;
 import com.cver.team.services.SocialNetworkService;

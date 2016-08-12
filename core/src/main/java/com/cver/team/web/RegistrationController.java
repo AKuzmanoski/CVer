@@ -1,6 +1,6 @@
 package com.cver.team.web;
 
-import com.cver.team.model.Person;
+import com.cver.team.model.entity.Person;
 import com.cver.team.model.Provider;
 import com.cver.team.model.Role;
 import com.cver.team.services.PersonService;

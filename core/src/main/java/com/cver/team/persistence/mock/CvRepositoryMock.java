@@ -1,6 +1,6 @@
 package com.cver.team.persistence.mock;
 
-import com.cver.team.model.Cv;
+import com.cver.team.model.entity.Cv;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.impl.SimpleLog;
 import org.springframework.stereotype.Repository;

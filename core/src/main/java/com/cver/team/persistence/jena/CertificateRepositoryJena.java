@@ -1,7 +1,7 @@
 package com.cver.team.persistence.jena;
 
-import com.cver.team.model.Certificate;
-import com.cver.team.model.Person;
+import com.cver.team.model.data.Certificate;
+import com.cver.team.model.entity.Person;
 import com.cver.team.model.literal.Identifier;
 import com.cver.team.persistence.CertificateRepository;
 import com.cver.team.persistence.jena.helper.JenaPreferences;

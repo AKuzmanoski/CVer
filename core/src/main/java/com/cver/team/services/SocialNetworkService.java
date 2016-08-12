@@ -1,6 +1,6 @@
 package com.cver.team.services;
 
-import com.cver.team.model.Person;
+import com.cver.team.model.entity.Person;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 
 /**

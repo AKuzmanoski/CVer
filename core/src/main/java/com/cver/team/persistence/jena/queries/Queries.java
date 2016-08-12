@@ -6,5 +6,8 @@ package com.cver.team.persistence.jena.queries;
 public enum Queries {
     getPersonByEmail,
     isEmailTaken,
-    insertPerson
+    insertPerson,
+    saveNewAddress,
+    getAddressesForPerson,
+    deleteAddress
 }

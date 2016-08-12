@@ -1,6 +1,6 @@
 package com.cver.team.services.impl;
 
-import com.cver.team.model.Person;
+import com.cver.team.model.entity.Person;
 import com.cver.team.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

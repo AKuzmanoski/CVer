@@ -1,7 +1,6 @@
 package com.cver.team.model.helper;
 
-import com.cver.team.model.Cv;
-import com.cver.team.model.literal.Identifier;
+import com.cver.team.model.entity.Cv;
 
 /**
  * Created by User on 2/14/2016.

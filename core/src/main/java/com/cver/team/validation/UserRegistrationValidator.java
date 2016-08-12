@@ -1,11 +1,9 @@
 package com.cver.team.validation;
 
-import com.cver.team.model.Person;
-import com.cver.team.persistence.PersonRepository;
+import com.cver.team.model.entity.Person;
 import com.cver.team.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;

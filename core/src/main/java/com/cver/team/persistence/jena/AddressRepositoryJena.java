@@ -1,7 +1,7 @@
 package com.cver.team.persistence.jena;
 
-import com.cver.team.model.Address;
-import com.cver.team.model.Person;
+import com.cver.team.model.data.Address;
+import com.cver.team.model.entity.Person;
 import com.cver.team.model.literal.Identifier;
 import com.cver.team.persistence.AddressRepository;
 import com.cver.team.persistence.jena.helper.JenaPreferences;

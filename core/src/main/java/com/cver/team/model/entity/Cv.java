@@ -1,5 +1,10 @@
-package com.cver.team.model;
+package com.cver.team.model.entity;
 
+import com.cver.team.model.BaseEntity;
+import com.cver.team.model.data.Certificate;
+import com.cver.team.model.data.Experience;
+
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -12,15 +17,15 @@ import java.util.List;
  * @version 1.0
  * @since 1/17/2016
  */
-public class Cv extends BaseEntity {
+public class Cv extends Document {
 
+    private LocalDate dateOfBirth;
     private String firstName;
     private String lastName;
     private List<String> addresses;
     private String personURI;
-    private List<String> emails;
     private List<Certificate> certificates;
-    private List<Experience> experiences;
+
 
 
     public Cv(String firstName, String lastName) {
@@ -68,13 +73,6 @@ public class Cv extends BaseEntity {
         this.addresses = addresses;
     }
 
-    public List<String> getEmails() {
-        return emails;
-    }
-
-    public void setEmails(List<String> emails) {
-        this.emails = emails;
-    }
 
     public List<Certificate> getCertificates() {
         return certificates;
@@ -84,13 +82,6 @@ public class Cv extends BaseEntity {
         this.certificates = certificates;
     }
 
-    public List<Experience> getExperiences() {
-        return experiences;
-    }
-
-    public void setExperiences(List<Experience> experiences) {
-        this.experiences = experiences;
-    }
 
     @Override
     public String toString() {

@@ -1,6 +1,6 @@
 package com.cver.team.web;
 
-import com.cver.team.model.Cv;
+import com.cver.team.model.entity.Cv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

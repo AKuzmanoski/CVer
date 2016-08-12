@@ -1,12 +1,11 @@
 package com.cver.team.persistence.jena;
 
-import com.cver.team.model.Person;
+import com.cver.team.model.entity.Person;
 import com.cver.team.model.literal.Identifier;
 import com.cver.team.persistence.PersonRepository;
 import com.cver.team.persistence.helper.MailEncoder;
 import com.cver.team.persistence.helper.URIMaker;
 import com.cver.team.persistence.jena.helper.JenaPreferences;
-import com.cver.team.persistence.jena.helper.ResourcePrefixes;
 import com.cver.team.persistence.jena.namespaces.CVR;
 import com.cver.team.persistence.jena.objectMappers.PersonObjectMapper;
 import com.cver.team.persistence.jena.queries.Queries;
@@ -14,19 +13,10 @@ import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.update.UpdateExecutionFactory;
-import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import org.apache.jena.update.UpdateRequest;
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Repository;
-
-import javax.annotation.PostConstruct;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.UUID;
 
 
 @Repository

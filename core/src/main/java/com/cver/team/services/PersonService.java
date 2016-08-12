@@ -1,6 +1,6 @@
 package com.cver.team.services;
 
-import com.cver.team.model.Person;
+import com.cver.team.model.entity.Person;
 
 /**
  * Created by Dimitar on 6/29/2016.

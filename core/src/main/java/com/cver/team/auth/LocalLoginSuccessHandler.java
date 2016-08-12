@@ -2,17 +2,14 @@ package com.cver.team.auth;
 
 import com.cver.team.config.StaticConstants;
 import com.cver.team.filters.helper.CsrfCookieAddingHelper;
-import com.cver.team.model.Person;
+import com.cver.team.model.entity.Person;
 import com.cver.team.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Component;
-import org.springframework.web.util.WebUtils;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

@@ -2,11 +2,10 @@ package com.cver.team.services.impl;
 
 
 import com.cver.team.model.*;
+import com.cver.team.model.entity.Person;
 import com.cver.team.persistence.AddressRepository;
 import com.cver.team.persistence.CertificateRepository;
-import com.cver.team.persistence.jena.AddressRepositoryJena;
 import com.cver.team.services.PersonService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,14 +26,15 @@ public class UserInit {
     @PostConstruct
     public void init() {
 
-//        if(!personService.isEmailTaken("dimitar@test.com")) {
-//            Person person = new Person();
-//            person.setEmail("dimitar@linkedIn.com");
-//            person.setProvider(Provider.LINKED);
-//            person.setRole(Role.ROLE_USER);
-//
-//            personService.saveNewPerson(person);
-//        }
+        if(!personService.isEmailTaken("dimitar@wow.com")) {
+            Person person = new Person();
+            person.setEmail("dimitar@wow.com");
+            person.setProvider(Provider.LINKED);
+            person.setRole(Role.ROLE_USER);
+            person.setFirstName("TestIme");
+            person.setLastName("TestPrezime");
+            personService.saveNewPerson(person);
+        }
 
 //        if(!personService.isEmailTaken("ile@local.com")) {
 //            Person person2 = new Person();

@@ -1,6 +1,6 @@
 package com.cver.team.services;
 
-import com.cver.team.model.Cv;
+import com.cver.team.model.entity.Cv;
 
 import java.util.List;
 

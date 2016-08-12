@@ -1,6 +1,6 @@
 package com.cver.team.services.impl;
 
-import com.cver.team.model.Person;
+import com.cver.team.model.entity.Person;
 import com.cver.team.services.SocialNetworkService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;

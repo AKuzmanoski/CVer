@@ -1,15 +1,11 @@
 package com.cver.team.services.impl;
 
-import com.cver.team.model.Person;
-import com.cver.team.model.literal.Identifier;
+import com.cver.team.model.entity.Person;
 import com.cver.team.persistence.PersonRepository;
 import com.cver.team.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
-
 
 
 @Service

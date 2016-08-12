@@ -1,6 +1,6 @@
 package com.cver.team.services.impl;
 
-import com.cver.team.model.Cv;
+import com.cver.team.model.entity.Cv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;

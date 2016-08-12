@@ -1,6 +1,6 @@
 package com.cver.team.persistence;
 
-import com.cver.team.model.Template;
+import com.cver.team.model.entity.Template;
 
 /**
  * Created by Dimitar on 2/28/2016.

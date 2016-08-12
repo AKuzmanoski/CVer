@@ -1,6 +1,6 @@
 package com.cver.team.persistence.jena;
 
-import com.cver.team.model.Template;
+import com.cver.team.model.entity.Template;
 import org.apache.jena.query.*;
 import org.springframework.stereotype.Repository;
 import com.cver.team.persistence.TemplateRepository;

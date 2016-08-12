@@ -1,8 +1,8 @@
 package com.cver.team.services.impl;
 
 
-import com.cver.team.model.Address;
-import com.cver.team.model.Person;
+import com.cver.team.model.data.Address;
+import com.cver.team.model.entity.Person;
 import com.cver.team.persistence.AddressRepository;
 import com.cver.team.services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;

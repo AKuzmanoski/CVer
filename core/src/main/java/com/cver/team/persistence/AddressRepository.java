@@ -1,8 +1,8 @@
 package com.cver.team.persistence;
 
 
-import com.cver.team.model.Address;
-import com.cver.team.model.Person;
+import com.cver.team.model.data.Address;
+import com.cver.team.model.entity.Person;
 import java.util.List;
 
 public interface AddressRepository {

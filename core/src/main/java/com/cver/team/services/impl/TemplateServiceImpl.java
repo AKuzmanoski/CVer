@@ -4,7 +4,7 @@
 
 package com.cver.team.services.impl;
 
-import com.cver.team.model.Template;
+import com.cver.team.model.entity.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

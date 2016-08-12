@@ -1,6 +1,6 @@
 package com.cver.team.persistence;
 
-import com.cver.team.model.Person;
+import com.cver.team.model.entity.Person;
 
 
 public interface PersonRepository {

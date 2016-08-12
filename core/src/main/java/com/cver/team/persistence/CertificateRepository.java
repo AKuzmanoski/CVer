@@ -1,7 +1,7 @@
 package com.cver.team.persistence;
 
-import com.cver.team.model.Certificate;
-import com.cver.team.model.Person;
+import com.cver.team.model.data.Certificate;
+import com.cver.team.model.entity.Person;
 import com.github.andrewoma.dexx.collection.List;
 
 
