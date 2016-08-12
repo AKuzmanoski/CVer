@@ -1,9 +1,11 @@
 package com.cver.team.model.externalresource;
 
+import com.cver.team.model.BaseEntity;
+
 /**
  * Created by Dimitar on 8/12/2016.
  */
-public class ExternalResource {
+public class ExternalResource extends BaseEntity {
 
    private String name;
 

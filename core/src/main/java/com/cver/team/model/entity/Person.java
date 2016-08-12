@@ -5,14 +5,23 @@ import com.cver.team.model.*;
 /**
  * Created by User on 3/1/2016.
  */
-public class Person extends com.cver.team.model.Entity {
+public class Person extends Entity {
     private String firstName;
     private String lastName;
     private String email;
     private Role role;
     private Provider provider;
     private String profilePictureURL;
+    private String coverPictureURL;
     private String password;
+
+    public String getCoverPictureURL() {
+        return coverPictureURL;
+    }
+
+    public void setCoverPictureURL(String coverPictureURL) {
+        this.coverPictureURL = coverPictureURL;
+    }
 
     public Role getRole() {
         return role;

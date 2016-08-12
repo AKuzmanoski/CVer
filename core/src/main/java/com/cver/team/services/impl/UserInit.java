@@ -26,15 +26,15 @@ public class UserInit {
     @PostConstruct
     public void init() {
 
-        if(!personService.isEmailTaken("dimitar@wow.com")) {
-            Person person = new Person();
-            person.setEmail("dimitar@wow.com");
-            person.setProvider(Provider.LINKED);
-            person.setRole(Role.ROLE_USER);
-            person.setFirstName("TestIme");
-            person.setLastName("TestPrezime");
-            personService.saveNewPerson(person);
-        }
+//        if(!personService.isEmailTaken("dimitar@wow.com")) {
+//            Person person = new Person();
+//            person.setEmail("dimitar@wow.com");
+//            person.setProvider(Provider.LINKED);
+//            person.setRole(Role.ROLE_USER);
+//            person.setFirstName("TestIme");
+//            person.setLastName("TestPrezime");
+//            personService.saveNewPerson(person);
+//        }
 
 //        if(!personService.isEmailTaken("ile@local.com")) {
 //            Person person2 = new Person();

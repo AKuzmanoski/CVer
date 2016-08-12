@@ -1,9 +1,11 @@
 package com.cver.team.model.tag;
 
+import com.cver.team.model.BaseEntity;
+
 /**
  * Created by Dimitar on 8/12/2016.
  */
-public class Tag {
+public class Tag extends BaseEntity {
 
     private boolean isPublic;
 

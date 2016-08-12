@@ -1,5 +1,6 @@
 package com.cver.team.model.entity;
 
+import com.cver.team.model.BaseEntity;
 import com.cver.team.model.data.Media;
 
 import java.time.LocalDateTime;
@@ -7,7 +8,7 @@ import java.time.LocalDateTime;
 /**
  * Created by Dimitar on 8/12/2016.
  */
-public class Entity {
+public class Entity extends BaseEntity {
 
     private Media cover;
 

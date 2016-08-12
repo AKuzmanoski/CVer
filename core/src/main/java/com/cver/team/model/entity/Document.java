@@ -23,7 +23,7 @@ public class Document extends Entity {
 
     private String imageURL;
 
-    private String telephoneNumber;
+    private List<String> telephoneNumbers;
 
     private Template template;
 
@@ -97,14 +97,6 @@ public class Document extends Entity {
         this.imageURL = imageURL;
     }
 
-    public String getTelephoneNumber() {
-        return telephoneNumber;
-    }
-
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
-    }
-
     public Template getTemplate() {
         return template;
     }
@@ -127,5 +119,13 @@ public class Document extends Entity {
 
     public void setValueProposition(String valueProposition) {
         this.valueProposition = valueProposition;
+    }
+
+    public List<String> getTelephoneNumbers() {
+        return telephoneNumbers;
+    }
+
+    public void setTelephoneNumbers(List<String> telephoneNumbers) {
+        this.telephoneNumbers = telephoneNumbers;
     }
 }

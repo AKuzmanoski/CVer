@@ -1,7 +1,5 @@
 package com.cver.team.model.entity;
 
-import com.cver.team.model.Field;
-import com.cver.team.model.data.Experience;
 import com.cver.team.model.tag.ProjectTag;
 import com.github.andrewoma.dexx.collection.List;
 
@@ -11,8 +9,6 @@ import com.github.andrewoma.dexx.collection.List;
     public class Project extends Entity {
 
     private String externalLink;
-
-    private Field field;
 
     private ProjectTag projectTag;
 
@@ -40,14 +36,6 @@ import com.github.andrewoma.dexx.collection.List;
 
     public void setExternalLink(String externalLink) {
         this.externalLink = externalLink;
-    }
-
-    public Field getField() {
-        return field;
-    }
-
-    public void setField(Field field) {
-        this.field = field;
     }
 
 }

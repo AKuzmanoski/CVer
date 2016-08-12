@@ -1,11 +1,11 @@
-package com.cver.team.model;
+package com.cver.team.model.externalresource;
 
 import java.time.LocalDate;
 
 /**
  * Created by Dimitar on 7/7/2016.
  */
-public class Period {
+public class Period extends ExternalResource {
 
     private LocalDate startDate;
 

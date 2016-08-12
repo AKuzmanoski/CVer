@@ -1,8 +1,8 @@
 package com.cver.team.model.data;
 
-import com.cver.team.model.Entity;
-import com.cver.team.model.Period;
-import com.cver.team.model.SourceHolder;
+import com.cver.team.model.entity.Entity;
+import com.cver.team.model.externalresource.Period;
+
 
 /**
  * Created by Dimitar on 7/4/2016.

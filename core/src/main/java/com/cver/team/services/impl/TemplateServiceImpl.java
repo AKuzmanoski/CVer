@@ -28,26 +28,26 @@ public class TemplateServiceImpl implements TemplateService {
 
 
     public Map getTemplateByName(String name) {
-        Template template = templateRepository.getTemplateByName(name);
-        System.err.println("The template name is : "+ template.getName());
-        File defaultTemplate = new File( servletContext.getRealPath(template.getLocation()));
-        try {
-            BufferedReader br = new BufferedReader( new FileReader(defaultTemplate));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while((line = br.readLine()) != null)
-            {
-
-                sb.append(line);
-            }
-
-            return Collections.singletonMap("response",sb.toString());
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        Template template = templateRepository.getTemplateByName(name);
+//        System.err.println("The template name is : "+ template.getName());
+//        File defaultTemplate = new File( servletContext.getRealPath(template.getLocation()));
+//        try {
+//            BufferedReader br = new BufferedReader( new FileReader(defaultTemplate));
+//            StringBuilder sb = new StringBuilder();
+//            String line;
+//            while((line = br.readLine()) != null)
+//            {
+//
+//                sb.append(line);
+//            }
+//
+//            return Collections.singletonMap("response",sb.toString());
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
         return null;

@@ -2,7 +2,7 @@ package com.cver.team.model.data;
 
 import com.cver.team.model.entity.Template;
 import com.cver.team.model.entity.Agent;
-import com.cver.team.model.Entity;
+import com.cver.team.model.entity.Entity;
 import com.cver.team.model.tag.CertificateTag;
 
 import java.util.List;

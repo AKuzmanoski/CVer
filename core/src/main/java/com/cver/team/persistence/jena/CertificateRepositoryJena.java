@@ -26,49 +26,49 @@ public class CertificateRepositoryJena implements CertificateRepository {
 
         String language = "en";
 
-        String personURI = certificate.getRecipientURI();
-        String certificateType = certificate.getCertificateType();
-        String description = certificate.getDescription();
-        String issuerURI = certificate.getIssuerURI();
-        String certificateID = UUID.randomUUID().toString();
-        String certificateURI = ResourcePrefixes.CERTIFICATE_PREFIX+certificateID;
-
-        ParameterizedSparqlString queryString = new ParameterizedSparqlString();
-
-        queryString.setNsPrefix("cver", SPARQLPrefix.cvr);
-        queryString.setNsPrefix("cvo", SPARQLPrefix.cvo);
-
-        queryString.setCommandText("INSERT { \n " +
-                " ?personURI cvo:hasCertificate ?certificate . \n " +
-                " ?certificate cvo:description ?desc ; \n " +
-                "              cvo:issuer ?issuerURI ; \n " +
-                "              cvo:recipient ?personURI . \n" +
-                " } WHERE { } "
-
-        );
-
-
-
-        queryString.setIri("personURI",personURI);
-
-        if(description != null)
-        queryString.setLiteral("?desc",description,language);
-
-        if(issuerURI != null)
-        queryString.setIri("?issuerURI",issuerURI);
-
-        queryString.setIri("certificate",certificateURI);
-
-        System.out.println(queryString.toString());
-
-        UpdateRequest updateRequest = UpdateFactory.create(queryString.toString());
-        UpdateProcessor updateProcessor = UpdateExecutionFactory.createRemote(updateRequest, JenaPreferences.UpdateEndpoint);
-        updateProcessor.execute();
-
-        Identifier identifier = new Identifier();
-        identifier.setId(certificateID);
-        identifier.setURI(certificateURI);
-        certificate.setIdentifier(identifier);
+//        String personURI = certificate.getRecipientURI();
+//        String certificateType = certificate.getCertificateType();
+//        String description = certificate.getDescription();
+//        String issuerURI = certificate.getIssuerURI();
+//        String certificateID = UUID.randomUUID().toString();
+//        String certificateURI = ResourcePrefixes.CERTIFICATE_PREFIX+certificateID;
+//
+//        ParameterizedSparqlString queryString = new ParameterizedSparqlString();
+//
+//        queryString.setNsPrefix("cver", SPARQLPrefix.cvr);
+//        queryString.setNsPrefix("cvo", SPARQLPrefix.cvo);
+//
+//        queryString.setCommandText("INSERT { \n " +
+//                " ?personURI cvo:hasCertificate ?certificate . \n " +
+//                " ?certificate cvo:description ?desc ; \n " +
+//                "              cvo:issuer ?issuerURI ; \n " +
+//                "              cvo:recipient ?personURI . \n" +
+//                " } WHERE { } "
+//
+//        );
+//
+//
+//
+//        queryString.setIri("personURI",personURI);
+//
+//        if(description != null)
+//        queryString.setLiteral("?desc",description,language);
+//
+//        if(issuerURI != null)
+//        queryString.setIri("?issuerURI",issuerURI);
+//
+//        queryString.setIri("certificate",certificateURI);
+//
+//        System.out.println(queryString.toString());
+//
+//        UpdateRequest updateRequest = UpdateFactory.create(queryString.toString());
+//        UpdateProcessor updateProcessor = UpdateExecutionFactory.createRemote(updateRequest, JenaPreferences.UpdateEndpoint);
+//        updateProcessor.execute();
+//
+//        Identifier identifier = new Identifier();
+//        identifier.setId(certificateID);
+//        identifier.setURI(certificateURI);
+//        certificate.setIdentifier(identifier);
         return certificate;
     }
 

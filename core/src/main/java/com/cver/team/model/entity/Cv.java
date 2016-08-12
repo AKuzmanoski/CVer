@@ -1,8 +1,6 @@
 package com.cver.team.model.entity;
 
-import com.cver.team.model.BaseEntity;
 import com.cver.team.model.data.Certificate;
-import com.cver.team.model.data.Experience;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,7 +21,7 @@ public class Cv extends Document {
     private String firstName;
     private String lastName;
     private List<String> addresses;
-    private String personURI;
+    private Person owner;
     private List<Certificate> certificates;
 
 
@@ -55,14 +53,20 @@ public class Cv extends Document {
         this.lastName = lastName;
     }
 
-
-
-    public String getPersonURI() {
-        return personURI;
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setPersonURI(String personURI) {
-        this.personURI = personURI;
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
     }
 
     public List<String> getAddresses() {

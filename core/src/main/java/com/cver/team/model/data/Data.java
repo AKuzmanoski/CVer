@@ -1,5 +1,6 @@
 package com.cver.team.model.data;
 
+import com.cver.team.model.BaseEntity;
 import com.cver.team.model.entity.Agent;
 
 import java.time.LocalDateTime;
@@ -7,7 +8,7 @@ import java.time.LocalDateTime;
 /**
  * Created by Dimitar on 8/12/2016.
  */
-public class Data {
+public class Data extends BaseEntity {
 
     private LocalDateTime creationDate;
 
