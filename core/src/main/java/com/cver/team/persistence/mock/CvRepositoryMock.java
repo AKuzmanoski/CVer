@@ -18,7 +18,7 @@ import java.util.List;
 @Repository
 public class CvRepositoryMock implements CvRepository {
     public Cv getCv(Long id) {
-        return new Cv("Aleksandar", "Kuzmanoski");
+        return new Cv();
     }
 
     public Cv createCv(Cv cv) {

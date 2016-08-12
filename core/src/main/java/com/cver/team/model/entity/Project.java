@@ -1,34 +1,11 @@
 package com.cver.team.model.entity;
 
-import com.cver.team.model.tag.ProjectTag;
-import com.github.andrewoma.dexx.collection.List;
-
 /**
  * Created by Dimitar on 7/7/2016.
  */
-    public class Project extends Entity {
+    public class Project extends EntityImpl implements Association {
 
     private String externalLink;
-
-    private ProjectTag projectTag;
-
-    public ProjectTag getProjectTag() {
-        return projectTag;
-    }
-
-    public void setProjectTag(ProjectTag projectTag) {
-        this.projectTag = projectTag;
-    }
-
-    public List<Person> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<Person> members) {
-        this.members = members;
-    }
-
-    private List<Person> members;
 
     public String getExternalLink() {
         return externalLink;

@@ -1,55 +1,34 @@
 package com.cver.team.model.data;
 
+import com.cver.team.model.data.string.ValueProposition;
+import com.cver.team.model.entity.Document;
 import com.cver.team.model.entity.Template;
 import com.cver.team.model.entity.Agent;
-import com.cver.team.model.entity.Entity;
-import com.cver.team.model.tag.CertificateTag;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * Created by Dimitar on 7/4/2016.
  */
-public class Certificate extends Entity {
-
-    private CertificateTag certificateTag;
+public class Certificate extends Data implements Document {
 
     private Agent issuer;
-
     private Agent recipient;
+    private LocalDateTime issuedDate;
 
     //fields from Document
-
-    private Address address;
-
-    private City city;
-
-    private Country country;
-
-    private List<Data> data;
-
-    private List<Experience> experiences;
-
-    private Email email;
-
-    private String imageURL;
-
-    private String telephoneNumber;
-
     private Template template;
+    private String title;
+    private ValueProposition valueProposition;
+    private Expertise forExpertise;
 
-    private String videoURL;
+    // Entity fields
+    private String coverPictureUrl;
+    private String description;
+    private String name;
+    private boolean isPublic;
 
-    private String valueProposition;
-
-
-    public CertificateTag getCertificateTag() {
-        return certificateTag;
-    }
-
-    public void setCertificateTag(CertificateTag certificateTag) {
-        this.certificateTag = certificateTag;
-    }
 
     public Agent getIssuer() {
         return issuer;
@@ -67,92 +46,88 @@ public class Certificate extends Entity {
         this.recipient = recipient;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-    public List<Data> getData() {
-        return data;
-    }
-
-    public void setData(List<Data> data) {
-        this.data = data;
-    }
-
-    public List<Experience> getExperiences() {
-        return experiences;
-    }
-
-    public void setExperiences(List<Experience> experiences) {
-        this.experiences = experiences;
-    }
-
-    public Email getEmail() {
-        return email;
-    }
-
-    public void setEmail(Email email) {
-        this.email = email;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
-    public String getValueProposition() {
-        return valueProposition;
-    }
-
-    public void setValueProposition(String valueProposition) {
-        this.valueProposition = valueProposition;
-    }
-
-    public String getVideoURL() {
-        return videoURL;
-    }
-
-    public void setVideoURL(String videoURL) {
-        this.videoURL = videoURL;
-    }
-
+    @Override
     public Template getTemplate() {
         return template;
     }
 
+    @Override
     public void setTemplate(Template template) {
         this.template = template;
     }
 
-    public String getTelephoneNumber() {
-        return telephoneNumber;
+    @Override
+    public String getTitle() {
+        return title;
     }
 
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
+    @Override
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @Override
+    public ValueProposition getValueProposition() {
+        return valueProposition;
+    }
+
+    @Override
+    public void setValueProposition(ValueProposition valueProposition) {
+        this.valueProposition = valueProposition;
+    }
+
+    public Expertise getForExpertise() {
+        return forExpertise;
+    }
+
+    public void setForExpertise(Expertise forExpertise) {
+        this.forExpertise = forExpertise;
+    }
+
+    public String getCoverPictureUrl() {
+        return coverPictureUrl;
+    }
+
+    public void setCoverPictureUrl(String coverPictureUrl) {
+        this.coverPictureUrl = coverPictureUrl;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    @Override
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
+    }
+
+    public LocalDateTime getIssuedDate() {
+        return issuedDate;
+    }
+
+    public void setIssuedDate(LocalDateTime issuedDate) {
+        this.issuedDate = issuedDate;
     }
 }
 

@@ -9,28 +9,6 @@ public class Location extends Data {
 
     private Double latitude;
 
-    private String postalCode;
-
-    private String name;
-
-    private String description;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Double getLongitude() {
         return longitude;
     }
@@ -47,11 +25,4 @@ public class Location extends Data {
         this.latitude = latitude;
     }
 
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
 }

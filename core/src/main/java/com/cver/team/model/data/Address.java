@@ -3,25 +3,25 @@ package com.cver.team.model.data;
 
 public class Address extends Location {
 
-    private String city;
+    private City city;
 
-    private String country;
+    private Country country;
 
     private String street;
 
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 

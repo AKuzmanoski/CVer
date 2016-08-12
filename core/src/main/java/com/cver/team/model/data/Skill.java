@@ -4,11 +4,14 @@ import com.cver.team.model.externalresource.SkillResource;
 
 
 
-public class Skill extends Data {
+public class Skill extends Expertise {
+    private SkillResource resource;
 
-    private Experience acquiredFrom;
+    public SkillResource getResource() {
+        return resource;
+    }
 
-    private SkillResource resourceInfo;
-
-
+    public void setResource(SkillResource resource) {
+        this.resource = resource;
+    }
 }

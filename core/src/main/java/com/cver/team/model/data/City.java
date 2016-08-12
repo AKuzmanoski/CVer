@@ -2,13 +2,13 @@ package com.cver.team.model.data;
 
 
 public class City extends Location {
- private String city;
+    private String postalCode;
 
-    public String getCity() {
-        return city;
+    public String getPostalCode() {
+        return postalCode;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 }

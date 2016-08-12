@@ -1,11 +1,11 @@
-package com.cver.team.model.tag;
+package com.cver.team.model.externalresource.tag;
 
-import com.cver.team.model.BaseEntity;
+import com.cver.team.model.externalresource.ExternalResource;
 
 /**
  * Created by Dimitar on 8/12/2016.
  */
-public class Tag extends BaseEntity {
+public class Tag extends ExternalResource {
 
     private boolean isPublic;
 

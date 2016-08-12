@@ -66,12 +66,12 @@ public class PersonObjectMapper {
         // Profile Picture
         statement = resource.getProperty(CVO.getProperty("profilePicture"));
         if (statement != null)
-            person.setProfilePictureURL(statement.getObject().asLiteral().getString());
+            person.setProfilePictureUrl(statement.getObject().asLiteral().getString());
 
         // Profile Picture
         statement = resource.getProperty(CVO.getProperty("cover"));
         if (statement != null)
-            person.setCoverPictureURL(statement.getObject().asLiteral().getString());
+            person.setCoverPictureUrl(statement.getObject().asLiteral().getString());
 
         person.setType("Person");
 

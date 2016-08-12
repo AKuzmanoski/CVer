@@ -1,6 +1,9 @@
 package com.cver.team.model.entity;
 
-import com.cver.team.model.data.Certificate;
+import com.cver.team.model.data.*;
+import com.cver.team.model.data.string.FirstName;
+import com.cver.team.model.data.string.LastName;
+import com.cver.team.model.data.string.TelephoneNumber;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,49 +18,69 @@ import java.util.List;
  * @version 1.0
  * @since 1/17/2016
  */
-public class Cv extends Document {
+public class Cv extends DocumentImpl {
 
-    private LocalDate dateOfBirth;
-    private String firstName;
-    private String lastName;
-    private List<String> addresses;
+    private Date dateOfBirth;
+    private FirstName firstName;
+    private LastName lastName;
+    private Image image;
+    private List<Location> locations;
     private Person owner;
     private List<Certificate> certificates;
-
-
-
-    public Cv(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-
+    private List<Email> emails;
+    private List<TelephoneNumber> telephoneNumbers;
+    private List<Skill> skills;
+    private List<Experience> experiences;
 
     public Cv() {
 
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public List<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(List<Location> locations) {
+        this.locations = locations;
+    }
+
+    public List<Email> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(List<Email> emails) {
+        this.emails = emails;
+    }
+
+    public void setFirstName(FirstName firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(LastName lastName) {
+        this.lastName = lastName;
+    }
+
+    public List<TelephoneNumber> getTelephoneNumbers() {
+        return telephoneNumbers;
+    }
+
+    public void setTelephoneNumbers(List<TelephoneNumber> telephoneNumbers) {
+        this.telephoneNumbers = telephoneNumbers;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -69,15 +92,6 @@ public class Cv extends Document {
         this.owner = owner;
     }
 
-    public List<String> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<String> addresses) {
-        this.addresses = addresses;
-    }
-
-
     public List<Certificate> getCertificates() {
         return certificates;
     }
@@ -86,6 +100,29 @@ public class Cv extends Document {
         this.certificates = certificates;
     }
 
+    public FirstName getFirstName() {
+        return firstName;
+    }
+
+    public LastName getLastName() {
+        return lastName;
+    }
+
+    public List<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
+    }
+
+    public List<Experience> getExperiences() {
+        return experiences;
+    }
+
+    public void setExperiences(List<Experience> experiences) {
+        this.experiences = experiences;
+    }
 
     @Override
     public String toString() {

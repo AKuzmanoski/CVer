@@ -1,4 +1,4 @@
-package com.cver.team.model.tag;
+package com.cver.team.model.externalresource.tag;
 
 /**
  * Created by Dimitar on 8/12/2016.

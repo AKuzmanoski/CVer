@@ -1,12 +1,14 @@
 package com.cver.team.model.entity;
 
-import com.cver.team.model.entity.Entity;
-import com.cver.team.model.data.*;
 
-import java.util.List;
+public class Agent extends EntityImpl {
+    private String profilePictureUrl;
 
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
 
-public class Agent extends Entity {
-
-
+    public void setProfilePictureUrl(String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
+    }
 }

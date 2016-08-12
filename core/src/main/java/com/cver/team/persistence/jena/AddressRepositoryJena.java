@@ -25,8 +25,8 @@ public class AddressRepositoryJena implements AddressRepository {
 
         String languageTag = "en";
 
-        String city = address.getCity();
-        String country = address.getCountry();
+        String city = address.getCity().getValue();
+        String country = address.getCountry().getValue();
         String street = address.getStreet();
         String addressID = UUID.randomUUID().toString();
         String ownerURI = owner.getIdentifier().getURI();
@@ -119,12 +119,6 @@ public class AddressRepositoryJena implements AddressRepository {
             Identifier identifier = new Identifier();
             identifier.setURI(currentEntry.get("addressURI").toString());
             address.setIdentifier(identifier);
-
-            if(currentEntry.get("city") != null)
-            address.setCity(currentEntry.get("city").toString());
-
-            if(currentEntry.get("country") != null)
-            address.setCountry(currentEntry.get("country").toString());
 
             if(currentEntry.get("street") != null)
             address.setStreet(currentEntry.get("street").toString());

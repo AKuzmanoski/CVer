@@ -5,23 +5,13 @@ import com.cver.team.model.*;
 /**
  * Created by User on 3/1/2016.
  */
-public class Person extends Entity {
+public class Person extends Agent {
     private String firstName;
     private String lastName;
     private String email;
     private Role role;
     private Provider provider;
-    private String profilePictureURL;
-    private String coverPictureURL;
     private String password;
-
-    public String getCoverPictureURL() {
-        return coverPictureURL;
-    }
-
-    public void setCoverPictureURL(String coverPictureURL) {
-        this.coverPictureURL = coverPictureURL;
-    }
 
     public Role getRole() {
         return role;
@@ -71,14 +61,6 @@ public class Person extends Entity {
         this.firstName = firstName;
     }
 
-    public String getProfilePictureURL() {
-        return profilePictureURL;
-    }
-
-    public void setProfilePictureURL(String profilePictureURL) {
-        this.profilePictureURL = profilePictureURL;
-    }
-
     @Override
     public String toString() {
         return super.toString() + "Person{" +
@@ -87,7 +69,6 @@ public class Person extends Entity {
                 ", email='" + email + '\'' +
                 ", role=" + role +
                 ", provider=" + provider +
-                ", profilePictureURL='" + profilePictureURL + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

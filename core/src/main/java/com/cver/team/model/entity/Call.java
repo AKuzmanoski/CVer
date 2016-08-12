@@ -3,15 +3,15 @@ package com.cver.team.model.entity;
 /**
  * Created by Dimitar on 8/12/2016.
  */
-public class Call extends Entity {
+public class Call extends EntityImpl {
 
-    private Agent owner;
+    private Organization owner;
 
-    public Agent getOwner() {
+    public Organization getOwner() {
         return owner;
     }
 
-    public void setOwner(Agent owner) {
+    public void setOwner(Organization owner) {
         this.owner = owner;
     }
 }

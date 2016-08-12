@@ -7,14 +7,5 @@ import com.cver.team.model.*;
  */
 public class Degree extends ExternalResource {
 
-    private String degree;
-
-    public String getDegree() {
-        return degree;
-    }
-
-    public void setDegree(String degree) {
-        this.degree = degree;
-    }
 }
 

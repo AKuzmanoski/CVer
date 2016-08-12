@@ -52,13 +52,13 @@ public class PersonRepositoryJena implements PersonRepository {
         queryString.setIri("account", CVR.generateURI());
         queryString.setIri("defaultFirstName", CVR.generateURI());
         queryString.setIri("defaultLastName", CVR.generateURI());
-        if (person.getProfilePictureURL() != null) {
+        if (person.getProfilePictureUrl() != null) {
             queryString.setIri("profilePicture", CVR.generateURI());
-            queryString.setLiteral("profilePictureUrl", person.getProfilePictureURL(),  XSDDatatype.XSDstring);
+            queryString.setLiteral("profilePictureUrl", person.getProfilePictureUrl(),  XSDDatatype.XSDstring);
         }
-        if (person.getCoverPictureURL() != null) {
+        if (person.getCoverPictureUrl() != null) {
             queryString.setIri("cover", CVR.generateURI());
-            queryString.setLiteral("coverUrl", person.getCoverPictureURL(),  XSDDatatype.XSDstring);
+            queryString.setLiteral("coverUrl", person.getCoverPictureUrl(),  XSDDatatype.XSDstring);
         }
 
         // Set account values

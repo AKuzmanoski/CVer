@@ -1,131 +1,23 @@
 package com.cver.team.model.entity;
 
 import com.cver.team.model.data.*;
+import com.cver.team.model.data.string.ValueProposition;
 
 import java.util.List;
 
 /**
  * Created by Dimitar on 8/12/2016.
  */
-public class Document extends Entity {
+public interface Document extends Entity {
+    Template getTemplate();
 
-    private Address address;
+    void setTemplate(Template template);
 
-    private City city;
+    String getTitle();
 
-    private Country country;
+    void setTitle(String title);
 
-    private List<Data> data;
+    ValueProposition getValueProposition();
 
-    private List<Experience> experiences;
-
-    private List<Email> emails;
-
-    private String imageURL;
-
-    private List<String> telephoneNumbers;
-
-    private Template template;
-
-    private String videoURL;
-
-    private String valueProposition;
-
-    private Skill skill;
-
-    public Skill getSkill() {
-        return skill;
-    }
-
-    public void setSkill(Skill skill) {
-        this.skill = skill;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-    public List<Data> getData() {
-        return data;
-    }
-
-    public void setData(List<Data> data) {
-        this.data = data;
-    }
-
-    public List<Experience> getExperiences() {
-        return experiences;
-    }
-
-    public void setExperiences(List<Experience> experiences) {
-        this.experiences = experiences;
-    }
-
-    public List<Email> getEmails() {
-        return emails;
-    }
-
-    public void setEmails(List<Email> emails) {
-        this.emails = emails;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
-    public Template getTemplate() {
-        return template;
-    }
-
-    public void setTemplate(Template template) {
-        this.template = template;
-    }
-
-    public String getVideoURL() {
-        return videoURL;
-    }
-
-    public void setVideoURL(String videoURL) {
-        this.videoURL = videoURL;
-    }
-
-    public String getValueProposition() {
-        return valueProposition;
-    }
-
-    public void setValueProposition(String valueProposition) {
-        this.valueProposition = valueProposition;
-    }
-
-    public List<String> getTelephoneNumbers() {
-        return telephoneNumbers;
-    }
-
-    public void setTelephoneNumbers(List<String> telephoneNumbers) {
-        this.telephoneNumbers = telephoneNumbers;
-    }
+    void setValueProposition(ValueProposition valueProposition);
 }

@@ -1,72 +1,34 @@
 package com.cver.team.model.entity;
 
-import com.cver.team.model.BaseEntity;
 import com.cver.team.model.data.Media;
 
 import java.time.LocalDateTime;
 
 /**
- * Created by Dimitar on 8/12/2016.
+ * Created by PC on 12/08/2016.
  */
-public class Entity extends BaseEntity {
+public interface Entity {
+    boolean isPublic();
 
-    private Media cover;
+    void setPublic(boolean aPublic);
 
-    private LocalDateTime creationDate;
+    String getCoverPictureUrl();
 
-    private LocalDateTime lastModified;
+    void setCoverPictureUrl(String cover);
 
-    private String description;
+    LocalDateTime getCreationDate();
 
-    private String name;
+    void setCreationDate(LocalDateTime creationDate);
 
-    private boolean isPublic;
+    LocalDateTime getLastModified();
 
-    public boolean isPublic() {
-        return isPublic;
-    }
+    void setLastModified(LocalDateTime lastModified);
 
-    public void setPublic(boolean aPublic) {
-        isPublic = aPublic;
-    }
+    String getDescription();
 
-    public Media getCover() {
-        return cover;
-    }
+    void setDescription(String description);
 
-    public void setCover(Media cover) {
-        this.cover = cover;
-    }
+    String getName();
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public LocalDateTime getLastModified() {
-        return lastModified;
-    }
-
-    public void setLastModified(LocalDateTime lastModified) {
-        this.lastModified = lastModified;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    void setName(String name);
 }
