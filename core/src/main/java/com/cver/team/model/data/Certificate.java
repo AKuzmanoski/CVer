@@ -15,7 +15,7 @@ public class Certificate extends Data implements Document {
 
     private Agent issuer;
     private Agent recipient;
-    private LocalDateTime issuedDate;
+    private java.util.Date issuedDate;
 
     //fields from Document
     private Template template;
@@ -122,11 +122,11 @@ public class Certificate extends Data implements Document {
         isPublic = aPublic;
     }
 
-    public LocalDateTime getIssuedDate() {
+    public java.util.Date getIssuedDate() {
         return issuedDate;
     }
 
-    public void setIssuedDate(LocalDateTime issuedDate) {
+    public void setIssuedDate(java.util.Date issuedDate) {
         this.issuedDate = issuedDate;
     }
 }

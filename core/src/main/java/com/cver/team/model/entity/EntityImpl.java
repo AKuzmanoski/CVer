@@ -2,7 +2,7 @@ package com.cver.team.model.entity;
 
 import com.cver.team.model.BaseEntity;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * Created by Dimitar on 8/12/2016.
@@ -11,9 +11,9 @@ public class EntityImpl extends BaseEntity implements Entity {
 
     private String coverPictureUrl;
 
-    private LocalDateTime creationDate;
+    private Date creationDate;
 
-    private LocalDateTime lastModified;
+    private Date lastModified;
 
     private String description;
 
@@ -37,19 +37,19 @@ public class EntityImpl extends BaseEntity implements Entity {
         this.coverPictureUrl = coverPictureUrl;
     }
 
-    public LocalDateTime getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
-    public LocalDateTime getLastModified() {
+    public Date getLastModified() {
         return lastModified;
     }
 
-    public void setLastModified(LocalDateTime lastModified) {
+    public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
     }
 

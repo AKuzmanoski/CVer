@@ -3,35 +3,33 @@ package com.cver.team.model.data;
 import com.cver.team.model.BaseEntity;
 import com.cver.team.model.entity.Agent;
 
-import java.time.LocalDateTime;
-
 /**
  * Created by Dimitar on 8/12/2016.
  */
 public class Data extends BaseEntity {
 
-    private LocalDateTime creationDate;
+    private java.util.Date creationDate;
 
-    private LocalDateTime lastModified;
+    private java.util.Date lastModified;
 
     private Agent owner;
 
     private String value;
 
 
-    public LocalDateTime getCreationDate() {
+    public java.util.Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(java.util.Date creationDate) {
         this.creationDate = creationDate;
     }
 
-    public LocalDateTime getLastModified() {
+    public java.util.Date getLastModified() {
         return lastModified;
     }
 
-    public void setLastModified(LocalDateTime lastModified) {
+    public void setLastModified(java.util.Date lastModified) {
         this.lastModified = lastModified;
     }
 

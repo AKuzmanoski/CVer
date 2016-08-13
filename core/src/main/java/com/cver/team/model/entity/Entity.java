@@ -2,7 +2,7 @@ package com.cver.team.model.entity;
 
 import com.cver.team.model.data.Media;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * Created by PC on 12/08/2016.
@@ -16,13 +16,13 @@ public interface Entity {
 
     void setCoverPictureUrl(String cover);
 
-    LocalDateTime getCreationDate();
+    Date getCreationDate();
 
-    void setCreationDate(LocalDateTime creationDate);
+    void setCreationDate(Date creationDate);
 
-    LocalDateTime getLastModified();
+    Date getLastModified();
 
-    void setLastModified(LocalDateTime lastModified);
+    void setLastModified(Date lastModified);
 
     String getDescription();
 

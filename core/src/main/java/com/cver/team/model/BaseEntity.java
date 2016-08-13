@@ -3,6 +3,8 @@ package com.cver.team.model;
 import com.cver.team.model.literal.Identifier;
 import com.cver.team.model.externalresource.tag.Tag;
 
+import java.io.Serializable;
+
 /**
  * This class is hold just for identification of objects among their classes. The main usage of this object
  * is in relational databases.
@@ -11,7 +13,7 @@ import com.cver.team.model.externalresource.tag.Tag;
  * @version 1.0
  * @since 1/17/2016
  */
-public class BaseEntity {
+public class BaseEntity implements Serializable {
     private Identifier identifier;
     private Tag tag;
     private String type;
