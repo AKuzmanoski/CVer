@@ -1,61 +1,21 @@
 package com.cver.team.model;
 
-import com.cver.team.model.literal.Identifier;
 import com.cver.team.model.externalresource.tag.Tag;
-
-import java.io.Serializable;
+import com.cver.team.model.literal.Identifier;
 
 /**
- * This class is hold just for identification of objects among their classes. The main usage of this object
- * is in relational databases.
- *
- * @author CVerTeam
- * @version 1.0
- * @since 1/17/2016
+ * Created by PC on 17/08/2016.
  */
-public class BaseEntity implements Serializable {
-    private Identifier identifier;
-    private Tag tag;
-    private String type;
+public interface BaseEntity {
+    String getType();
 
+    void setType(String type);
 
-    public BaseEntity(Identifier identifier) {
-        this.identifier = identifier;
-    }
+    Tag getTag();
 
-    public String getType() {
-        return type;
-    }
+    void setTag(Tag tag);
 
-    public void setType(String type) {
-        this.type = type;
-    }
+    Identifier getIdentifier();
 
-    public BaseEntity() {
-        type = getClass().getSimpleName();
-    }
-
-    public Tag getTag() {
-        return tag;
-    }
-
-    public void setTag(Tag tag) {
-        this.tag = tag;
-    }
-
-    public Identifier getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(Identifier identifier) {
-        this.identifier = identifier;
-    }
-
-    @Override
-    public String toString() {
-        return "BaseEntity{" +
-                "identifier=" + identifier +
-                ", type='" + type + '\'' +
-                '}';
-    }
+    void setIdentifier(Identifier identifier);
 }

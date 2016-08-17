@@ -3,7 +3,7 @@ package com.cver.team.model.entity;
 /**
  * Created by Dimitar on 7/7/2016.
  */
-    public class Project extends EntityImpl implements Association {
+    public class Project extends EntityImplImpl implements Association {
 
     private String externalLink;
 

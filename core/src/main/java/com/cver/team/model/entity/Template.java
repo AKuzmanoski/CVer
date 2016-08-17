@@ -4,7 +4,7 @@ package com.cver.team.model.entity;
 /**
  * Created by Dimitar on 2/28/2016.
  */
-public class Template extends EntityImpl {
+public class Template extends EntityImplImpl {
     private String url;
     private String value;
 

@@ -1,7 +1,7 @@
 package com.cver.team.model.entity;
 
 
-public class Agent extends EntityImpl {
+public class Agent extends EntityImplImpl {
     private String profilePictureUrl;
 
     public String getProfilePictureUrl() {

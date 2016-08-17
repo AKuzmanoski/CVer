@@ -1,12 +1,12 @@
 package com.cver.team.model.data;
 
-import com.cver.team.model.BaseEntity;
+import com.cver.team.model.BaseEntityImpl;
 import com.cver.team.model.entity.Agent;
 
 /**
  * Created by Dimitar on 8/12/2016.
  */
-public class Data extends BaseEntity {
+public class Data extends BaseEntityImpl {
 
     private java.util.Date creationDate;
 

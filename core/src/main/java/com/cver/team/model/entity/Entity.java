@@ -1,5 +1,6 @@
 package com.cver.team.model.entity;
 
+import com.cver.team.model.BaseEntity;
 import com.cver.team.model.data.Media;
 
 import java.util.Date;
@@ -7,7 +8,7 @@ import java.util.Date;
 /**
  * Created by PC on 12/08/2016.
  */
-public interface Entity {
+public interface Entity extends BaseEntity {
     boolean isPublic();
 
     void setPublic(boolean aPublic);

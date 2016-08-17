@@ -1,13 +1,13 @@
 package com.cver.team.model.entity;
 
-import com.cver.team.model.BaseEntity;
+import com.cver.team.model.BaseEntityImpl;
 
 import java.util.Date;
 
 /**
  * Created by Dimitar on 8/12/2016.
  */
-public class EntityImpl extends BaseEntity implements Entity {
+public class EntityImplImpl extends BaseEntityImpl implements Entity {
 
     private String coverPictureUrl;
 

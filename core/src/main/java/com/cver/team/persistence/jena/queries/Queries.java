@@ -9,5 +9,7 @@ public enum Queries {
     insertPerson,
     saveNewAddress,
     getAddressesForPerson,
-    deleteAddress
+    deleteAddress,
+    entity_autocomplete,
+    entity_query
 }

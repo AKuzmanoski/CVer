@@ -1,7 +1,6 @@
 package com.cver.team.model.data;
 
 import com.cver.team.model.entity.Association;
-import com.cver.team.model.entity.EntityImpl;
 import com.cver.team.model.externalresource.Period;
 
 
