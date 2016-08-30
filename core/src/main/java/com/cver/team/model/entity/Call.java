@@ -3,7 +3,7 @@ package com.cver.team.model.entity;
 /**
  * Created by Dimitar on 8/12/2016.
  */
-public class Call extends EntityImplImpl {
+public class Call extends EntityImpl {
 
     private Organization owner;
 

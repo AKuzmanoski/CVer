@@ -1,32 +1,33 @@
 package com.cver.team.model.entity;
 
-import com.github.andrewoma.dexx.collection.List;
-
-import java.time.LocalDate;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Dimitar on 8/12/2016.
  */
 public class Organization extends Agent implements Association {
-   private Date dateOfFoundation;
+
+    public Organization() {
+        owners = new ArrayList<>();
+    }
 
     //korisnikot koj ja kreiral organizacijata
-   private Person owner;
+    private List<Person> owners;
 
-    public Date getDateOfFoundation() {
-        return dateOfFoundation;
+    public List<Person> getOwners() {
+        return owners;
     }
 
-    public void setDateOfFoundation(Date dateOfFoundation) {
-        this.dateOfFoundation = dateOfFoundation;
+    public void setOwners(List<Person> owners) {
+        this.owners = owners;
     }
 
-    public Person getOwner() {
-        return owner;
+    public void addOwner(Person person) {
+        owners.add(person);
     }
 
-    public void setOwner(Person owner) {
-        this.owner = owner;
+    public void removeOwner(Person person) {
+        owners.remove(person);
     }
 }

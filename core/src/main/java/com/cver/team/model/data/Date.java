@@ -1,7 +1,5 @@
 package com.cver.team.model.data;
 
-import java.time.LocalDateTime;
-
 /**
  * Created by PC on 13/08/2016.
  */

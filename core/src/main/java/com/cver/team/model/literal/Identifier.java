@@ -23,4 +23,20 @@ public class Identifier {
     public void setId(String id) {
         this.id = id;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Identifier)) return false;
+
+        Identifier that = (Identifier) o;
+
+        return getURI().equals(that.getURI());
+
+    }
+
+    @Override
+    public int hashCode() {
+        return getURI().hashCode();
+    }
 }

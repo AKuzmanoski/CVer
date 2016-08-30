@@ -26,4 +26,5 @@ public class Period extends ExternalResource {
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
+
 }

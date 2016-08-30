@@ -4,6 +4,8 @@ import com.cver.team.model.literal.Identifier;
 import com.cver.team.model.externalresource.tag.Tag;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is hold just for identification of objects among their classes. The main usage of this object
@@ -15,11 +17,16 @@ import java.io.Serializable;
  */
 public class BaseEntityImpl implements Serializable, BaseEntity {
     private Identifier identifier;
-    private Tag tag;
+    private List<Tag> tags;
     private String type;
+    private String description;
+    private boolean isPublic;
+    private List<Type> types;
 
 
     public BaseEntityImpl(Identifier identifier) {
+        this.tags = new ArrayList<>();
+        type = getClass().getSimpleName();
         this.identifier = identifier;
     }
 
@@ -31,16 +38,28 @@ public class BaseEntityImpl implements Serializable, BaseEntity {
         this.type = type;
     }
 
+    public List<Type> getTypes() {
+        return types;
+    }
+
+    public void setTypes(List<Type> types) {
+        this.types = types;
+    }
+
     public BaseEntityImpl() {
+        this.tags = new ArrayList<>();
         type = getClass().getSimpleName();
+        types = new ArrayList<>();
     }
 
-    public Tag getTag() {
-        return tag;
+
+
+    public List<Tag> getTags() {
+        return tags;
     }
 
-    public void setTag(Tag tag) {
-        this.tag = tag;
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 
     public Identifier getIdentifier() {
@@ -52,10 +71,48 @@ public class BaseEntityImpl implements Serializable, BaseEntity {
     }
 
     @Override
+    public void addTag(Tag tag) {
+        tags.add(tag);
+    }
+
+    @Override
+    public void removeTag(Tag tag) {
+        tags.remove(tag);
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
     public String toString() {
         return "BaseEntityImpl{" +
                 "identifier=" + identifier +
                 ", type='" + type + '\'' +
                 '}';
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
+    }
+
+    @Override
+    public void addType(Type type) {
+        types.add(type);
+    }
+
+    @Override
+    public void removeType(Type type) {
+        types.remove(type);
     }
 }

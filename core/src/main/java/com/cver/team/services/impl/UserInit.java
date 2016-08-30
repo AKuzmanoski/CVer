@@ -60,7 +60,7 @@ public class UserInit {
 //        System.out.println(person.getLastName());
 //        System.out.println("----------------------------------------");
 //
-//        Certificate certificate = new Certificate();
+//        CertificateCard certificate = new CertificateCard();
 //        certificate.setIssuerURI(dime.getIdentifier().getURI());
 //        certificate.setDescription("This is the best certificate evah!");
 //        certificate.setRecipientURI(person.getIdentifier().getURI());

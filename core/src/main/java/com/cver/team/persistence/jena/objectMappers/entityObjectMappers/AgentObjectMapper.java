@@ -1,4 +1,4 @@
-package com.cver.team.persistence.jena.objectMappers;
+package com.cver.team.persistence.jena.objectMappers.entityObjectMappers;
 
 import com.cver.team.model.entity.Agent;
 import com.cver.team.persistence.jena.namespaces.CVO;
@@ -15,8 +15,11 @@ public class AgentObjectMapper {
 
         // Profile Picture
         Statement statement = resource.getProperty(CVO.getProperty("profilePicture"));
-        if (statement != null)
+        if (statement != null) {
+            Resource profilePicture =  statement.getObject().asResource();
+            statement = profilePicture.getProperty(CVO.getProperty("url"));
             agent.setProfilePictureUrl(statement.getObject().asLiteral().getString());
+        }
         return agent;
     }
 }

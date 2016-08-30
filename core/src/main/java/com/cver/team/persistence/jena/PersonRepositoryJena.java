@@ -7,7 +7,7 @@ import com.cver.team.persistence.helper.MailEncoder;
 import com.cver.team.persistence.helper.URIMaker;
 import com.cver.team.persistence.jena.helper.JenaPreferences;
 import com.cver.team.persistence.jena.namespaces.CVR;
-import com.cver.team.persistence.jena.objectMappers.PersonObjectMapper;
+import com.cver.team.persistence.jena.objectMappers.entityObjectMappers.PersonObjectMapper;
 import com.cver.team.persistence.jena.queries.Queries;
 import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.query.*;
@@ -99,7 +99,7 @@ public class PersonRepositoryJena implements PersonRepository {
     @Override
     public Person getPersonByLoginEmail(String email) {
         ParameterizedSparqlString queryString = new ParameterizedSparqlString();
-        queryString.setCommandText(queryRepository.getQuery(Queries.getPersonByEmail));
+        queryString.setCommandText(queryRepository.getQuery(Queries.getPerson));
         queryString.setLiteral("email", email, XSDDatatype.XSDstring);
 
         Query query = queryString.asQuery();
@@ -112,7 +112,7 @@ public class PersonRepositoryJena implements PersonRepository {
     @Override
     public Person getPersonById(String id) {
         ParameterizedSparqlString queryString = new ParameterizedSparqlString();
-        queryString.setCommandText(queryRepository.getQuery(Queries.getPersonByEmail));
+        queryString.setCommandText(queryRepository.getQuery(Queries.getPerson));
         queryString.setIri("person", CVR.getURI(id));
 
         Query query = queryString.asQuery();

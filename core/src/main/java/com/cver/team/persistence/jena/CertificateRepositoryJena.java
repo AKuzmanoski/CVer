@@ -1,35 +1,37 @@
 package com.cver.team.persistence.jena;
 
 import com.cver.team.model.data.Certificate;
+import com.cver.team.model.data.CertificateCard;
 import com.cver.team.model.entity.Person;
-import com.cver.team.model.literal.Identifier;
 import com.cver.team.persistence.CertificateRepository;
 import com.cver.team.persistence.jena.helper.JenaPreferences;
-import com.cver.team.persistence.jena.helper.ResourcePrefixes;
-import com.cver.team.persistence.jena.helper.SPARQLPrefix;
+import com.cver.team.persistence.jena.namespaces.CVR;
+import com.cver.team.persistence.jena.objectMappers.dataObjectMappers.CertificateObjectMapper;
+import com.cver.team.persistence.jena.queries.Queries;
 import com.github.andrewoma.dexx.collection.List;
 import org.apache.jena.query.ParameterizedSparqlString;
-import org.apache.jena.update.UpdateExecutionFactory;
-import org.apache.jena.update.UpdateFactory;
-import org.apache.jena.update.UpdateProcessor;
-import org.apache.jena.update.UpdateRequest;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.rdf.model.Model;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import java.util.UUID;
 
 
 @Repository
 public class CertificateRepositoryJena implements CertificateRepository {
+    @Autowired
+    QueryRepository queryRepository;
 
     @Override
-    public Certificate saveNewCertificate(Certificate certificate) {
+    public CertificateCard saveNewCertificate(CertificateCard certificateCard) {
 
         String language = "en";
 
-//        String personURI = certificate.getRecipientURI();
-//        String certificateType = certificate.getCertificateType();
-//        String description = certificate.getDescription();
-//        String issuerURI = certificate.getIssuerURI();
+//        String personURI = certificateCard.getRecipientURI();
+//        String certificateType = certificateCard.getCertificateType();
+//        String description = certificateCard.getDescription();
+//        String issuerURI = certificateCard.getIssuerURI();
 //        String certificateID = UUID.randomUUID().toString();
 //        String certificateURI = ResourcePrefixes.CERTIFICATE_PREFIX+certificateID;
 //
@@ -39,8 +41,8 @@ public class CertificateRepositoryJena implements CertificateRepository {
 //        queryString.setNsPrefix("cvo", SPARQLPrefix.cvo);
 //
 //        queryString.setCommandText("INSERT { \n " +
-//                " ?personURI cvo:hasCertificate ?certificate . \n " +
-//                " ?certificate cvo:description ?desc ; \n " +
+//                " ?personURI cvo:hasCertificate ?certificateCard . \n " +
+//                " ?certificateCard cvo:description ?desc ; \n " +
 //                "              cvo:issuer ?issuerURI ; \n " +
 //                "              cvo:recipient ?personURI . \n" +
 //                " } WHERE { } "
@@ -57,7 +59,7 @@ public class CertificateRepositoryJena implements CertificateRepository {
 //        if(issuerURI != null)
 //        queryString.setIri("?issuerURI",issuerURI);
 //
-//        queryString.setIri("certificate",certificateURI);
+//        queryString.setIri("certificateCard",certificateURI);
 //
 //        System.out.println(queryString.toString());
 //
@@ -68,17 +70,31 @@ public class CertificateRepositoryJena implements CertificateRepository {
 //        Identifier identifier = new Identifier();
 //        identifier.setId(certificateID);
 //        identifier.setURI(certificateURI);
-//        certificate.setIdentifier(identifier);
+//        certificateCard.setIdentifier(identifier);
+        return certificateCard;
+    }
+
+    @Override
+    public CertificateCard deleteCertificate(CertificateCard certificateCard) {
+        return null;
+    }
+
+    @Override
+    public List<CertificateCard> getCertificatesForPerson(Person owner) {
+        return null;
+    }
+
+    @Override
+    public Certificate getCertificate(String id) {
+        String uri = CVR.getURI(id);
+        ParameterizedSparqlString queryString = new ParameterizedSparqlString();
+        queryString.setCommandText(queryRepository.getQuery(Queries.getCertificate));
+        queryString.setIri("certificate", uri);
+
+        Query query = queryString.asQuery();
+        QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query);
+        Model model = queryExecution.execConstruct();
+        Certificate certificate = CertificateObjectMapper.generateCertificate(model, uri);
         return certificate;
-    }
-
-    @Override
-    public Certificate deleteCertificate(Certificate certificate) {
-        return null;
-    }
-
-    @Override
-    public List<Certificate> getCertificatesForPerson(Person owner) {
-        return null;
     }
 }

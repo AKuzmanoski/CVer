@@ -1,6 +1,6 @@
 package com.cver.team.web;
 
-import com.cver.team.model.entity.Cv;
+import com.cver.team.model.entity.CV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,13 +17,13 @@ import java.util.List;
  * @since 1/17/2016
  */
 @RestController
-@RequestMapping(value = "/cvs", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/cv", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CvController {
     @Autowired
     CvService cvService;
 /*
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Cv getCv(@PathVariable Long id) {
+    public CV getCv(@PathVariable Long id) {
         return cvService.getCv(id);
     }*/
 
@@ -31,26 +31,26 @@ public class CvController {
     @ResponseStatus(HttpStatus.CREATED)
     public
     @ResponseBody
-    Cv createCv(@RequestBody Cv cv, HttpServletResponse response) throws BindException {
+    CV createCv(@RequestBody CV cv, HttpServletResponse response) throws BindException {
         System.out.println(cv);
-        Cv newCv = cvService.createCv(cv);
+        CV newCv = cvService.createCv(cv);
      //   response.setHeader("Location", "/cvs/" + newCv.getAccount());
         return newCv;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Cv> getCvs() {
+    public List<CV> getCvs() {
         return cvService.getAllCvs();
     }
 
-    @RequestMapping(value = "/{account}", method = RequestMethod.GET)
-    public Cv getCv(@PathVariable String account) {
-        return cvService.getCv(account);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public CV getCv(@PathVariable String id) {
+        return cvService.getCv(id);
     }
 
     @RequestMapping(value = "/{account}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void saveCv(@PathVariable String account, @RequestBody Cv cv) {
+    public void saveCv(@PathVariable String account, @RequestBody CV cv) {
         cvService.save(cv);
     }
 

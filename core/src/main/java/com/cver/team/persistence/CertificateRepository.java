@@ -1,16 +1,18 @@
 package com.cver.team.persistence;
 
 import com.cver.team.model.data.Certificate;
+import com.cver.team.model.data.CertificateCard;
 import com.cver.team.model.entity.Person;
 import com.github.andrewoma.dexx.collection.List;
 
 
 public interface CertificateRepository {
 
-    Certificate saveNewCertificate(Certificate certificate);
+    CertificateCard saveNewCertificate(CertificateCard certificateCard);
 
-    Certificate deleteCertificate(Certificate certificate);
+    CertificateCard deleteCertificate(CertificateCard certificateCard);
 
-    List<Certificate> getCertificatesForPerson(Person owner);
+    List<CertificateCard> getCertificatesForPerson(Person owner);
 
+    Certificate getCertificate(String id);
 }

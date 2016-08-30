@@ -11,4 +11,28 @@ public class Experience extends Expertise {
     private Period period;
     private Association acquiredFrom;
     private Location location;
+
+    public Period getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Period period) {
+        this.period = period;
+    }
+
+    public Association getAcquiredFrom() {
+        return acquiredFrom;
+    }
+
+    public void setAcquiredFrom(Association acquiredFrom) {
+        this.acquiredFrom = acquiredFrom;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 }

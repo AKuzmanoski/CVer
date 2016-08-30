@@ -1,12 +1,10 @@
-package com.cver.team.persistence.jena.objectMappers;
+package com.cver.team.persistence.jena.objectMappers.entityObjectMappers;
 
 import com.cver.team.model.entity.Entity;
-import com.cver.team.model.literal.Identifier;
 import com.cver.team.persistence.jena.helper.DateTimeConverter;
 import com.cver.team.persistence.jena.namespaces.CVO;
-import com.cver.team.persistence.jena.namespaces.CVR;
 import com.cver.team.persistence.jena.namespaces.LUC;
-import org.apache.jena.base.Sys;
+import com.cver.team.persistence.jena.objectMappers.BaseEntityObjectMapper;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ResIterator;
 import org.apache.jena.rdf.model.Resource;
@@ -29,10 +27,10 @@ public class EntityObjectMapper {
         ResIterator iterator = model.listResourcesWithProperty(LUC.getProperty("score"));
         while(iterator.hasNext()) {
             Resource resource = iterator.next();
+            System.out.println(resource.getURI());
             Double score = resource.getProperty(LUC.getProperty("score")).getObject().asLiteral().getDouble();
             map.put(score, generateEntity(model, resource));
         }
-
         return new ArrayList<>(map.values());
     }
 
@@ -42,6 +40,21 @@ public class EntityObjectMapper {
         }
         if (resource.hasProperty(RDF.type, CVO.getResource("Organization"))) {
             return OrganizationObjectMapper.generateOrganization(model, resource);
+        }
+        if (resource.hasProperty(RDF.type, CVO.getResource("CV"))) {
+            return CvCardObjectMapper.generateCvCard(model, resource);
+        }
+        if (resource.hasProperty(RDF.type, CVO.getResource("Certificate"))) {
+            return CertificateCardObjectMapper.generateCertificate(model, resource);
+        }
+        if (resource.hasProperty(RDF.type, CVO.getResource("Call"))) {
+            return CallObjectMapper.generateCall(model, resource);
+        }
+        if (resource.hasProperty(RDF.type, CVO.getResource("Template"))) {
+            return TemplateObjectMapper.generateTemplate(model, resource);
+        }
+        if (resource.hasProperty(RDF.type, CVO.getResource("Project"))) {
+            return ProjectObjectMapper.generateProject(model, resource);
         }
         return null;
     }
@@ -55,20 +68,13 @@ public class EntityObjectMapper {
         if (statement != null)
             entity.setName(statement.getObject().asLiteral().getString());
 
-        // description
-        statement = resource.getProperty(CVO.getProperty("description"));
-        if (statement != null)
-            entity.setDescription(statement.getObject().asLiteral().getString());
-
         // Profile Picture
         statement = resource.getProperty(CVO.getProperty("cover"));
-        if (statement != null)
+        if (statement != null) {
+            Resource cover =  statement.getObject().asResource();
+            statement = cover.getProperty(CVO.getProperty("url"));
             entity.setCoverPictureUrl(statement.getObject().asLiteral().getString());
-
-        // Public
-        statement = resource.getProperty(CVO.getProperty("public"));
-        if (statement != null)
-            entity.setPublic(statement.getObject().asLiteral().getBoolean());
+        }
 
         statement = resource.getProperty(CVO.getProperty("creationDate"));
         if (statement != null)

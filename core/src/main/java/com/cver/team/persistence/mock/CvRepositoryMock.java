@@ -1,6 +1,6 @@
 package com.cver.team.persistence.mock;
 
-import com.cver.team.model.entity.Cv;
+import com.cver.team.model.entity.CV;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.impl.SimpleLog;
 import org.springframework.stereotype.Repository;
@@ -17,11 +17,11 @@ import java.util.List;
  */
 @Repository
 public class CvRepositoryMock implements CvRepository {
-    public Cv getCv(Long id) {
-        return new Cv();
+    public CV getCv(Long id) {
+        return new CV();
     }
 
-    public Cv createCv(Cv cv) {
+    public CV createCv(CV cv) {
         Log log = new SimpleLog("My Logger");
         log.info(cv.toString());
         System.out.println(cv);
@@ -29,22 +29,22 @@ public class CvRepositoryMock implements CvRepository {
     }
 
     @Override
-    public List<Cv> getAllCvs() {
+    public List<CV> getAllCvs() {
         return null;
     }
 
     @Override
-    public Cv getCv(String account) {
+    public CV getCv(String id) {
         return null;
     }
 
     @Override
-    public Cv save(Cv cv) {
+    public CV save(CV cv) {
         return null;
     }
 
     @Override
-    public void delete(Cv cv) {
+    public void delete(CV cv) {
 
     }
 

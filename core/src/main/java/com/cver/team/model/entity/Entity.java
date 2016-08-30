@@ -9,9 +9,6 @@ import java.util.Date;
  * Created by PC on 12/08/2016.
  */
 public interface Entity extends BaseEntity {
-    boolean isPublic();
-
-    void setPublic(boolean aPublic);
 
     String getCoverPictureUrl();
 
@@ -24,10 +21,6 @@ public interface Entity extends BaseEntity {
     Date getLastModified();
 
     void setLastModified(Date lastModified);
-
-    String getDescription();
-
-    void setDescription(String description);
 
     String getName();
 

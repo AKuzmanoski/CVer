@@ -1,6 +1,6 @@
 package com.cver.team.persistence;
 
-import com.cver.team.model.entity.Cv;
+import com.cver.team.model.entity.CV;
 
 import java.util.List;
 
@@ -10,17 +10,17 @@ import java.util.List;
  * @since 1/17/2016
  */
 public interface CvRepository {
-    Cv getCv(Long id);
+    CV getCv(Long id);
 
-    Cv createCv(Cv cv);
+    CV createCv(CV cv);
 
-    List<Cv> getAllCvs();
+    List<CV> getAllCvs();
 
-    Cv getCv(String account);
+    CV getCv(String id);
 
-    Cv save(Cv cv);
+    CV save(CV cv);
 
-    void delete(Cv cv);
+    void delete(CV cv);
 
     void delete(String account);
 }

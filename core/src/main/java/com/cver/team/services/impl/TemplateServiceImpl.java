@@ -5,23 +5,18 @@
 package com.cver.team.services.impl;
 
 import com.cver.team.model.entity.Template;
+import com.cver.team.persistence.TemplateRepository;
+import com.cver.team.services.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cver.team.persistence.TemplateRepository;
-import com.cver.team.services.TemplateService;
-
 import javax.servlet.ServletContext;
-import java.io.*;
-import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 
 @Service
 public class TemplateServiceImpl implements TemplateService {
-
-    @Autowired
-    ServletContext servletContext;
 
     @Autowired
     TemplateRepository templateRepository;
@@ -51,7 +46,26 @@ public class TemplateServiceImpl implements TemplateService {
 
 
         return null;
+    }
 
+    @Override
+    public Template getTemplate(String id) {
+        return templateRepository.getTemplate(id);
     }
+
+    @Override
+    public List<Template> queryTemplates(String query, String type, Integer offset, Integer limit, String userId) {
+        return templateRepository.queryTemplates(query, type, offset, limit, userId);
     }
+
+    @Override
+    public List<Template> queryCvTemplates(String query, String type, Integer offset, Integer limit, String userId) {
+        return templateRepository.queryCvTemplates(query, type, offset, limit, userId);
+    }
+
+    @Override
+    public List<Template> queryCertificateTemplates(String query, String type, Integer offset, Integer limit, String userId) {
+        return templateRepository.queryCertificateTemplates(query, type, offset, limit, userId);
+    }
+}
 

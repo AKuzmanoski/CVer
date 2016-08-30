@@ -3,9 +3,8 @@ package com.cver.team.persistence.jena;
 import com.cver.team.model.entity.Entity;
 import com.cver.team.persistence.EntityRepository;
 import com.cver.team.persistence.jena.helper.JenaPreferences;
-import com.cver.team.persistence.jena.objectMappers.EntityObjectMapper;
+import com.cver.team.persistence.jena.objectMappers.entityObjectMappers.EntityObjectMapper;
 import com.cver.team.persistence.jena.queries.Queries;
-import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +32,14 @@ public class EntityRepositoryJena implements EntityRepository {
         queryString.setLiteral("offset", offset.toString());
         queryString.setLiteral("limit", limit.toString());
 
+        //System.out.println(new Date().toString());
         Query myQuery = queryString.asQuery();
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, myQuery);
         Model model = queryExecution.execConstruct();
-        return EntityObjectMapper.generateEntities(model);
+        //System.out.println(new Date().toString());
+        List<Entity> entities = EntityObjectMapper.generateEntities(model);
+        //System.out.println(new Date().toString());
+        return entities;
     }
 
     @Override
@@ -48,7 +51,6 @@ public class EntityRepositoryJena implements EntityRepository {
         queryString.setLiteral("offset", offset.toString());
         queryString.setLiteral("limit", limit.toString());
         Query myQuery = queryString.asQuery();
-        System.out.println(queryString.toString());
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, myQuery);
         ResultSet resultSet = queryExecution.execSelect();
         while (resultSet.hasNext()) {

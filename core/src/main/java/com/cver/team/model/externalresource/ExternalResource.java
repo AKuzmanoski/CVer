@@ -5,11 +5,9 @@ import com.cver.team.model.BaseEntityImpl;
 /**
  * Created by Dimitar on 8/12/2016.
  */
-public class ExternalResource extends BaseEntityImpl {
-
-   private String name;
-
-   private String description;
+public abstract class ExternalResource extends BaseEntityImpl {
+    private String name;
+    private String url;
 
     public String getName() {
         return name;
@@ -19,11 +17,11 @@ public class ExternalResource extends BaseEntityImpl {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getUrl() {
+        return url;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

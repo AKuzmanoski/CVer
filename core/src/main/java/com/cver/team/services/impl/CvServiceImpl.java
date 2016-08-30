@@ -1,6 +1,6 @@
 package com.cver.team.services.impl;
 
-import com.cver.team.model.entity.Cv;
+import com.cver.team.model.entity.CV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,31 +20,31 @@ public class CvServiceImpl implements CvService {
     @Autowired
     CvRepository cvRepositoryJena;
 
-    public Cv getCv(Long id) {
+    public CV getCv(Long id) {
         return cvRepositoryJena.getCv(id);
     }
 
-    public Cv createCv(@RequestBody Cv cv) {
+    public CV createCv(@RequestBody CV cv) {
         return cvRepositoryJena.createCv(cv);
     }
 
     @Override
-    public List<Cv> getAllCvs() {
+    public List<CV> getAllCvs() {
         return cvRepositoryJena.getAllCvs();
     }
 
     @Override
-    public Cv getCv(String account) {
-        return cvRepositoryJena.getCv(account);
+    public CV getCv(String id) {
+        return cvRepositoryJena.getCv(id);
     }
 
     @Override
-    public Cv save(Cv cv) {
+    public CV save(CV cv) {
         return cvRepositoryJena.save(cv);
     }
 
     @Override
-    public void delete(Cv cv) {
+    public void delete(CV cv) {
         cvRepositoryJena.delete(cv);
     }
 
