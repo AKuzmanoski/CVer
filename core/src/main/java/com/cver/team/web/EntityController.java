@@ -21,12 +21,17 @@ public class EntityController {
     EntityService entityService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Entity> query(@RequestParam String query, @RequestParam(required = false) String type, @RequestParam Integer offset, @RequestParam Integer limit) {
-        return entityService.query(query, type, offset, limit);
+    public List<Entity> query(@RequestParam String query, @RequestParam(required = false) String type, @RequestParam(required = false) String owner, @RequestParam Integer offset, @RequestParam Integer limit) {
+        return entityService.query(query, type, owner, offset, limit);
     }
 
     @RequestMapping(value = "/autocomplete", method = RequestMethod.GET)
-    public List<String> autocomplete(@RequestParam String query, @RequestParam Integer offset, @RequestParam Integer limit) {
-        return entityService.autocomplete(query, offset, limit);
+    public List<String> autocomplete(@RequestParam String query, @RequestParam(required = false) String owner, @RequestParam Integer limit) {
+        return entityService.autocomplete(query, owner, limit);
+    }
+
+    @RequestMapping(value = "/types", method = RequestMethod.GET)
+    public List<String> types(@RequestParam String query, @RequestParam(required = false) String owner, @RequestParam Integer limit) {
+        return entityService.types(query, owner, limit);
     }
 }

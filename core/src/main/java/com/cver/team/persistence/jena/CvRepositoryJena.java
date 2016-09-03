@@ -11,6 +11,7 @@ import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.sparql.SystemARQ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -66,5 +67,29 @@ public class CvRepositoryJena implements CvRepository {
     @Override
     public void delete(String account) {
 
+    }
+
+    @Override
+    public CV getNewCv(String userId) {
+
+        ParameterizedSparqlString queryString = new ParameterizedSparqlString();
+        queryString.setCommandText(queryRepository.getQuery(Queries.getNewCV));
+        if (userId != null) {
+            String uri = CVR.getURI(userId);
+            queryString.setIri("person", uri);
+        }
+        else {
+            String uri = CVR.getURI("johnDoe");
+            queryString.setIri("person", uri);
+        }
+        String uri = CVR.getURI("newCv");
+        queryString.setIri("newCv", uri);
+
+        Query query = queryString.asQuery();
+        QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query);
+        Model model = queryExecution.execConstruct();
+        model.write(System.out, "TURTLE");
+        CV cv = CvObjectMapper.generateCv(model, uri);
+        return cv;
     }
 }

@@ -52,4 +52,9 @@ public class CvRepositoryMock implements CvRepository {
     public void delete(String account) {
 
     }
+
+    @Override
+    public CV getNewCv(String userId) {
+        return null;
+    }
 }

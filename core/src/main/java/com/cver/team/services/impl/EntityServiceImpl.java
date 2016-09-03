@@ -17,12 +17,17 @@ public class EntityServiceImpl implements EntityService {
     EntityRepository entityRepository;
 
     @Override
-    public List<Entity> query(String query, String type, Integer offset, Integer limit) {
-        return entityRepository.query(query, type, offset, limit);
+    public List<Entity> query(String query, String type, String owner, Integer offset, Integer limit) {
+        return entityRepository.query(query, type, owner, offset, limit);
     }
 
     @Override
-    public List<String> autocomplete(String query, Integer offset, Integer limit) {
-        return entityRepository.autocomplete(query, offset, limit);
+    public List<String> autocomplete(String query, String owner, Integer limit) {
+        return entityRepository.autocomplete(query, owner, limit);
+    }
+
+    @Override
+    public List<String> types(String query, String owner, Integer limit) {
+        return entityRepository.types(query, owner, limit);
     }
 }

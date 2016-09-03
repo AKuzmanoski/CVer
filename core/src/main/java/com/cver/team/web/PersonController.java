@@ -16,6 +16,7 @@ public class PersonController {
     @RequestMapping(method = RequestMethod.GET)
     public Person getUserByEmail(@RequestParam("email") String email) {
         Person person = personService.getPersonByLoginEmailWithoutPassword(email);
+        System.out.println(person);
         if (person == null)
             throw new ResourceNotFoundException();
         return person;

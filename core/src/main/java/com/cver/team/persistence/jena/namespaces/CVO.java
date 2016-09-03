@@ -26,4 +26,8 @@ public class CVO {
     public static Resource getResource(String name) {
         return new ResourceImpl(getURI(name));
     }
+
+    public static String getId(String URI) {
+        return URI.substring(URI.lastIndexOf('#') + 1);
+    }
 }

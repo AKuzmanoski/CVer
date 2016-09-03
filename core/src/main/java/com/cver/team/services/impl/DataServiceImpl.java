@@ -20,4 +20,14 @@ public class DataServiceImpl implements DataService {
     public List<Data> queryData(String query, String type, Integer offset, Integer limit, String userId) {
         return dataRepository.queryData(query, type, offset, limit, userId);
     }
+
+    @Override
+    public List<String> autocomplete(String query, Integer limit) {
+        return dataRepository.autocomplete(query, limit);
+    }
+
+    @Override
+    public List<String> types(String query, Integer limit) {
+        return dataRepository.types(query, limit);
+    }
 }

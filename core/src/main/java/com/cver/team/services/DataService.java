@@ -9,4 +9,8 @@ import java.util.List;
  */
 public interface DataService {
     List<Data> queryData(String query, String type, Integer offset, Integer limit, String userId);
+
+    List<String> autocomplete(String query, Integer limit);
+
+    List<String> types(String query, Integer limit);
 }

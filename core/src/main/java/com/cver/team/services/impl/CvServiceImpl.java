@@ -52,4 +52,9 @@ public class CvServiceImpl implements CvService {
     public void delete(String account) {
         cvRepositoryJena.delete(account);
     }
+
+    @Override
+    public CV getNewCv(String userId) {
+        return cvRepositoryJena.getNewCv(userId);
+    }
 }

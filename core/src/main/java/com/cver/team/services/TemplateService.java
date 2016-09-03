@@ -18,4 +18,8 @@ public interface TemplateService {
     List<Template> queryCvTemplates(String query, String type, Integer offset, Integer limit, String userId);
 
     List<Template> queryCertificateTemplates(String query, String type, Integer offset, Integer limit, String userId);
+
+    List<String> autocomplete(String query, Integer limit);
+
+    List<String> types(String query, Integer limit);
 }

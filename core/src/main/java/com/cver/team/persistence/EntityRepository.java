@@ -8,7 +8,9 @@ import java.util.List;
  * Created by PC on 16/08/2016.
  */
 public interface EntityRepository {
-    List<Entity> query(String query, String type, Integer offset, Integer limit);
+    List<Entity> query(String query, String type, String owner, Integer offset, Integer limit);
 
-    List<String> autocomplete(String query,  Integer offset, Integer limit);
+    List<String> autocomplete(String query, String owner, Integer limit);
+
+    List<String> types(String query, String owner, Integer limit);
 }

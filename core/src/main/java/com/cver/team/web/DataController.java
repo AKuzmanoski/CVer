@@ -30,5 +30,13 @@ public class DataController {
         return dataService.queryData(query, type, offset, limit, person.getIdentifier().getId());
     }
 
+    @RequestMapping(value = "/autocomplete", method = RequestMethod.GET)
+    public List<String> autocomplete(@RequestParam String query, @RequestParam Integer limit) {
+        return dataService.autocomplete(query, limit);
+    }
 
+    @RequestMapping(value = "/types", method = RequestMethod.GET)
+    public List<String> types(@RequestParam String query, @RequestParam Integer limit) {
+        return dataService.types(query, limit);
+    }
 }

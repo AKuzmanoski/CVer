@@ -15,5 +15,11 @@ public enum Queries {
     entity_autocomplete,
     entity_query,
     template_query,
-    data_query
+    data_query,
+    data_autocomplete,
+    template_autocomplete,
+    entity_type_query,
+    template_type_query,
+    data_type_query,
+    getNewCV
 }

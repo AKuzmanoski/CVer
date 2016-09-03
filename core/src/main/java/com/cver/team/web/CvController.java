@@ -1,14 +1,16 @@
 package com.cver.team.web;
 
 import com.cver.team.model.entity.CV;
+import com.cver.team.model.entity.Person;
+import com.cver.team.services.CvService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.*;
-import com.cver.team.services.CvService;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -34,13 +36,17 @@ public class CvController {
     CV createCv(@RequestBody CV cv, HttpServletResponse response) throws BindException {
         System.out.println(cv);
         CV newCv = cvService.createCv(cv);
-     //   response.setHeader("Location", "/cvs/" + newCv.getAccount());
+        //   response.setHeader("Location", "/cvs/" + newCv.getAccount());
         return newCv;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<CV> getCvs() {
-        return cvService.getAllCvs();
+
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    public CV getNewCv(HttpSession session) {
+        Person user = (Person) session.getAttribute("user");
+        if (user != null)
+            return cvService.getNewCv(user.getIdentifier().getId());
+        return cvService.getNewCv(null);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
