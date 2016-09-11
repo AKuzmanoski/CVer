@@ -3,6 +3,7 @@ package com.cver.team.persistence.jena;
 import com.cver.team.model.entity.CV;
 import com.cver.team.persistence.CvRepository;
 import com.cver.team.persistence.jena.helper.JenaPreferences;
+import com.cver.team.persistence.jena.namespaces.CVO;
 import com.cver.team.persistence.jena.namespaces.CVR;
 import com.cver.team.persistence.jena.objectMappers.entityObjectMappers.CvObjectMapper;
 import com.cver.team.persistence.jena.queries.Queries;
@@ -11,10 +12,17 @@ import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.sparql.SystemARQ;
+import org.apache.jena.update.UpdateExecutionFactory;
+import org.apache.jena.update.UpdateProcessor;
+import org.apache.jena.update.UpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.io.StringWriter;
 import java.util.List;
 
 /**
@@ -24,6 +32,8 @@ import java.util.List;
 public class CvRepositoryJena implements CvRepository {
     @Autowired
     QueryRepository queryRepository;
+    @Autowired
+    CvObjectMapper cvObjectMapper;
 
     @Override
     public CV getCv(Long id) {
@@ -50,13 +60,28 @@ public class CvRepositoryJena implements CvRepository {
         Query query = queryString.asQuery();
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query);
         Model model = queryExecution.execConstruct();
-        CV cv = CvObjectMapper.generateCv(model, uri);
+        CV cv = cvObjectMapper.generateCv(model, uri);
         return cv;
     }
 
     @Override
     public CV save(CV cv) {
-        return null;
+        Model model = ModelFactory.createDefaultModel();
+        cvObjectMapper.createModel(cv, model);
+
+        StringWriter writer = new StringWriter();
+
+        model.write(writer, "TURTLE");
+
+        String commandText = "INSERT {" + writer.getBuffer().toString() + "} WHERE {}";
+        ParameterizedSparqlString queryString = new ParameterizedSparqlString();
+        queryString.setCommandText(commandText);
+
+        UpdateRequest updateRequest = queryString.asUpdate();
+        UpdateProcessor updateProcessor = UpdateExecutionFactory.createRemoteForm(updateRequest, JenaPreferences.UpdateEndpoint);
+        updateProcessor.execute();
+
+        return cv;
     }
 
     @Override
@@ -71,7 +96,6 @@ public class CvRepositoryJena implements CvRepository {
 
     @Override
     public CV getNewCv(String userId) {
-
         ParameterizedSparqlString queryString = new ParameterizedSparqlString();
         queryString.setCommandText(queryRepository.getQuery(Queries.getNewCV));
         if (userId != null) {
@@ -88,8 +112,34 @@ public class CvRepositoryJena implements CvRepository {
         Query query = queryString.asQuery();
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query);
         Model model = queryExecution.execConstruct();
-        model.write(System.out, "TURTLE");
-        CV cv = CvObjectMapper.generateCv(model, uri);
+        CV cv = cvObjectMapper.generateCv(model, uri);
+        cv.setIdentifier(null);
+        return cv;
+    }
+
+    @Override
+    public CV update(CV cv) {
+        CV oldCv = getCv(cv.getIdentifier().getId());
+        Model insert = ModelFactory.createDefaultModel();
+        Model delete = ModelFactory.createDefaultModel();
+        cvObjectMapper.updateModel(oldCv, cv, insert, delete);
+
+        StringWriter insertWriter = new StringWriter();
+        insert.write(insertWriter, "TURTLE");
+
+        StringWriter deleteWriter = new StringWriter();
+        delete.write(deleteWriter, "TURTLE");
+
+        String commandText = "DELETE {" + deleteWriter.getBuffer().toString() + "} INSERT {" + insertWriter.getBuffer().toString() + "} WHERE {}";
+        ParameterizedSparqlString queryString = new ParameterizedSparqlString();
+        queryString.setCommandText(commandText);
+
+        System.out.println(queryString.toString());
+
+        UpdateRequest updateRequest = queryString.asUpdate();
+        UpdateProcessor updateProcessor = UpdateExecutionFactory.createRemoteForm(updateRequest, JenaPreferences.UpdateEndpoint);
+        updateProcessor.execute();
+
         return cv;
     }
 }

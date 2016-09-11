@@ -18,7 +18,15 @@ public interface TemplateRepository {
 
     List<Template> queryCertificateTemplates(String query, String type, Integer offset, Integer limit, String userId);
 
-    List<String> autocomplete(String query, Integer limit);
+    List<String> autocomplete(String query, String userId, Integer limit);
 
-    List<String> types(String query, Integer limit);
+    List<String> types(String query, String userId, Integer limit);
+
+    List<String> autocompleteCV(String query, String userId, Integer limit);
+
+    List<String> typesCV(String query, String userId, Integer limit);
+
+    List<String> autocompleteCertificate(String query, String userId, Integer limit);
+
+    List<String> typesCertificate(String query, String userId, Integer limit);
 }

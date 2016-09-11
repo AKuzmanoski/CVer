@@ -19,4 +19,5 @@ public interface PersonRepository {
 
     Person getPersonById(String id);
 
+    void watchLater(String id, String entityId);
 }

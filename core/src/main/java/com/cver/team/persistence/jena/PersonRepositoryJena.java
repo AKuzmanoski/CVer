@@ -1,14 +1,17 @@
 package com.cver.team.persistence.jena;
 
+
 import com.cver.team.model.entity.Person;
 import com.cver.team.model.literal.Identifier;
 import com.cver.team.persistence.PersonRepository;
 import com.cver.team.persistence.helper.MailEncoder;
 import com.cver.team.persistence.helper.URIMaker;
+import com.cver.team.persistence.jena.helper.DateTimeConverter;
 import com.cver.team.persistence.jena.helper.JenaPreferences;
 import com.cver.team.persistence.jena.namespaces.CVR;
 import com.cver.team.persistence.jena.objectMappers.entityObjectMappers.PersonObjectMapper;
 import com.cver.team.persistence.jena.queries.Queries;
+import org.apache.jena.assembler.Mode;
 import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
@@ -17,6 +20,8 @@ import org.apache.jena.update.UpdateProcessor;
 import org.apache.jena.update.UpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.Date;
 
 
 @Repository
@@ -44,6 +49,7 @@ public class PersonRepositoryJena implements PersonRepository {
         identifier.setURI(CVR.getURI(id));
         person.setIdentifier(identifier);
 
+        Date date = new Date();
 
         ParameterizedSparqlString queryString = new ParameterizedSparqlString();
         queryString.setCommandText(queryRepository.getQuery(Queries.insertPerson));
@@ -52,13 +58,19 @@ public class PersonRepositoryJena implements PersonRepository {
         queryString.setIri("account", CVR.generateURI());
         queryString.setIri("defaultFirstName", CVR.generateURI());
         queryString.setIri("defaultLastName", CVR.generateURI());
+        queryString.setLiteral("creationDate", DateTimeConverter.getCalendar(date));
+        queryString.setLiteral("lastModified", DateTimeConverter.getCalendar(date));
         if (person.getProfilePictureUrl() != null) {
             queryString.setIri("profilePicture", CVR.generateURI());
             queryString.setLiteral("profilePictureUrl", person.getProfilePictureUrl(),  XSDDatatype.XSDstring);
+            queryString.setLiteral("profilePictureCreationDate", DateTimeConverter.getCalendar(date));
+            queryString.setLiteral("profilePictureLastModified", DateTimeConverter.getCalendar(date));
         }
         if (person.getCoverPictureUrl() != null) {
             queryString.setIri("cover", CVR.generateURI());
             queryString.setLiteral("coverUrl", person.getCoverPictureUrl(),  XSDDatatype.XSDstring);
+            queryString.setLiteral("coverCreationDate", DateTimeConverter.getCalendar(date));
+            queryString.setLiteral("coverLastModified", DateTimeConverter.getCalendar(date));
         }
 
         // Set account values
@@ -67,12 +79,18 @@ public class PersonRepositoryJena implements PersonRepository {
         if (person.getPassword() != null)
             queryString.setLiteral("password", person.getPassword(), XSDDatatype.XSDstring);
         queryString.setIri("loginEmail", CVR.generateURI());
-        queryString.setLiteral("email", person.getEmail(), XSDDatatype.XSDstring);
-        queryString.setLiteral("hashedEmail", mailEncoder.encode(person.getEmail()), XSDDatatype.XSDstring);
+        queryString.setLiteral("mbox", person.getEmail(), XSDDatatype.XSDstring);
+        queryString.setLiteral("hashedMbox", mailEncoder.encode(person.getEmail()), XSDDatatype.XSDstring);
+        queryString.setLiteral("emailCreationDate", DateTimeConverter.getCalendar(date));
+        queryString.setLiteral("emailLastModified", DateTimeConverter.getCalendar(date));
 
         // Set person values
-        queryString.setLiteral("firstName", person.getFirstName());
-        queryString.setLiteral("lastName", person.getLastName());
+        queryString.setLiteral("firstNameVal", person.getFirstName());
+        queryString.setLiteral("firstNameCreationDate", DateTimeConverter.getCalendar(date));
+        queryString.setLiteral("firstNameLastModified", DateTimeConverter.getCalendar(date));
+        queryString.setLiteral("lastNameVal", person.getLastName());
+        queryString.setLiteral("lastNameCreationDate", DateTimeConverter.getCalendar(date));
+        queryString.setLiteral("lastNameLastModified", DateTimeConverter.getCalendar(date));
         if (person.getName() != null)
             queryString.setLiteral("name", person.getName());
         if (person.getDescription() != null)
@@ -120,6 +138,19 @@ public class PersonRepositoryJena implements PersonRepository {
         Model model = queryExecution.execConstruct();
         Person person = PersonObjectMapper.generatePerson(model);
         return person;
+    }
+
+    @Override
+    public void watchLater(String id, String entityId) {
+        ParameterizedSparqlString queryString = new ParameterizedSparqlString();
+        queryString.setCommandText(queryRepository.getQuery(Queries.watchLater));
+        queryString.setIri("person", CVR.getURI(id));
+        queryString.setIri("entity", CVR.getURI(entityId));
+
+        UpdateRequest updateRequest = queryString.asUpdate();
+        UpdateProcessor updateProcessor = UpdateExecutionFactory.createRemoteForm(updateRequest, JenaPreferences.UpdateEndpoint);
+        updateProcessor.execute();
+
     }
 
     @Override

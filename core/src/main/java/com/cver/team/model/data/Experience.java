@@ -2,6 +2,7 @@ package com.cver.team.model.data;
 
 import com.cver.team.model.entity.Association;
 import com.cver.team.model.externalresource.Period;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 
 
 /**

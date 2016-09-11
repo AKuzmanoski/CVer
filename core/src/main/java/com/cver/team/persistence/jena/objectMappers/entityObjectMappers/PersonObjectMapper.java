@@ -2,12 +2,19 @@ package com.cver.team.persistence.jena.objectMappers.entityObjectMappers;
 
 import com.cver.team.model.Provider;
 import com.cver.team.model.Role;
+import com.cver.team.model.data.string.FirstName;
+import com.cver.team.model.data.string.LastName;
 import com.cver.team.model.entity.Person;
+import com.cver.team.persistence.jena.helper.IdentifierGenerator;
 import com.cver.team.persistence.jena.namespaces.CVO;
+import com.cver.team.persistence.jena.namespaces.CVR;
+import com.cver.team.persistence.jena.objectMappers.dataObjectMappers.stringObjectMappers.FirstNameObjectMapper;
+import com.cver.team.persistence.jena.objectMappers.dataObjectMappers.stringObjectMappers.LastNameObjectMapper;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ResIterator;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
+import org.apache.jena.rdf.model.impl.StatementImpl;
 import org.apache.jena.vocabulary.RDF;
 
 /**
@@ -67,5 +74,36 @@ public class PersonObjectMapper {
             }
         }
         return person;
+    }
+
+    public static Model generateModel(Person person, Model model) {
+        if (person.getIdentifier() == null) {
+            person.setIdentifier(IdentifierGenerator.generateIdentifier());
+
+        }
+        return model;
+    }
+
+    public static void createModel(Person person, Model model) {
+        if (person.getIdentifier() != null)
+            return;
+
+        person.setIdentifier(IdentifierGenerator.generateIdentifier());
+        Resource resource = CVR.getResource(person.getIdentifier().getId());
+        createModel(person, model, resource);
+    }
+
+    public static <T extends Person> void createModel(T person, Model model, Resource resource) {
+        AgentObjectMapper.createModel(person, model, resource);
+
+        FirstName firstName = new FirstName();
+        firstName.setValue(person.getName());
+        FirstNameObjectMapper.createModel(firstName, model);
+        model.add(new StatementImpl(resource, CVO.getProperty("defaultFirstName"), CVR.getResource(firstName.getIdentifier().getId())));
+
+        LastName lastName = new LastName();
+        lastName.setValue(person.getLastName());
+        LastNameObjectMapper.createModel(lastName, model);
+        model.add(new StatementImpl(resource, CVO.getProperty("defaultLastName"), CVR.getResource(lastName.getIdentifier().getId())));
     }
 }

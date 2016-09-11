@@ -25,4 +25,7 @@ public class LocationObjectMapper {
 
         return location;
     }
+
+    public void createModel(Location location, Model model) {
+    }
 }

@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * Created by Dimitar on 6/3/2016.
  */
-@Controller
+@RestController
 public class RegistrationController {
 
 
@@ -29,14 +29,12 @@ public class RegistrationController {
 
 
     @RequestMapping(value = "/testPost", method = RequestMethod.POST)
-    @ResponseBody
     public Map<String, String> post() {
         System.out.println("a post went through");
         return Collections.singletonMap("key", "value");
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @ResponseBody
     public Person registration(@RequestBody Person person,
                              HttpServletResponse httpServletResponse,
                              BindingResult bindingResult) {

@@ -18,7 +18,6 @@ import java.util.List;
 public class BaseEntityImpl implements Serializable, BaseEntity {
     private Identifier identifier;
     private List<Tag> tags;
-    private String type;
     private String description;
     private boolean isPublic;
     private List<Type> types;
@@ -26,16 +25,7 @@ public class BaseEntityImpl implements Serializable, BaseEntity {
 
     public BaseEntityImpl(Identifier identifier) {
         this.tags = new ArrayList<>();
-        type = getClass().getSimpleName();
         this.identifier = identifier;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public List<Type> getTypes() {
@@ -48,7 +38,6 @@ public class BaseEntityImpl implements Serializable, BaseEntity {
 
     public BaseEntityImpl() {
         this.tags = new ArrayList<>();
-        type = getClass().getSimpleName();
         types = new ArrayList<>();
     }
 
@@ -94,7 +83,6 @@ public class BaseEntityImpl implements Serializable, BaseEntity {
     public String toString() {
         return "BaseEntityImpl{" +
                 "identifier=" + identifier +
-                ", type='" + type + '\'' +
                 '}';
     }
 

@@ -23,4 +23,7 @@ public class CityObjectMapper {
 
         return city;
     }
+
+    public void createModel(City location, Model model) {
+    }
 }

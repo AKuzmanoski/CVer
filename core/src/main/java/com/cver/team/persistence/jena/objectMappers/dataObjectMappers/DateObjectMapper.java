@@ -1,11 +1,15 @@
 package com.cver.team.persistence.jena.objectMappers.dataObjectMappers;
 
 import com.cver.team.model.data.Date;
+import com.cver.team.model.data.date.DateOfBirth;
 import com.cver.team.persistence.jena.helper.DateTimeConverter;
 import com.cver.team.persistence.jena.namespaces.CVO;
+import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
+import org.apache.jena.rdf.model.impl.LiteralImpl;
+import org.apache.jena.rdf.model.impl.StatementImpl;
 
 /**
  * Created by PC on 25/08/2016.
@@ -20,5 +24,13 @@ public class DateObjectMapper {
         }
 
         return date;
+    }
+
+    public static <T extends Date> void createModel(T date, Model model, Resource resource) {
+        DataObjectMapper.createModel(date, model, resource);
+        if (date.getDateTime() != null) {
+            Literal literal = model.createTypedLiteral(DateTimeConverter.getCalendar(date.getDateTime()));
+            model.add(new StatementImpl(resource, CVO.getProperty("val"), literal));
+        }
     }
 }

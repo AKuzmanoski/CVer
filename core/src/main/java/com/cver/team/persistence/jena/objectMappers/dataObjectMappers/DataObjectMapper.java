@@ -1,13 +1,18 @@
 package com.cver.team.persistence.jena.objectMappers.dataObjectMappers;
 
+import com.cver.team.model.BaseEntity;
 import com.cver.team.model.data.Data;
 import com.cver.team.model.data.Experience;
 import com.cver.team.model.data.WorkExperience;
 import com.cver.team.model.data.date.DateOfFoundation;
+import com.cver.team.model.data.string.FirstName;
 import com.cver.team.model.data.string.TelephoneNumber;
+import com.cver.team.model.entity.Agent;
 import com.cver.team.model.entity.Entity;
+import com.cver.team.model.entity.Person;
 import com.cver.team.persistence.jena.helper.DateTimeConverter;
 import com.cver.team.persistence.jena.namespaces.CVO;
+import com.cver.team.persistence.jena.namespaces.CVR;
 import com.cver.team.persistence.jena.namespaces.LUC;
 import com.cver.team.persistence.jena.objectMappers.BaseEntityObjectMapper;
 import com.cver.team.persistence.jena.objectMappers.dataObjectMappers.dateObjectMappers.DateOfBirthObjectMapper;
@@ -22,10 +27,12 @@ import com.cver.team.persistence.jena.objectMappers.dataObjectMappers.stringObje
 import com.cver.team.persistence.jena.objectMappers.dataObjectMappers.stringObjectMappers.LastNameObjectMapper;
 import com.cver.team.persistence.jena.objectMappers.dataObjectMappers.stringObjectMappers.TelephoneNumberObjectMapper;
 import com.cver.team.persistence.jena.objectMappers.dataObjectMappers.stringObjectMappers.ValuePropositionObjectMapper;
+import com.cver.team.persistence.jena.objectMappers.entityObjectMappers.AgentObjectMapper;
 import com.cver.team.persistence.jena.objectMappers.entityObjectMappers.OrganizationObjectMapper;
 import com.cver.team.persistence.jena.objectMappers.entityObjectMappers.PersonObjectMapper;
 import com.sun.org.apache.xpath.internal.operations.String;
 import org.apache.jena.rdf.model.*;
+import org.apache.jena.rdf.model.impl.StatementImpl;
 import org.apache.jena.vocabulary.RDF;
 
 import java.util.*;
@@ -88,6 +95,8 @@ public class DataObjectMapper {
             return AddressObjectMapper.generateAddress(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("City")))
             return CityObjectMapper.generateCity(model, resource);
+        else if (resource.hasProperty(RDF.type, CVO.getResource("Country")))
+            return CountryObjectMapper.generateCountry(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("Address")))
             return CountryObjectMapper.generateCountry(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("Email")))
@@ -117,5 +126,29 @@ public class DataObjectMapper {
             map.put(score, generateData(model, resource));
         }
         return new ArrayList<>(map.values());
+    }
+
+    public static <T extends Data> void createModel(T data, Model model, Resource resource) {
+        BaseEntityObjectMapper.createMode(data, model ,resource);
+
+        // Create current date
+        java.util.Date date = new java.util.Date();
+        Calendar calendar = DateTimeConverter.getCalendar(date);
+        Literal dateTime = model.createTypedLiteral(calendar);
+
+        // Set creation and last modified dates
+        model.add(new StatementImpl(resource, CVO.getProperty("creationDate"), dateTime));
+        model.add(new StatementImpl(resource, CVO.getProperty("lastModified"), dateTime));
+
+        if (data.getValue() != null) {
+            Literal valLiteral = model.createLiteral(data.getValue());
+            model.add(new StatementImpl(resource, CVO.getProperty("val"), valLiteral));
+        }
+
+        for (Agent owner : data.getOwners()) {
+            if (owner.getIdentifier() == null)
+                AgentObjectMapper.createModel(owner, model);
+            model.add(new StatementImpl(resource, CVO.getProperty("owner"), CVR.getResource(owner.getIdentifier().getId())));
+        }
     }
 }

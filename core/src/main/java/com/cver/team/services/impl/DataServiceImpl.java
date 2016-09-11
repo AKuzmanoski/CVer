@@ -22,12 +22,12 @@ public class DataServiceImpl implements DataService {
     }
 
     @Override
-    public List<String> autocomplete(String query, Integer limit) {
-        return dataRepository.autocomplete(query, limit);
+    public List<String> autocomplete(String query, String userId, Integer limit) {
+        return dataRepository.autocomplete(query, userId, limit);
     }
 
     @Override
-    public List<String> types(String query, Integer limit) {
-        return dataRepository.types(query, limit);
+    public List<String> types(String query, String userId, Integer limit) {
+        return dataRepository.types(query, userId, limit);
     }
 }

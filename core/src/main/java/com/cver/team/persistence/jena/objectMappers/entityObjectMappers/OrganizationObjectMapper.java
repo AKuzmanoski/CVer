@@ -1,8 +1,13 @@
 package com.cver.team.persistence.jena.objectMappers.entityObjectMappers;
 
+import com.cver.team.model.entity.Agent;
 import com.cver.team.model.entity.Organization;
+import com.cver.team.model.entity.Person;
+import com.cver.team.persistence.jena.helper.IdentifierGenerator;
 import com.cver.team.persistence.jena.namespaces.CVO;
+import com.cver.team.persistence.jena.namespaces.CVR;
 import org.apache.jena.rdf.model.*;
+import org.apache.jena.rdf.model.impl.StatementImpl;
 import org.apache.jena.vocabulary.RDF;
 
 /**
@@ -36,5 +41,28 @@ public class OrganizationObjectMapper {
         }
 
         return organization;
+    }
+
+    public static Organization generateOrganization(Model model, String id) {
+        Resource organization = model.getResource(id);
+        return generateOrganization(model, organization);
+    }
+
+    public static void createModel(Organization organization, Model model) {
+        if(organization.getIdentifier() != null)
+            return;
+
+        organization.setIdentifier(IdentifierGenerator.generateIdentifier());
+        Resource resource = CVR.getResource(organization.getIdentifier().getId());
+        createModel(organization, model, resource);
+    }
+
+    public static <T extends Organization> void createModel(T organization, Model model, Resource resource) {
+        AgentObjectMapper.createModel(organization, model, resource);
+        for (Person owner : organization.getOwners()) {
+            if (owner.getIdentifier() == null)
+                PersonObjectMapper.createModel(owner, model);
+            model.add(new StatementImpl(resource, CVO.getProperty("owner"), CVR.getResource(owner.getIdentifier().getId())));
+        }
     }
 }

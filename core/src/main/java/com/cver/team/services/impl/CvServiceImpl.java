@@ -57,4 +57,9 @@ public class CvServiceImpl implements CvService {
     public CV getNewCv(String userId) {
         return cvRepositoryJena.getNewCv(userId);
     }
+
+    @Override
+    public CV update(CV cv) {
+        return cvRepositoryJena.update(cv);
+    }
 }

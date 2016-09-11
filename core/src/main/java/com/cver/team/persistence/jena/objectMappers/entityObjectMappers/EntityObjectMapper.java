@@ -1,14 +1,15 @@
 package com.cver.team.persistence.jena.objectMappers.entityObjectMappers;
 
+import com.cver.team.model.entity.DocumentCard;
 import com.cver.team.model.entity.Entity;
+import com.cver.team.persistence.helper.URIMaker;
 import com.cver.team.persistence.jena.helper.DateTimeConverter;
 import com.cver.team.persistence.jena.namespaces.CVO;
+import com.cver.team.persistence.jena.namespaces.CVR;
 import com.cver.team.persistence.jena.namespaces.LUC;
 import com.cver.team.persistence.jena.objectMappers.BaseEntityObjectMapper;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ResIterator;
-import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.Statement;
+import org.apache.jena.rdf.model.*;
+import org.apache.jena.rdf.model.impl.StatementImpl;
 import org.apache.jena.vocabulary.RDF;
 
 import java.util.*;
@@ -25,9 +26,8 @@ public class EntityObjectMapper {
             }
         });
         ResIterator iterator = model.listResourcesWithProperty(LUC.getProperty("score"));
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Resource resource = iterator.next();
-            System.out.println(resource.getURI());
             Double score = resource.getProperty(LUC.getProperty("score")).getObject().asLiteral().getDouble();
             map.put(score, generateEntity(model, resource));
         }
@@ -68,12 +68,13 @@ public class EntityObjectMapper {
         if (statement != null)
             entity.setName(statement.getObject().asLiteral().getString());
 
-        // Profile Picture
+        // Cover Picture
         statement = resource.getProperty(CVO.getProperty("cover"));
         if (statement != null) {
-            Resource cover =  statement.getObject().asResource();
+            Resource cover = statement.getObject().asResource();
             statement = cover.getProperty(CVO.getProperty("url"));
-            entity.setCoverPictureUrl(statement.getObject().asLiteral().getString());
+            if (statement != null)
+                entity.setCoverPictureUrl(statement.getObject().asLiteral().getString());
         }
 
         statement = resource.getProperty(CVO.getProperty("creationDate"));
@@ -85,5 +86,32 @@ public class EntityObjectMapper {
             entity.setLastModified(DateTimeConverter.getDate(statement.getObject()));
 
         return entity;
+    }
+
+    public static <T extends Entity> void createModel(T entity, Model model, Resource resource) {
+
+        BaseEntityObjectMapper.createMode(entity, model, resource);
+
+        // Create current date
+        java.util.Date date = new java.util.Date();
+        Calendar calendar = DateTimeConverter.getCalendar(date);
+        Literal dateTime = model.createTypedLiteral(calendar);
+
+        // Set creation and last modified dates
+        model.add(new StatementImpl(resource, CVO.getProperty("creationDate"), dateTime));
+        model.add(new StatementImpl(resource, CVO.getProperty("lastModified"), dateTime));
+
+        // Set cover picture
+        String coverId = URIMaker.generateUri();
+        Resource cover = CVR.getResource(coverId);
+        Literal coverUrl = model.createTypedLiteral(entity.getCoverPictureUrl());
+        model.add(new StatementImpl(resource, CVO.getProperty("cover"), cover));
+        model.add(new StatementImpl(cover, CVO.getProperty("url"), coverUrl));
+        model.add(new StatementImpl(cover, CVO.getProperty("creationDate"), dateTime));
+        model.add(new StatementImpl(cover, CVO.getProperty("lastModified"), dateTime));
+
+        // Set name
+        if (entity.getName() != null)
+            model.add(new StatementImpl(resource, CVO.getProperty("name"), model.createTypedLiteral(entity.getName())));
     }
 }

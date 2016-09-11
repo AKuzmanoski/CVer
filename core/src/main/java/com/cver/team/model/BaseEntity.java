@@ -2,16 +2,17 @@ package com.cver.team.model;
 
 import com.cver.team.model.externalresource.tag.Tag;
 import com.cver.team.model.literal.Identifier;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.util.List;
 
 /**
  * Created by PC on 17/08/2016.
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
 public interface BaseEntity {
-    String getType();
-
-    void setType(String type);
 
     List<Tag> getTags();
 

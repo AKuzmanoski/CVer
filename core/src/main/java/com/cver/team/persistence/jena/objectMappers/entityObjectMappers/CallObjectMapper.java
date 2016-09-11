@@ -22,4 +22,9 @@ public class CallObjectMapper {
 
         return call;
     }
+
+    public static Call generateCall(Model model, String id) {
+        Resource resource = model.getResource(id);
+        return generateCall(model, resource);
+    }
 }

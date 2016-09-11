@@ -15,4 +15,7 @@ public class CountryObjectMapper {
 
         return country;
     }
+
+    public void createModel(Country location, Model model) {
+    }
 }

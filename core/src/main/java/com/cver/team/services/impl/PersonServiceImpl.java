@@ -57,4 +57,9 @@ public class PersonServiceImpl implements PersonService {
             person.setPassword("");
         return person;
     }
+
+    @Override
+    public void watchLater(String id, String entityId) {
+        personRepository.watchLater(id, entityId);
+    }
 }

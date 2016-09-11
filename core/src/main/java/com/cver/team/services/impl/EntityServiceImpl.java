@@ -22,12 +22,12 @@ public class EntityServiceImpl implements EntityService {
     }
 
     @Override
-    public List<String> autocomplete(String query, String owner, Integer limit) {
-        return entityRepository.autocomplete(query, owner, limit);
+    public List<String> autocomplete(String query, String type, String owner, Integer limit) {
+        return entityRepository.autocomplete(query, type, owner, limit);
     }
 
     @Override
-    public List<String> types(String query, String owner, Integer limit) {
-        return entityRepository.types(query, owner, limit);
+    public List<String> types(String query, String type, String owner, Integer limit) {
+        return entityRepository.types(query, type, owner, limit);
     }
 }

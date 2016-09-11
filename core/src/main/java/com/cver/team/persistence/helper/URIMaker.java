@@ -1,5 +1,8 @@
 package com.cver.team.persistence.helper;
 
+import com.cver.team.model.literal.Identifier;
+import com.cver.team.persistence.jena.namespaces.CVR;
+
 import java.util.UUID;
 
 /**

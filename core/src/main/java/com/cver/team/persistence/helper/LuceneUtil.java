@@ -34,8 +34,8 @@ public final class LuceneUtil {
     public static String analyzeString(Analyzer analyzer, String string) {
         List<String> result = tokenizeString(analyzer, string);
         StringBuilder stringBuilder = new StringBuilder();
-        if (result.size() == 0);
-        stringBuilder.append("*");
+        if (result.size() == 0)
+            stringBuilder.append("*");
         for (int i = 0; i < result.size(); i++) {
             String token = result.get(i);
             stringBuilder.append(token);

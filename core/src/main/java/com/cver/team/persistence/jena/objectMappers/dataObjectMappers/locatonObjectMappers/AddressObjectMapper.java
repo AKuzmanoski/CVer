@@ -35,4 +35,9 @@ public class AddressObjectMapper {
 
         return address;
     }
+
+    public void createModel(Address address, Model model) {
+        if (address.getIdentifier() != null)
+            return;
+    }
 }

@@ -23,7 +23,7 @@ public class ImageRepositoryJena implements ImageRepository {
 
     @Override
     public Image createNewImage(Image image, Person owner, String pictureUse) {
-
+/*
         String language = "en";
 
         String imageData = ByteConverter.convertBytesToString(image.getImageData());
@@ -60,7 +60,7 @@ public class ImageRepositoryJena implements ImageRepository {
     //    queryString.setLiteral("description",description,language);
 
         System.out.println(queryString.toString());
-        UpdateRequest updateRequest = UpdateFactory.create(queryString.toString());
+        UpdateRequest updateRequest = UpdateFactory.createModel(queryString.toString());
         UpdateProcessor updateProcessor = UpdateExecutionFactory.createRemote(updateRequest, JenaPreferences.UpdateEndpoint);
         updateProcessor.execute();
         System.out.println("UPDATE WAS SUCCESFULL");
@@ -70,8 +70,8 @@ public class ImageRepositoryJena implements ImageRepository {
         identifier.setId(imageID);
         image.setImageURL(StaticConstants.IMAGE_ENDPOINT_PREFIX + imageID);
         image.setIdentifier(identifier);
-        return image;
-
+        return image;*/
+        return null;
     }
 
     @Override

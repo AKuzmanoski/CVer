@@ -1,6 +1,7 @@
 package com.cver.team.persistence.jena.objectMappers;
 
 import com.cver.team.model.BaseEntity;
+import com.cver.team.model.entity.DocumentCard;
 import com.cver.team.model.literal.Identifier;
 import com.cver.team.persistence.jena.namespaces.CVO;
 import com.cver.team.persistence.jena.namespaces.CVR;
@@ -9,6 +10,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.rdf.model.impl.StatementImpl;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 
@@ -50,5 +52,11 @@ public class BaseEntityObjectMapper {
         }
 
         return baseEntity;
+    }
+
+    public static <T extends BaseEntity> void createMode(T baseEntity, Model model, Resource resource) {
+        if (baseEntity.getDescription() != null)
+            model.add(new StatementImpl(resource, CVO.getProperty("description"), model.createTypedLiteral(baseEntity.getDescription())));
+        model.add(new StatementImpl(resource, CVO.getProperty("public"), model.createTypedLiteral(baseEntity.isPublic())));
     }
 }

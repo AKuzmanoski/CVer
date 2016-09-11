@@ -4,8 +4,13 @@ package com.cver.team.persistence.jena.queries;
  * Created by User on 7/28/2016.
  */
 public enum Queries {
+    insertStaticFile,
+    getStaticFile,
+    insertCall,
+    applyToCall,
     getPerson,
     getCV,
+    getCall,
     getCertificate,
     isEmailTaken,
     insertPerson,
@@ -21,5 +26,5 @@ public enum Queries {
     entity_type_query,
     template_type_query,
     data_type_query,
-    getNewCV
+    getOrganization, getTemplate, watchLater, getNewCV
 }

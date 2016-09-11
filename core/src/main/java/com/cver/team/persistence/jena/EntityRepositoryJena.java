@@ -28,7 +28,7 @@ public class EntityRepositoryJena implements EntityRepository {
 
     @Override
     public List<Entity> query(String query, String type, String owner, Integer offset, Integer limit) {
-        query = LuceneUtil.analyzeString(new StandardAnalyzer(), query);
+        query = "(" + LuceneUtil.analyzeString(new StandardAnalyzer(), query) + ")";
         if (type != null) {
             query += " AND type:\"" + CVO.getURI(type) + "\"";
         }
@@ -45,17 +45,18 @@ public class EntityRepositoryJena implements EntityRepository {
         Query myQuery = queryString.asQuery();
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, myQuery);
         Model model = queryExecution.execConstruct();
-        //System.out.println(new Date().toString());
         List<Entity> entities = EntityObjectMapper.generateEntities(model);
-        //System.out.println(new Date().toString());
         return entities;
     }
 
     @Override
-    public List<String> autocomplete(String query, String owner, Integer limit) {
-        query = LuceneUtil.analyzeString(new StandardAnalyzer(), query);
+    public List<String> autocomplete(String query, String type, String owner, Integer limit) {
+        query = "(" + LuceneUtil.analyzeString(new StandardAnalyzer(), query) + ")";
         if (owner != null) {
             query += " AND owner:\"" + CVR.getURI(owner) + "\"";
+        }
+        if (type != null) {
+            query += " AND type:\"" + CVO.getURI(type) + "\"";
         }
         List<String> list = new ArrayList<>();
         ParameterizedSparqlString queryString = new ParameterizedSparqlString();
@@ -73,16 +74,22 @@ public class EntityRepositoryJena implements EntityRepository {
     }
 
     @Override
-    public List<String> types(String query, String owner, Integer limit) {
-        query = LuceneUtil.analyzeString(new StandardAnalyzer(), query);
+    public List<String> types(String query, String type, String owner, Integer limit) {
+        query = "(" + LuceneUtil.analyzeString(new StandardAnalyzer(), query) + ")";
         if (owner != null) {
             query += " AND owner:\"" + CVR.getURI(owner) + "\"";
+        }
+        if (type != null) {
+            query += " AND type:\"" + CVO.getURI(type) + "\"";
         }
         List<String> list = new ArrayList<>();
         ParameterizedSparqlString queryString = new ParameterizedSparqlString();
         queryString.setCommandText(queryRepository.getQuery(Queries.entity_type_query));
         queryString.setLiteral("query", query);
         queryString.setLiteral("limit", limit);
+        if (type != null)
+            queryString.setIri("mainType", CVO.getURI(type));
+        else queryString.setIri("mainType", CVO.getURI("Entity"));
         Query myQuery = queryString.asQuery();
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, myQuery);
         ResultSet resultSet = queryExecution.execSelect();

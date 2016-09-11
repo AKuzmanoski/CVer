@@ -1,7 +1,11 @@
 package com.cver.team.persistence.jena.objectMappers.entityObjectMappers;
 
+import com.cver.team.model.data.*;
+import com.cver.team.model.data.string.TelephoneNumber;
 import com.cver.team.model.entity.CV;
+import com.cver.team.persistence.jena.helper.IdentifierGenerator;
 import com.cver.team.persistence.jena.namespaces.CVO;
+import com.cver.team.persistence.jena.namespaces.CVR;
 import com.cver.team.persistence.jena.objectMappers.dataObjectMappers.*;
 import com.cver.team.persistence.jena.objectMappers.dataObjectMappers.dateObjectMappers.DateOfBirthObjectMapper;
 import com.cver.team.persistence.jena.objectMappers.dataObjectMappers.experienceObjectMappers.EducationObjectMapper;
@@ -17,12 +21,30 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.rdf.model.impl.StatementImpl;
+import org.apache.jena.vocabulary.RDF;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by PC on 25/08/2016.
  */
+@Component
 public class CvObjectMapper {
-    public static CV generateCv(Model model, Resource resource) {
+    @Autowired
+    EmailObjectMapper emailObjectMapper;
+    @Autowired
+    TelephoneNumberObjectMapper telephoneNumberObjectMapper;
+    @Autowired
+    AddressObjectMapper addressObjectMapper;
+    @Autowired
+    CityObjectMapper cityObjectMapper;
+    @Autowired
+    CountryObjectMapper countryObjectMapper;
+    @Autowired
+    LocationObjectMapper locationObjectMapper;
+
+    public CV generateCv(Model model, Resource resource) {
         CV cv = new CV();
         cv = DocumentObjectMapper.generateDocument(model, resource, cv);
 
@@ -53,13 +75,13 @@ public class CvObjectMapper {
         // Telephone numbers
         StmtIterator stmtIterator = resource.listProperties(CVO.getProperty("telephoneNumber"));
         while (stmtIterator.hasNext()) {
-            cv.addTelephoneNumber(TelephoneNumberObjectMapper.generateTelephoneNumber(model, stmtIterator.next().getObject().asResource()));
+            cv.addTelephoneNumber(telephoneNumberObjectMapper.generateTelephoneNumber(model, stmtIterator.next().getObject().asResource()));
         }
 
         // Emails
         stmtIterator = resource.listProperties(CVO.getProperty("email"));
         while (stmtIterator.hasNext()) {
-            cv.addEmail(EmailObjectMapper.generateEmail(model, stmtIterator.next().getObject().asResource()));
+            cv.addEmail(emailObjectMapper.generateEmail(model, stmtIterator.next().getObject().asResource()));
         }
 
         // Addresses
@@ -119,10 +141,97 @@ public class CvObjectMapper {
         return cv;
     }
 
-    public static CV generateCv(Model model, String uri) {
+    public CV generateCv(Model model, String uri) {
         Resource resource = model.getResource(uri);
         if (resource != null)
             return generateCv(model, resource);
         return null;
+    }
+
+    public void createModel(CV cv, Model model) {
+        if (cv.getIdentifier() != null)
+            return;
+        cv.setIdentifier(IdentifierGenerator.generateIdentifier());
+        Resource cvResource = model.createResource(cv.getIdentifier().getURI());
+        cv.setCoverPictureUrl(cv.getTemplate().getCoverPictureUrl());
+
+        createModel(cv, model, cvResource);
+    }
+
+    public void createModel(CV cv, Model model, Resource cvResource) {
+        DocumentObjectMapper.createModel(cv, model, cvResource);
+
+        model.add(new StatementImpl(cvResource, RDF.type, CVO.getResource("CV")));
+        if (cv.getFirstName() != null) {
+            if (cv.getFirstName().getIdentifier() == null)
+                FirstNameObjectMapper.createModel(cv.getFirstName(), model);
+            model.add(new StatementImpl(cvResource, CVO.getProperty("firstName"), CVR.getResource(cv.getFirstName().getIdentifier().getId())));
+        }
+        if (cv.getLastName() != null) {
+            if (cv.getLastName().getIdentifier() == null)
+                LastNameObjectMapper.createModel(cv.getLastName(), model);
+            model.add(new StatementImpl(cvResource, CVO.getProperty("lastName"), CVR.getResource(cv.getLastName().getIdentifier().getId())));
+        }
+        if (cv.getDateOfBirth() != null) {
+            if (cv.getDateOfBirth().getIdentifier() == null)
+                DateOfBirthObjectMapper.createModel(cv.getDateOfBirth(), model);
+            model.add(new StatementImpl(cvResource, CVO.getProperty("dateOfBirth"), CVR.getResource(cv.getDateOfBirth().getIdentifier().getId())));
+        }
+        for (Email email : cv.getEmails()) {
+            if (email.getIdentifier() == null)
+                emailObjectMapper.createModel(email, model);
+            model.add(new StatementImpl(cvResource, CVO.getProperty("email"), CVR.getResource(email.getIdentifier().getId())));
+        }
+        for (TelephoneNumber telephoneNumber : cv.getTelephoneNumbers()) {
+            if (telephoneNumber.getIdentifier() == null)
+                telephoneNumberObjectMapper.createModel(telephoneNumber, model);
+            model.add(new StatementImpl(cvResource, CVO.getProperty("telephoneNumber"), CVR.getResource(telephoneNumber.getIdentifier().getId())));
+        }
+        for (Location location : cv.getLocations()) {
+            if (location instanceof Address) {
+                if (location.getIdentifier() == null)
+                    addressObjectMapper.createModel((Address) location, model);
+                model.add(new StatementImpl(cvResource, CVO.getProperty("address"), CVR.getResource(location.getIdentifier().getId())));
+            } else if (location instanceof City) {
+                if (location.getIdentifier() == null)
+                    cityObjectMapper.createModel((City) location, model);
+                model.add(new StatementImpl(cvResource, CVO.getProperty("city"), CVR.getResource(location.getIdentifier().getId())));
+            }
+            else if (location instanceof Country) {
+                if (location.getIdentifier() == null)
+                    countryObjectMapper.createModel((Country) location, model);
+                model.add(new StatementImpl(cvResource, CVO.getProperty("country"), CVR.getResource(location.getIdentifier().getId())));
+            }
+            else {
+                if (location.getIdentifier() == null)
+                    locationObjectMapper.createModel((Location) location, model);
+                model.add(new StatementImpl(cvResource, CVO.getProperty("location"), CVR.getResource(location.getIdentifier().getId())));
+            }
+        }
+        for (Certificate certificate : cv.getCertificates()) {
+            model.add(new StatementImpl(cvResource, CVO.getProperty("certificate"), CVR.getResource(certificate.getIdentifier().getId())));
+        }
+        for (Skill skill : cv.getSkills()) {
+            model.add(new StatementImpl(cvResource, CVO.getProperty("skill"), CVR.getResource(skill.getIdentifier().getId())));
+        }
+        for (Experience experience : cv.getExperiences()) {
+            model.add(new StatementImpl(cvResource, CVO.getProperty("experience"), CVR.getResource(experience.getIdentifier().getId())));
+        }
+        for (ProjectExperience projectExperience : cv.getProjectExperiences()) {
+            model.add(new StatementImpl(cvResource, CVO.getProperty("projectExperience"), CVR.getResource(projectExperience.getIdentifier().getId())));
+        }
+        for (WorkExperience workExperience : cv.getWorkExperiences()) {
+            model.add(new StatementImpl(cvResource, CVO.getProperty("workExperience"), CVR.getResource(workExperience.getIdentifier().getId())));
+        }
+        for (EducationalExperience educationalExperience : cv.getEducations()) {
+            model.add(new StatementImpl(cvResource, CVO.getProperty("education"), CVR.getResource(educationalExperience.getIdentifier().getId())));
+        }
+    }
+
+    public void updateModel(CV oldCv, CV newCv, Model insert, Model delete) {
+        if (!oldCv.getTemplate().getIdentifier().getId().equals(newCv.getTemplate().getIdentifier().getId())) {
+            delete.add(new StatementImpl(CVR.getResource(oldCv.getIdentifier().getId()), CVO.getProperty("template"), CVR.getResource(oldCv.getTemplate().getIdentifier().getId())));
+            insert.add(new StatementImpl(CVR.getResource(newCv.getIdentifier().getId()), CVO.getProperty("template"), CVR.getResource(newCv.getTemplate().getIdentifier().getId())));
+        }
     }
 }

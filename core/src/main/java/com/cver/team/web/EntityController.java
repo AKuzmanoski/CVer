@@ -26,12 +26,12 @@ public class EntityController {
     }
 
     @RequestMapping(value = "/autocomplete", method = RequestMethod.GET)
-    public List<String> autocomplete(@RequestParam String query, @RequestParam(required = false) String owner, @RequestParam Integer limit) {
-        return entityService.autocomplete(query, owner, limit);
+    public List<String> autocomplete(@RequestParam String query, @RequestParam(required = false) String type, @RequestParam(required = false) String owner, @RequestParam Integer limit) {
+        return entityService.autocomplete(query, type, owner, limit);
     }
 
     @RequestMapping(value = "/types", method = RequestMethod.GET)
-    public List<String> types(@RequestParam String query, @RequestParam(required = false) String owner, @RequestParam Integer limit) {
-        return entityService.types(query, owner, limit);
+    public List<String> types(@RequestParam String query, @RequestParam(required = false) String type, @RequestParam(required = false) String owner, @RequestParam Integer limit) {
+        return entityService.types(query, type, owner, limit);
     }
 }

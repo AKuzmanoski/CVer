@@ -10,7 +10,7 @@ import java.util.List;
 public interface EntityService {
     List<Entity> query(String query, String type, String owner, Integer offset, Integer limit);
 
-    List<String> autocomplete(String query, String owner, Integer limit);
+    List<String> autocomplete(String query, String type, String owner, Integer limit);
 
-    List<String> types(String query, String owner, Integer limit);
+    List<String> types(String query, String type, String owner, Integer limit);
 }

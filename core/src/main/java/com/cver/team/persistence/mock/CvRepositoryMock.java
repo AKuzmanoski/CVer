@@ -57,4 +57,9 @@ public class CvRepositoryMock implements CvRepository {
     public CV getNewCv(String userId) {
         return null;
     }
+
+    @Override
+    public CV update(CV cv) {
+        return null;
+    }
 }

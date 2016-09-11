@@ -25,4 +25,6 @@ public interface CvRepository {
     void delete(String account);
 
     CV getNewCv(String userId);
+
+    CV update(CV cv);
 }

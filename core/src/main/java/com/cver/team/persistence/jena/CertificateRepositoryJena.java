@@ -63,7 +63,7 @@ public class CertificateRepositoryJena implements CertificateRepository {
 //
 //        System.out.println(queryString.toString());
 //
-//        UpdateRequest updateRequest = UpdateFactory.create(queryString.toString());
+//        UpdateRequest updateRequest = UpdateFactory.createModel(queryString.toString());
 //        UpdateProcessor updateProcessor = UpdateExecutionFactory.createRemote(updateRequest, JenaPreferences.UpdateEndpoint);
 //        updateProcessor.execute();
 //

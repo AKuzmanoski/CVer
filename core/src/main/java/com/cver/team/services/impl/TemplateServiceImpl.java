@@ -69,13 +69,33 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
-    public List<String> autocomplete(String query, Integer limit) {
-        return templateRepository.autocomplete(query, limit);
+    public List<String> autocomplete(String query, String userId, Integer limit) {
+        return templateRepository.autocomplete(query, userId, limit);
     }
 
     @Override
-    public List<String> types(String query, Integer limit) {
-        return templateRepository.types(query, limit);
+    public List<String> types(String query, String userId, Integer limit) {
+        return templateRepository.types(query, userId, limit);
+    }
+
+    @Override
+    public List<String> autocompleteCV(String query, String userId, Integer limit) {
+        return templateRepository.autocompleteCV(query, userId, limit);
+    }
+
+    @Override
+    public List<String> typesCV(String query, String userId, Integer limit) {
+        return templateRepository.typesCV(query, userId, limit);
+    }
+
+    @Override
+    public List<String> autocompleteCertificate(String query, String userId, Integer limit) {
+        return templateRepository.autocompleteCertificate(query, userId, limit);
+    }
+
+    @Override
+    public List<String> typesCertificate(String query, String userId, Integer limit) {
+        return templateRepository.typesCertificate(query, userId, limit);
     }
 }
 

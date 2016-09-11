@@ -52,7 +52,7 @@ public class ExperienceObjectMapper {
     }
 
     public static Experience generateExperience(Model model, Resource resource) {
-        if (resource.hasProperty(RDF.type, CVO.getResource("Education")))
+        if (resource.hasProperty(RDF.type, CVO.getResource("EducationalExperience")))
             return EducationObjectMapper.generateEducationalExperience(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("ProjectExperience")))
             return ProjectExperienceObjectMapper.generateProjectExperience(model, resource);

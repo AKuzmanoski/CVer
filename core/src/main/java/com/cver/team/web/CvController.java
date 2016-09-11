@@ -3,15 +3,14 @@ package com.cver.team.web;
 import com.cver.team.model.entity.CV;
 import com.cver.team.model.entity.Person;
 import com.cver.team.services.CvService;
+import com.cver.team.web.ResponseExceptions.OperationNotAuthorizedException;
+import com.cver.team.web.ResponseExceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  * @author CVerTeam
@@ -19,7 +18,7 @@ import java.util.List;
  * @since 1/17/2016
  */
 @RestController
-@RequestMapping(value = "/cv", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/cv")
 public class CvController {
     @Autowired
     CvService cvService;
@@ -31,13 +30,23 @@ public class CvController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public
-    @ResponseBody
-    CV createCv(@RequestBody CV cv, HttpServletResponse response) throws BindException {
-        System.out.println(cv);
-        CV newCv = cvService.createCv(cv);
-        //   response.setHeader("Location", "/cvs/" + newCv.getAccount());
-        return newCv;
+    public CV saveCv(@RequestBody CV cv, HttpSession session) throws BindException {
+        Person person = (Person) session.getAttribute("user");
+        if (person != null) {
+            cv.setOwner(person);
+            CV newCv = cvService.save(cv);
+            //   response.setHeader("Location", "/cvs/" + newCv.getAccount());
+            return newCv;
+        }
+        throw new OperationNotAuthorizedException();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void updateCv(@RequestBody CV cv, @PathVariable String id, HttpSession session) throws BindException {
+
+        CV newCv = cvService.update(cv);
+
     }
 
 
@@ -51,13 +60,10 @@ public class CvController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public CV getCv(@PathVariable String id) {
-        return cvService.getCv(id);
-    }
-
-    @RequestMapping(value = "/{account}", method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void saveCv(@PathVariable String account, @RequestBody CV cv) {
-        cvService.save(cv);
+        CV cv = cvService.getCv(id);
+        if (cv == null)
+            throw new ResourceNotFoundException();
+        return cv;
     }
 
     @RequestMapping(value = "/{account}", method = RequestMethod.DELETE)
