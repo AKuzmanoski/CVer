@@ -44,6 +44,7 @@ public class PersonController {
     @RequestMapping(value = "/{id}/watchLater", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void watchLater(@RequestBody Person person, @PathVariable String id, @RequestParam String entityId) {
+        System.out.println(id + " " + entityId);
         personService.watchLater(id, entityId);
     }
 }

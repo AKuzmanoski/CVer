@@ -24,6 +24,8 @@ import java.util.List;
 public class DataRepositoryJena implements DataRepository {
     @Autowired
     QueryRepository queryRepository;
+    @Autowired
+    DataObjectMapper dataObjectMapper;
 
     @Override
     public List<Data> queryData(String query, String type, Integer offset, Integer limit, String userId) {
@@ -42,7 +44,7 @@ public class DataRepositoryJena implements DataRepository {
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, myQuery);
         Model model = queryExecution.execConstruct();
         //System.out.println(new Date().toString());
-        List<Data> entities = DataObjectMapper.generateDataP(model);
+        List<Data> entities = dataObjectMapper.generateDataP(model);
         //System.out.println(new Date().toString());
         return entities;
     }

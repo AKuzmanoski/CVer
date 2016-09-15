@@ -14,15 +14,25 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.impl.StatementImpl;
 import org.apache.jena.vocabulary.RDF;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
 
 /**
  * Created by PC on 17/08/2016.
  */
+@Component
 public class AgentObjectMapper {
-    public static <T extends Agent> T generateAgent(Model model, Resource resource, T agent) {
-        agent = EntityObjectMapper.generateEntity(model, resource, agent);
+    @Autowired
+    EntityObjectMapper entityObjectMapper;
+    @Autowired
+    PersonObjectMapper personObjectMapper;
+    @Autowired
+    OrganizationObjectMapper organizationObjectMapper;
+
+    public <T extends Agent> T generateAgent(Model model, Resource resource, T agent) {
+        agent = entityObjectMapper.generateEntity(model, resource, agent);
 
         // Profile Picture
         Statement statement = resource.getProperty(CVO.getProperty("profilePicture"));
@@ -34,17 +44,17 @@ public class AgentObjectMapper {
         return agent;
     }
 
-    public static void createModel(Agent agent, Model model) {
+    public void createModel(Agent agent, Model model) {
         if (agent.getIdentifier() != null)
             return;
 
         // Check type
         if (agent instanceof Person) {
-            PersonObjectMapper.createModel((Person)agent, model);
+            personObjectMapper.createModel((Person)agent, model);
             return;
         }
         if (agent instanceof Organization) {
-            OrganizationObjectMapper.createModel((Organization)agent, model);
+            organizationObjectMapper.createModel((Organization)agent, model);
             return;
         }
 
@@ -53,8 +63,8 @@ public class AgentObjectMapper {
         createModel(agent, model, resource);
     }
 
-    public static <T extends Agent> void createModel(T agent, Model model, Resource resource) {
-        EntityObjectMapper.createModel(agent, model, resource);
+    public <T extends Agent> void createModel(T agent, Model model, Resource resource) {
+        entityObjectMapper.createModel(agent, model, resource);
 
         model.add(new StatementImpl(resource, RDF.type, CVO.getResource("Agent")));
 

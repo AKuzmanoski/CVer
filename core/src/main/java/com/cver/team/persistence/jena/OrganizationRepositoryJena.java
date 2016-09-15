@@ -23,6 +23,8 @@ import org.springframework.stereotype.Repository;
 public class OrganizationRepositoryJena implements OrganizationRepository {
     @Autowired
     QueryRepository queryRepository;
+    @Autowired
+    OrganizationObjectMapper organizationObjectMapper;
 
     @Override
     public Organization getOrganization(String id) {
@@ -34,7 +36,7 @@ public class OrganizationRepositoryJena implements OrganizationRepository {
         Query query = queryString.asQuery();
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query);
         Model model = queryExecution.execConstruct();
-        Organization organization = OrganizationObjectMapper.generateOrganization(model, uri);
+        Organization organization = organizationObjectMapper.generateOrganization(model, uri);
         return organization;
     }
 }

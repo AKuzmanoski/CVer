@@ -34,6 +34,8 @@ import java.util.Date;
 public class CallRepositoryJena implements CallRepository {
     @Autowired
     QueryRepository queryRepository;
+    @Autowired
+    CallObjectMapper callObjectMapper;
 
     @Override
     public Call getCall(String id) {
@@ -45,7 +47,7 @@ public class CallRepositoryJena implements CallRepository {
         Query query = queryString.asQuery();
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query);
         Model model = queryExecution.execConstruct();
-        Call call = CallObjectMapper.generateCall(model, uri);
+        Call call = callObjectMapper.generateCall(model, uri);
         return call;
     }
 

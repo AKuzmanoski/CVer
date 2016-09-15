@@ -29,6 +29,8 @@ import java.util.List;
 public class TemplateRepositoryJena implements TemplateRepository {
     @Autowired
     QueryRepository queryRepository;
+    @Autowired
+    TemplateObjectMapper templateObjectMapper;
 
     @Override
     public Template getTemplateByName(String name) {
@@ -69,7 +71,7 @@ public class TemplateRepositoryJena implements TemplateRepository {
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query);
         Model model = queryExecution.execConstruct();
         model.write(System.out, "TURTLE");
-        Template template = TemplateObjectMapper.generateTemplate(model, uri);
+        Template template = templateObjectMapper.generateTemplate(model, uri);
         return template;
     }
 
@@ -95,7 +97,7 @@ public class TemplateRepositoryJena implements TemplateRepository {
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, myQuery);
         Model model = queryExecution.execConstruct();
         //System.out.println(new Date().toString());
-        List<Template> entities = TemplateObjectMapper.generateTemplates(model);
+        List<Template> entities = templateObjectMapper.generateTemplates(model);
         //System.out.println(new Date().toString());
         return entities;
     }
@@ -123,7 +125,7 @@ public class TemplateRepositoryJena implements TemplateRepository {
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, myQuery);
         Model model = queryExecution.execConstruct();
         //System.out.println(new Date().toString());
-        List<Template> entities = TemplateObjectMapper.generateTemplates(model);
+        List<Template> entities = templateObjectMapper.generateTemplates(model);
         //System.out.println(new Date().toString());
         return entities;
     }
@@ -152,7 +154,7 @@ public class TemplateRepositoryJena implements TemplateRepository {
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, myQuery);
         Model model = queryExecution.execConstruct();
         //System.out.println(new Date().toString());
-        List<Template> entities = TemplateObjectMapper.generateTemplates(model);
+        List<Template> entities = templateObjectMapper.generateTemplates(model);
         //System.out.println(new Date().toString());
         return entities;
     }

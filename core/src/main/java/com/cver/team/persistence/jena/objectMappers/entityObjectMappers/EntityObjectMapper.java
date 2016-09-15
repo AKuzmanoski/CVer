@@ -11,14 +11,34 @@ import com.cver.team.persistence.jena.objectMappers.BaseEntityObjectMapper;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.rdf.model.impl.StatementImpl;
 import org.apache.jena.vocabulary.RDF;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 /**
  * Created by PC on 17/08/2016.
  */
+@Component
 public class EntityObjectMapper {
-    public static List<Entity> generateEntities(Model model) {
+    @Autowired
+    CertificateCardObjectMapper certificateCardObjectMapper;
+    @Autowired
+    PersonObjectMapper personObjectMapper;
+    @Autowired
+    CvCardObjectMapper cvCardObjectMapper;
+    @Autowired
+    TemplateObjectMapper templateObjectMapper;
+    @Autowired
+    CallObjectMapper callObjectMapper;
+    @Autowired
+    OrganizationObjectMapper organizationObjectMapper;
+    @Autowired
+    ProjectObjectMapper projectObjectMapper;
+    @Autowired
+    BaseEntityObjectMapper baseEntityObjectMapper;
+
+    public List<Entity> generateEntities(Model model) {
         Map<Double, Entity> map = new TreeMap<>(new Comparator<Double>() {
             @Override
             public int compare(Double o1, Double o2) {
@@ -34,34 +54,34 @@ public class EntityObjectMapper {
         return new ArrayList<>(map.values());
     }
 
-    public static Entity generateEntity(Model model, Resource resource) {
+    public Entity generateEntity(Model model, Resource resource) {
         if (resource.hasProperty(RDF.type, CVO.getResource("Person"))) {
-            return PersonObjectMapper.generatePerson(model, resource);
+            return personObjectMapper.generatePerson(model, resource);
         }
         if (resource.hasProperty(RDF.type, CVO.getResource("Organization"))) {
-            return OrganizationObjectMapper.generateOrganization(model, resource);
+            return organizationObjectMapper.generateOrganization(model, resource);
         }
         if (resource.hasProperty(RDF.type, CVO.getResource("CV"))) {
-            return CvCardObjectMapper.generateCvCard(model, resource);
+            return cvCardObjectMapper.generateCvCard(model, resource);
         }
         if (resource.hasProperty(RDF.type, CVO.getResource("Certificate"))) {
-            return CertificateCardObjectMapper.generateCertificate(model, resource);
+            return certificateCardObjectMapper.generateCertificate(model, resource);
         }
         if (resource.hasProperty(RDF.type, CVO.getResource("Call"))) {
-            return CallObjectMapper.generateCall(model, resource);
+            return callObjectMapper.generateCall(model, resource);
         }
         if (resource.hasProperty(RDF.type, CVO.getResource("Template"))) {
-            return TemplateObjectMapper.generateTemplate(model, resource);
+            return templateObjectMapper.generateTemplate(model, resource);
         }
         if (resource.hasProperty(RDF.type, CVO.getResource("Project"))) {
-            return ProjectObjectMapper.generateProject(model, resource);
+            return projectObjectMapper.generateProject(model, resource);
         }
         return null;
     }
 
-    public static <T extends Entity> T generateEntity(Model model, Resource resource, T entity) {
+    public <T extends Entity> T generateEntity(Model model, Resource resource, T entity) {
 
-        entity = BaseEntityObjectMapper.generateBaseEntity(model, resource, entity);
+        entity = baseEntityObjectMapper.generateBaseEntity(model, resource, entity);
 
         // Name
         Statement statement = resource.getProperty(CVO.getProperty("name"));
@@ -88,9 +108,9 @@ public class EntityObjectMapper {
         return entity;
     }
 
-    public static <T extends Entity> void createModel(T entity, Model model, Resource resource) {
+    public <T extends Entity> void createModel(T entity, Model model, Resource resource) {
 
-        BaseEntityObjectMapper.createMode(entity, model, resource);
+        baseEntityObjectMapper.createMode(entity, model, resource);
 
         // Create current date
         java.util.Date date = new java.util.Date();

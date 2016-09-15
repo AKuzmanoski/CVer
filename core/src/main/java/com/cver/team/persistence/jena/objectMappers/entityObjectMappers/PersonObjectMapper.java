@@ -16,12 +16,22 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.impl.StatementImpl;
 import org.apache.jena.vocabulary.RDF;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by User on 7/27/2016.
  */
+@Component
 public class PersonObjectMapper {
-    public static Person generatePerson(Model model) {
+    @Autowired
+    FirstNameObjectMapper firstNameObjectMapper;
+    @Autowired
+    LastNameObjectMapper lastNameObjectMapper;
+    @Autowired
+    AgentObjectMapper agentObjectMapper;
+
+    public Person generatePerson(Model model) {
         ResIterator iterator = model.listResourcesWithProperty(RDF.type, CVO.getResource("Person"));
         if (iterator.hasNext()) {
             Resource resource = iterator.nextResource();
@@ -30,10 +40,10 @@ public class PersonObjectMapper {
             return null;
     }
 
-    public static Person generatePerson(Model model, Resource resource) {
+    public Person generatePerson(Model model, Resource resource) {
         Person person = new Person();
 
-        person = AgentObjectMapper.generateAgent(model, resource, person);
+        person = agentObjectMapper.generateAgent(model, resource, person);
 
         // First Name
         Statement statement = resource.getProperty(CVO.getProperty("defaultFirstName"));
@@ -76,7 +86,7 @@ public class PersonObjectMapper {
         return person;
     }
 
-    public static Model generateModel(Person person, Model model) {
+    public Model generateModel(Person person, Model model) {
         if (person.getIdentifier() == null) {
             person.setIdentifier(IdentifierGenerator.generateIdentifier());
 
@@ -84,7 +94,7 @@ public class PersonObjectMapper {
         return model;
     }
 
-    public static void createModel(Person person, Model model) {
+    public void createModel(Person person, Model model) {
         if (person.getIdentifier() != null)
             return;
 
@@ -93,17 +103,17 @@ public class PersonObjectMapper {
         createModel(person, model, resource);
     }
 
-    public static <T extends Person> void createModel(T person, Model model, Resource resource) {
-        AgentObjectMapper.createModel(person, model, resource);
+    public <T extends Person> void createModel(T person, Model model, Resource resource) {
+        agentObjectMapper.createModel(person, model, resource);
 
         FirstName firstName = new FirstName();
         firstName.setValue(person.getName());
-        FirstNameObjectMapper.createModel(firstName, model);
+        firstNameObjectMapper.createModel(firstName, model);
         model.add(new StatementImpl(resource, CVO.getProperty("defaultFirstName"), CVR.getResource(firstName.getIdentifier().getId())));
 
         LastName lastName = new LastName();
         lastName.setValue(person.getLastName());
-        LastNameObjectMapper.createModel(lastName, model);
+        lastNameObjectMapper.createModel(lastName, model);
         model.add(new StatementImpl(resource, CVO.getProperty("defaultLastName"), CVR.getResource(lastName.getIdentifier().getId())));
     }
 }

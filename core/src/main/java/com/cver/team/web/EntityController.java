@@ -21,17 +21,36 @@ public class EntityController {
     EntityService entityService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Entity> query(@RequestParam String query, @RequestParam(required = false) String type, @RequestParam(required = false) String owner, @RequestParam Integer offset, @RequestParam Integer limit) {
-        return entityService.query(query, type, owner, offset, limit);
+    public List<Entity> query(@RequestParam String query,
+                              @RequestParam(required = false) String type,
+                              @RequestParam(required = false) String owner,
+                              @RequestParam(required = false) String memberOf,
+                              @RequestParam(required = false) String isWatchedBy,
+                              @RequestParam(required = false) String owns,
+                              @RequestParam Integer offset,
+                              @RequestParam Integer limit) {
+        return entityService.query(query, type, owner, memberOf, isWatchedBy, owns, offset, limit);
     }
 
     @RequestMapping(value = "/autocomplete", method = RequestMethod.GET)
-    public List<String> autocomplete(@RequestParam String query, @RequestParam(required = false) String type, @RequestParam(required = false) String owner, @RequestParam Integer limit) {
-        return entityService.autocomplete(query, type, owner, limit);
+    public List<String> autocomplete(@RequestParam String query,
+                                     @RequestParam(required = false) String type,
+                                     @RequestParam(required = false) String owner,
+                                     @RequestParam(required = false) String memberOf,
+                                     @RequestParam(required = false) String isWatchedBy,
+                                     @RequestParam(required = false) String owns,
+                                     @RequestParam Integer limit) {
+        return entityService.autocomplete(query, type, owner, memberOf, isWatchedBy, owns, limit);
     }
 
     @RequestMapping(value = "/types", method = RequestMethod.GET)
-    public List<String> types(@RequestParam String query, @RequestParam(required = false) String type, @RequestParam(required = false) String owner, @RequestParam Integer limit) {
-        return entityService.types(query, type, owner, limit);
+    public List<String> types(@RequestParam String query,
+                              @RequestParam(required = false) String type,
+                              @RequestParam(required = false) String owner,
+                              @RequestParam(required = false) String memberOf,
+                              @RequestParam(required = false) String isWatchedBy,
+                              @RequestParam(required = false) String owns,
+                              @RequestParam Integer limit) {
+        return entityService.types(query, type, owner, memberOf, isWatchedBy, owns, limit);
     }
 }

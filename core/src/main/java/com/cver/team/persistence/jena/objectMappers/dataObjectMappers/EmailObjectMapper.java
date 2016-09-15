@@ -22,10 +22,12 @@ import org.springframework.stereotype.Component;
 public class EmailObjectMapper {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    DataObjectMapper dataObjectMapper;
 
     public Email generateEmail(Model model, Resource resource) {
         Email email = new Email();
-        email = DataObjectMapper.generateData(model, resource, email);
+        email = dataObjectMapper.generateData(model, resource, email);
 
         // mbox
         Statement statement = resource.getProperty(CVO.getProperty("mbox"));
@@ -51,7 +53,7 @@ public class EmailObjectMapper {
     }
 
     private void createModel(Email email, Model model, Resource resource) {
-        DataObjectMapper.createModel(email, model, resource);
+        dataObjectMapper.createModel(email, model, resource);
 
         if (email.getMbox() != null) {
             Literal mbox = model.createLiteral(email.getMbox());

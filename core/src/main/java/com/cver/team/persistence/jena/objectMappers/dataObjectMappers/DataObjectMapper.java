@@ -3,10 +3,13 @@ package com.cver.team.persistence.jena.objectMappers.dataObjectMappers;
 import com.cver.team.model.BaseEntity;
 import com.cver.team.model.data.Data;
 import com.cver.team.model.data.Experience;
+import com.cver.team.model.data.Video;
 import com.cver.team.model.data.WorkExperience;
+import com.cver.team.model.data.date.DateOfBirth;
 import com.cver.team.model.data.date.DateOfFoundation;
 import com.cver.team.model.data.string.FirstName;
 import com.cver.team.model.data.string.TelephoneNumber;
+import com.cver.team.model.data.string.ValueProposition;
 import com.cver.team.model.entity.Agent;
 import com.cver.team.model.entity.Entity;
 import com.cver.team.model.entity.Person;
@@ -34,16 +37,60 @@ import com.sun.org.apache.xpath.internal.operations.String;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.rdf.model.impl.StatementImpl;
 import org.apache.jena.vocabulary.RDF;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 /**
  * Created by PC on 17/08/2016.
  */
+@Component
 public class DataObjectMapper {
-    public static <T extends Data> T generateData(Model model, Resource resource, T data) {
+    @Autowired
+    TelephoneNumberObjectMapper telephoneNumberObjectMapper;
+    @Autowired
+    EmailObjectMapper emailObjectMapper;
+    @Autowired
+    LocationObjectMapper locationObjectMapper;
+    @Autowired
+    CountryObjectMapper countryObjectMapper;
+    @Autowired
+    CityObjectMapper cityObjectMapper;
+    @Autowired
+    AddressObjectMapper addressObjectMapper;
+    @Autowired
+    ExperienceObjectMapper experienceObjectMapper;
+    @Autowired
+    DateOfBirthObjectMapper dateOfBirthObjectMapper;
+    @Autowired
+    FirstNameObjectMapper firstNameObjectMapper;
+    @Autowired
+    LastNameObjectMapper lastNameObjectMapper;
+    @Autowired
+    ValuePropositionObjectMapper valuePropositionObjectMapper;
+    @Autowired
+    SkillObjectMapper skillObjectMapper;
+    @Autowired
+    CertificateObjectMapper certificateObjectMapper;
+    @Autowired
+    DateOfFoundationObjectMapper dateOfFoundationObjectMapper;
+    @Autowired
+    ImageObjectMapper imageObjectMapper;
+    @Autowired
+    VideoObjectMapper videoObjectMapper;
+    @Autowired
+    PersonObjectMapper personObjectMapper;
+    @Autowired
+    OrganizationObjectMapper organizationObjectMapper;
+    @Autowired
+    AgentObjectMapper agentObjectMapper;
+    @Autowired
+    BaseEntityObjectMapper baseEntityObjectMapper;
 
-        data = BaseEntityObjectMapper.generateBaseEntity(model, resource, data);
+    public <T extends Data> T generateData(Model model, Resource resource, T data) {
+
+        data = baseEntityObjectMapper.generateBaseEntity(model, resource, data);
 
         // Name
         Statement statement = resource.getProperty(CVO.getProperty("name"));
@@ -63,8 +110,8 @@ public class DataObjectMapper {
             statement = owners.nextStatement();
             Resource owner = statement.getObject().asResource();
             if (owner.hasProperty(RDF.type, CVO.getResource("Person")))
-                data.addOwner(PersonObjectMapper.generatePerson(model, owner));
-            else data.addOwner(OrganizationObjectMapper.generateOrganization(model, owner));
+                data.addOwner(personObjectMapper.generatePerson(model, owner));
+            else data.addOwner(organizationObjectMapper.generateOrganization(model, owner));
         }
 
         statement = resource.getProperty(CVO.getProperty("val"));
@@ -76,43 +123,43 @@ public class DataObjectMapper {
         return data;
     }
 
-    public static Data generateData(Model model, Resource resource) {
+    public Data generateData(Model model, Resource resource) {
         if (resource.hasProperty(RDF.type, CVO.getResource("Certificate")))
-            return CertificateObjectMapper.generateCertificate(model, resource);
+            return certificateObjectMapper.generateCertificate(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("FirstName")))
-            return FirstNameObjectMapper.generateFirstName(model, resource);
+            return firstNameObjectMapper.generateFirstName(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("LastName")))
-            return LastNameObjectMapper.generateLastName(model, resource);
+            return lastNameObjectMapper.generateLastName(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("ValueProposition")))
-            return ValuePropositionObjectMapper.generateValueProposition(model, resource);
+            return valuePropositionObjectMapper.generateValueProposition(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("TelephoneNumber")))
-            return TelephoneNumberObjectMapper.generateTelephoneNumber(model, resource);
+            return telephoneNumberObjectMapper.generateTelephoneNumber(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("DateOfBirth")))
-            return DateOfBirthObjectMapper.generateDate(model, resource);
+            return dateOfBirthObjectMapper.generateDate(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("DateOfFoundation")))
-            return DateOfFoundationObjectMapper.generateDate(model, resource);
+            return dateOfFoundationObjectMapper.generateDate(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("Address")))
-            return AddressObjectMapper.generateAddress(model, resource);
+            return addressObjectMapper.generateAddress(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("City")))
-            return CityObjectMapper.generateCity(model, resource);
+            return cityObjectMapper.generateCity(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("Country")))
-            return CountryObjectMapper.generateCountry(model, resource);
+            return countryObjectMapper.generateCountry(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("Address")))
-            return CountryObjectMapper.generateCountry(model, resource);
+            return addressObjectMapper.generateAddress(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("Email")))
-            return EmailObjectMapper.generateEmail(model, resource);
+            return emailObjectMapper.generateEmail(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("Experience")))
-            return ExperienceObjectMapper.generateExperience(model, resource);
+            return experienceObjectMapper.generateExperience(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("Image")))
-            return ImageObjectMapper.generateImage(model, resource);
+            return imageObjectMapper.generateImage(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("Video")))
-            return VideoObjectMapper.generateVideo(model, resource);
+            return videoObjectMapper.generateVideo(model, resource);
         else if (resource.hasProperty(RDF.type, CVO.getResource("Skill")))
-            return SkillObjectMapper.generateSkill(model, resource);
+            return skillObjectMapper.generateSkill(model, resource);
         return null;
     }
 
-    public static List<Data> generateDataP(Model model) {
+    public List<Data> generateDataP(Model model) {
         Map<Double, Data> map = new TreeMap<>(new Comparator<Double>() {
             @Override
             public int compare(Double o1, Double o2) {
@@ -128,8 +175,8 @@ public class DataObjectMapper {
         return new ArrayList<>(map.values());
     }
 
-    public static <T extends Data> void createModel(T data, Model model, Resource resource) {
-        BaseEntityObjectMapper.createMode(data, model ,resource);
+    public <T extends Data> void createModel(T data, Model model, Resource resource) {
+        baseEntityObjectMapper.createMode(data, model ,resource);
 
         // Create current date
         java.util.Date date = new java.util.Date();
@@ -147,7 +194,7 @@ public class DataObjectMapper {
 
         for (Agent owner : data.getOwners()) {
             if (owner.getIdentifier() == null)
-                AgentObjectMapper.createModel(owner, model);
+                agentObjectMapper.createModel(owner, model);
             model.add(new StatementImpl(resource, CVO.getProperty("owner"), CVR.getResource(owner.getIdentifier().getId())));
         }
     }

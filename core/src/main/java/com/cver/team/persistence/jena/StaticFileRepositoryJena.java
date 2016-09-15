@@ -26,6 +26,8 @@ import org.springframework.stereotype.Repository;
 public class StaticFileRepositoryJena implements StaticFileRepository {
     @Autowired
     QueryRepository queryRepository;
+    @Autowired
+    StaticFileObjectMapper staticFileObjectMapper;
 
     @Override
     public StaticFile get(String id) {
@@ -37,7 +39,7 @@ public class StaticFileRepositoryJena implements StaticFileRepository {
         Query query = queryString.asQuery();
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query);
         Model model = queryExecution.execConstruct();
-        StaticFile staticFile = StaticFileObjectMapper.generatePerson(model, uri);
+        StaticFile staticFile = staticFileObjectMapper.generatePerson(model, uri);
         return staticFile;
     }
 

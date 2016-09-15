@@ -22,6 +22,8 @@ import org.springframework.stereotype.Repository;
 public class CertificateRepositoryJena implements CertificateRepository {
     @Autowired
     QueryRepository queryRepository;
+    @Autowired
+    CertificateObjectMapper certificateObjectMapper;
 
     @Override
     public CertificateCard saveNewCertificate(CertificateCard certificateCard) {
@@ -94,7 +96,7 @@ public class CertificateRepositoryJena implements CertificateRepository {
         Query query = queryString.asQuery();
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query);
         Model model = queryExecution.execConstruct();
-        Certificate certificate = CertificateObjectMapper.generateCertificate(model, uri);
+        Certificate certificate = certificateObjectMapper.generateCertificate(model, uri);
         return certificate;
     }
 }

@@ -11,13 +11,25 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.impl.StatementImpl;
 import org.apache.jena.vocabulary.RDF;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by PC on 17/08/2016.
  */
+@Component
 public class DocumentCardObjectMapper {
-    public static <T extends DocumentCard> T generateDocument(Model model, Resource resource, T document) {
-        document = EntityObjectMapper.generateEntity(model, resource, document);
+    @Autowired
+    EntityObjectMapper entityObjectMapper;
+    @Autowired
+    PersonObjectMapper personObjectMapper;
+    @Autowired
+    OrganizationObjectMapper organizationObjectMapper;
+    @Autowired
+    AgentObjectMapper agentObjectMapper;
+
+    public <T extends DocumentCard> T generateDocument(Model model, Resource resource, T document) {
+        document = entityObjectMapper.generateEntity(model, resource, document);
 
         // Title
         Statement statement = resource.getProperty(CVO.getProperty("title"));
@@ -28,23 +40,23 @@ public class DocumentCardObjectMapper {
         if (statement != null) {
             Resource owner = statement.getObject().asResource();
             if (owner.hasProperty(RDF.type, CVO.getResource("Person"))) {
-                Person person = PersonObjectMapper.generatePerson(model, owner);
+                Person person = personObjectMapper.generatePerson(model, owner);
                 document.setOwner(person);
             }
-            else document.setOwner(OrganizationObjectMapper.generateOrganization(model, owner));
+            else document.setOwner(organizationObjectMapper.generateOrganization(model, owner));
         }
 
         return document;
     }
 
-    public static <T extends DocumentCard> void createModel(T document, Model model, Resource resource) {
-        EntityObjectMapper.createModel(document, model, resource);
+    public <T extends DocumentCard> void createModel(T document, Model model, Resource resource) {
+        entityObjectMapper.createModel(document, model, resource);
 
         if (document.getTitle() != null)
             model.add(new StatementImpl(resource, CVO.getProperty("title"), model.createTypedLiteral(document.getTitle())));
 
         if (document.getOwner().getIdentifier() == null)
-            AgentObjectMapper.createModel(document.getOwner(), model);
+            agentObjectMapper.createModel(document.getOwner(), model);
         model.add(new StatementImpl(resource, CVO.getProperty("owner"), CVR.getResource(document.getOwner().getIdentifier().getId())));
     }
 }

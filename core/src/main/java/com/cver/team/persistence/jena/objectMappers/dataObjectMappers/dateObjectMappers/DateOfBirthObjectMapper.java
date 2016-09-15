@@ -11,19 +11,25 @@ import com.cver.team.persistence.jena.objectMappers.dataObjectMappers.DateObject
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by PC on 25/08/2016.
  */
+@Component
 public class DateOfBirthObjectMapper {
-    public static DateOfBirth generateDate(Model model, Resource resource) {
+    @Autowired
+    DateObjectMapper dateObjectMapper;
+
+    public DateOfBirth generateDate(Model model, Resource resource) {
         DateOfBirth dateOfBirth = new DateOfBirth();
-        dateOfBirth = DateObjectMapper.generateDate(model, resource, dateOfBirth);
+        dateOfBirth = dateObjectMapper.generateDate(model, resource, dateOfBirth);
 
         return dateOfBirth;
     }
 
-    public static void createModel(DateOfBirth dateOfBirth, Model model) {
+    public void createModel(DateOfBirth dateOfBirth, Model model) {
         if (dateOfBirth.getIdentifier() != null)
             return;
         dateOfBirth.setIdentifier(IdentifierGenerator.generateIdentifier());
@@ -31,8 +37,8 @@ public class DateOfBirthObjectMapper {
         createModel(dateOfBirth, model, resource);
     }
 
-    public static <T extends DateOfBirth> void createModel(T dateOfBirth, Model model, Resource resource) {
-        DateObjectMapper.createModel(dateOfBirth, model, resource);
+    public <T extends DateOfBirth> void createModel(T dateOfBirth, Model model, Resource resource) {
+        dateObjectMapper.createModel(dateOfBirth, model, resource);
     }
 
 

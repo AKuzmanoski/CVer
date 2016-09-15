@@ -103,4 +103,20 @@ public class BaseEntityImpl implements Serializable, BaseEntity {
     public void removeType(Type type) {
         types.remove(type);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BaseEntityImpl)) return false;
+
+        BaseEntityImpl that = (BaseEntityImpl) o;
+
+        return getIdentifier() != null ? getIdentifier().equals(that.getIdentifier()) : that.getIdentifier() == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return getIdentifier() != null ? getIdentifier().hashCode() : 0;
+    }
 }

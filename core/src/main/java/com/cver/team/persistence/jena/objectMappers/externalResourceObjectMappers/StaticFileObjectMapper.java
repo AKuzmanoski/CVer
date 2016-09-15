@@ -6,14 +6,21 @@ import com.cver.team.persistence.jena.namespaces.CVO;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by PC on 10/09/2016.
  */
+@Component
 public class StaticFileObjectMapper {
-    public static StaticFile generatePerson(Model model, String uri) {
+    @Autowired
+    ExternalResourceObjectMapper externalResourceObjectMapper;
+
+    public StaticFile generatePerson(Model model, String uri) {
         StaticFile staticFile = new StaticFile();
         Resource resource = model.getResource(uri);
+        staticFile = externalResourceObjectMapper.generateExternalResource(model, resource, staticFile);
         Statement statement = resource.getProperty(CVO.getProperty("name"));
         if (statement != null)
             staticFile.setName(statement.getObject().asLiteral().getString());

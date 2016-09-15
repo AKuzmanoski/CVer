@@ -30,6 +30,8 @@ public class PersonRepositoryJena implements PersonRepository {
     QueryRepository queryRepository;
     @Autowired
     MailEncoder mailEncoder;
+    @Autowired
+    PersonObjectMapper personObjectMapper;
 
     @Override
     public Person savePerson(Person person) {
@@ -123,7 +125,7 @@ public class PersonRepositoryJena implements PersonRepository {
         Query query = queryString.asQuery();
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query);
         Model model = queryExecution.execConstruct();
-        Person person = PersonObjectMapper.generatePerson(model);
+        Person person = personObjectMapper.generatePerson(model);
         return person;
     }
 
@@ -136,7 +138,7 @@ public class PersonRepositoryJena implements PersonRepository {
         Query query = queryString.asQuery();
         QueryExecution queryExecution = QueryExecutionFactory.sparqlService(JenaPreferences.SPARQLEndpoint, query);
         Model model = queryExecution.execConstruct();
-        Person person = PersonObjectMapper.generatePerson(model);
+        Person person = personObjectMapper.generatePerson(model);
         return person;
     }
 
@@ -147,10 +149,10 @@ public class PersonRepositoryJena implements PersonRepository {
         queryString.setIri("person", CVR.getURI(id));
         queryString.setIri("entity", CVR.getURI(entityId));
 
+        System.out.println(queryString.toString());
         UpdateRequest updateRequest = queryString.asUpdate();
         UpdateProcessor updateProcessor = UpdateExecutionFactory.createRemoteForm(updateRequest, JenaPreferences.UpdateEndpoint);
         updateProcessor.execute();
-
     }
 
     @Override

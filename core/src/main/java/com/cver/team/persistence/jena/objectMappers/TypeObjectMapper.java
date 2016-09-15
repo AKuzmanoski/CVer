@@ -7,12 +7,14 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDFS;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by PC on 27/08/2016.
  */
+@Component
 public class TypeObjectMapper {
-    public static Type generateType(Model model, Resource resource) {
+    public Type generateType(Model model, Resource resource) {
         Type type = new Type();
 
         // URI

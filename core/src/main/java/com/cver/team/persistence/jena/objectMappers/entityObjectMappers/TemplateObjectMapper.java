@@ -9,18 +9,29 @@ import com.cver.team.persistence.jena.namespaces.LUC;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.rdf.model.impl.StatementImpl;
 import org.apache.jena.vocabulary.RDF;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 /**
  * Created by PC on 17/08/2016.
  */
+@Component
 public class TemplateObjectMapper {
+    @Autowired
+    EntityObjectMapper entityObjectMapper;
+    @Autowired
+    PersonObjectMapper personObjectMapper;
+    @Autowired
+    OrganizationObjectMapper organizationObjectMapper;
+    @Autowired
+    AgentObjectMapper agentObjectMapper;
 
-    public static Template generateTemplate(Model model, Resource resource) {
+    public Template generateTemplate(Model model, Resource resource) {
         Template template = new Template();
 
-        template = EntityObjectMapper.generateEntity(model, resource, template);
+        template = entityObjectMapper.generateEntity(model, resource, template);
 
         // External Link
         Statement statement = resource.getProperty(CVO.getProperty("url"));
@@ -37,14 +48,14 @@ public class TemplateObjectMapper {
             statement = owners.next();
             Resource owner = statement.getObject().asResource();
             if (owner.hasProperty(RDF.type, CVO.getResource("Person")))
-                template.addOwner(PersonObjectMapper.generatePerson(model, owner));
-            else template.addOwner(OrganizationObjectMapper.generateOrganization(model, owner));
+                template.addOwner(personObjectMapper.generatePerson(model, owner));
+            else template.addOwner(organizationObjectMapper.generateOrganization(model, owner));
         }
 
         return template;
     }
 
-    public static List<Template> generateTemplates(Model model) {
+    public List<Template> generateTemplates(Model model) {
         Map<Double, Template> map = new TreeMap<>(new Comparator<Double>() {
             @Override
             public int compare(Double o1, Double o2) {
@@ -60,12 +71,12 @@ public class TemplateObjectMapper {
         return new ArrayList<>(map.values());
     }
 
-    public static Template generateTemplate(Model model, String id) {
+    public Template generateTemplate(Model model, String id) {
         Resource resource = model.getResource(id);
         return generateTemplate(model, resource);
     }
 
-    public static void createModel(Template template, Model model) {
+    public void createModel(Template template, Model model) {
         if (template.getIdentifier() != null)
             return;
         template.setIdentifier(IdentifierGenerator.generateIdentifier());
@@ -74,9 +85,9 @@ public class TemplateObjectMapper {
         createModel(template, model, templateResource);
     }
 
-    public static <T extends Template> void createModel(T template, Model model, Resource resource) {
-        EntityObjectMapper.createModel(template, model, resource);
-        model.add(new StatementImpl(resource, RDF.type, CVO.getResource("Template")));
+    public <T extends Template> void createModel(T template, Model model, Resource resource) {
+        entityObjectMapper.createModel(template, model, resource);
+        model.add(new StatementImpl(resource, RDF.type, CVO.getResource("CVTemplate")));
 
         if (template.getValue() != null)
             model.add(new StatementImpl(resource, CVO.getProperty("val"), model.createTypedLiteral(template.getValue())));
@@ -86,7 +97,7 @@ public class TemplateObjectMapper {
 
         for (Agent owner : template.getOwners()) {
             if (owner.getIdentifier() == null)
-                AgentObjectMapper.createModel(owner, model);
+                agentObjectMapper.createModel(owner, model);
             model.add(new StatementImpl(resource, CVO.getProperty("owner"), CVR.getResource(owner.getIdentifier().getId())));
         }
     }

@@ -7,6 +7,7 @@ import com.cver.team.persistence.jena.namespaces.CVR;
 import com.cver.team.persistence.jena.objectMappers.dataObjectMappers.DataObjectMapper;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,9 +15,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TelephoneNumberObjectMapper {
+    @Autowired
+    DataObjectMapper dataObjectMapper;
+
     public TelephoneNumber generateTelephoneNumber(Model model, Resource resource) {
         TelephoneNumber telephoneNumber = new TelephoneNumber();
-        telephoneNumber = DataObjectMapper.generateData(model, resource, telephoneNumber);
+        telephoneNumber = dataObjectMapper.generateData(model, resource, telephoneNumber);
         return telephoneNumber;
     }
 
@@ -29,6 +33,6 @@ public class TelephoneNumberObjectMapper {
     }
 
     public <T extends TelephoneNumber> void createModel(T telephoneNumber, Model model, Resource resource) {
-        DataObjectMapper.createModel(telephoneNumber, model, resource);
+        dataObjectMapper.createModel(telephoneNumber, model, resource);
     }
 }

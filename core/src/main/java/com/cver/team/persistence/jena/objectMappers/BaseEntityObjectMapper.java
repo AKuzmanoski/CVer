@@ -13,12 +13,20 @@ import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.rdf.model.impl.StatementImpl;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by PC on 17/08/2016.
  */
+@Component
 public class BaseEntityObjectMapper {
-    public static <T extends BaseEntity> T generateBaseEntity(Model model, Resource resource, T baseEntity) {
+    @Autowired
+    TagObjectMapper tagObjectMapper;
+    @Autowired
+    TypeObjectMapper typeObjectMapper;
+
+    public <T extends BaseEntity> T generateBaseEntity(Model model, Resource resource, T baseEntity) {
         // URI
         String uri = resource.getURI();
         Identifier identifier = new Identifier();
@@ -41,20 +49,20 @@ public class BaseEntityObjectMapper {
         StmtIterator tags = resource.listProperties(CVO.getProperty("tag"));
         while(tags.hasNext()) {
             Resource tag = tags.next().getObject().asResource();
-            baseEntity.addTag(TagObjectMapper.generateTag(model, tag));
+            baseEntity.addTag(tagObjectMapper.generateTag(model, tag));
         }
 
         // Types
         StmtIterator types = resource.listProperties(RDF.type);
         while (types.hasNext()) {
             Resource type = types.next().getObject().asResource();
-            baseEntity.addType(TypeObjectMapper.generateType(model, type));
+            baseEntity.addType(typeObjectMapper.generateType(model, type));
         }
 
         return baseEntity;
     }
 
-    public static <T extends BaseEntity> void createMode(T baseEntity, Model model, Resource resource) {
+    public <T extends BaseEntity> void createMode(T baseEntity, Model model, Resource resource) {
         if (baseEntity.getDescription() != null)
             model.add(new StatementImpl(resource, CVO.getProperty("description"), model.createTypedLiteral(baseEntity.getDescription())));
         model.add(new StatementImpl(resource, CVO.getProperty("public"), model.createTypedLiteral(baseEntity.isPublic())));

@@ -8,18 +8,25 @@ import com.cver.team.persistence.jena.namespaces.CVR;
 import com.cver.team.persistence.jena.objectMappers.dataObjectMappers.DataObjectMapper;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.lucene.store.DataOutput;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by PC on 25/08/2016.
  */
+@Component
 public class LastNameObjectMapper {
-    public static LastName generateLastName(Model model, Resource resource) {
+    @Autowired
+    DataObjectMapper dataObjectMapper;
+
+    public LastName generateLastName(Model model, Resource resource) {
         LastName lastName = new LastName();
-        lastName = DataObjectMapper.generateData(model, resource, lastName);
+        lastName = dataObjectMapper.generateData(model, resource, lastName);
         return lastName;
     }
 
-    public static void createModel(LastName lastName, Model model) {
+    public void createModel(LastName lastName, Model model) {
         if (lastName.getIdentifier() != null)
             return;
         lastName.setIdentifier(IdentifierGenerator.generateIdentifier());
@@ -27,7 +34,7 @@ public class LastNameObjectMapper {
         createModel(lastName, model, resource);
     }
 
-    public static <T extends LastName> void createModel(T lastName, Model model, Resource resource) {
-        DataObjectMapper.createModel(lastName, model, resource);
+    public <T extends LastName> void createModel(T lastName, Model model, Resource resource) {
+        dataObjectMapper.createModel(lastName, model, resource);
     }
 }
